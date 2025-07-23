@@ -1,0 +1,23 @@
+services:
+  workspace:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "0.0.0.0:${APP_PORT}:3000"
+    volumes:
+      - .:/workspace
+      - gem_data:/usr/local/bundle
+    command: sleep infinity
+    privileged: true
+    environment:
+      SELENIUM_REMOTE_URL: http://chrome:4444/wd/hub
+    depends_on:
+      - chrome
+  chrome:
+    image: seleniarm/standalone-chromium:latest
+    shm_size: 2gb
+    environment:
+      - VNC_NO_PASSWORD=1
+volumes:
+  gem_data:

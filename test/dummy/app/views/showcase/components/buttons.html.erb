@@ -1,0 +1,51 @@
+<div class="min-h-screen bg-gray-50 py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <%= link_to "← Back to Components", root_path, class: "text-blue-600 hover:text-blue-800 mb-8 inline-block" %>
+    
+    <h1 class="text-3xl font-bold text-gray-900 mb-8">Buttons</h1>
+
+    <div class="space-y-12">
+      <!-- Button Variants -->
+      <section class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Button Variants</h2>
+        <div class="flex flex-wrap gap-4">
+          <%= okonomi_button "Primary Button", "#", variant: :primary %>
+          <%= okonomi_button "Secondary Button", "#", variant: :secondary %>
+          <%= okonomi_button "Danger Button", "#", variant: :danger %>
+          <%= okonomi_button "Ghost Button", "#", variant: :ghost %>
+        </div>
+      </section>
+
+      <!-- Button Sizes -->
+      <section class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Button Sizes</h2>
+        <div class="flex flex-wrap items-center gap-4">
+          <%= okonomi_button "Small", "#", size: :small %>
+          <%= okonomi_button "Medium", "#", size: :medium %>
+          <%= okonomi_button "Large", "#", size: :large %>
+        </div>
+      </section>
+
+      <!-- Button States -->
+      <section class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Button States</h2>
+        <div class="flex flex-wrap gap-4">
+          <%= okonomi_button "Normal", "#" %>
+          <%= okonomi_button "Disabled", "#", disabled: true %>
+          <%= okonomi_button "Loading...", "#", "data-turbo-submitting": true %>
+        </div>
+      </section>
+
+      <!-- Code Example -->
+      <section class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Usage Example</h2>
+        <pre class="bg-gray-900 text-gray-100 p-4 rounded overflow-x-auto"><code>&lt;%= okonomi_button "Click me", some_path, variant: :primary, size: :medium %&gt;
+
+&lt;%= okonomi_button "Submit", "#", variant: :primary, data: { turbo_method: :post } %&gt;
+
+&lt;%= okonomi_button "Delete", "#", variant: :danger, 
+    data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %&gt;</code></pre>
+      </section>
+    </div>
+  </div>
+</div>
