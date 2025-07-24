@@ -98,34 +98,25 @@ module OkonomiUiKit
 
     def collection_select(method, collection, value_method, text_method, options = {}, html_options = {})
       css = [
-        select_class_base,
-        when_errors(method,
-                    'bg-danger-100 text-danger-600 ring-1 ring-inset ring-danger-300 focus-within:ring-2 focus-within:ring-danger-400',
-                    select_class_default_state),
+        ui.get_theme.dig(:components, :select, :root),
+        when_errors(
+          method,
+          ui.get_theme.dig(:components, :select, :error),
+          ui.get_theme.dig(:components, :select, :valid)
+        ),
         html_options[:class]
       ].compact.join(' ').split(' ').uniq
 
       select_html = super(method, collection, value_method, text_method, options, html_options.merge(class: css))
+      icon_html = @template.svg_icon(
+        ui.get_theme.dig(:components, :select, :icon, :file),
+        class: ui.get_theme.dig(:components, :select, :icon, :class)
+      )
 
-      @template.content_tag(:div, class: "mt-2 grid grid-cols-1") do
+      @template.content_tag(:div, class: ui.get_theme.dig(:components, :select, :wrapper)) do
         @template.concat(select_html)
-        @template.concat(@template.ui.svg_icon(
-          'chevron-down',
-          class: "pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-        ))
+        @template.concat(icon_html)
       end
-    end
-
-    def select_class_default
-      [select_class_base, select_class_default_state].join(' ')
-    end
-
-    def select_class_base
-      "col-start-1 row-start-1 w-full rounded-md bg-white py-2 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 sm:text-sm/6"
-    end
-
-    def select_class_default_state
-      'ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-gray-400'
     end
 
     def label(method, text = nil, options = {}, &block)
