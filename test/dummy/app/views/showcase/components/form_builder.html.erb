@@ -125,7 +125,9 @@
         
         <div class="space-y-3">
           <%= form.check_box_with_label :terms_accepted %>
-          <%= form.check_box_with_label :newsletter_subscription %>
+          <%= form.show_if field: :terms_accepted, equals: 'true' do %>
+            <%= form.check_box_with_label :newsletter_subscription %>
+          <% end %>
         </div>
       <% end %>
     <% end %>
