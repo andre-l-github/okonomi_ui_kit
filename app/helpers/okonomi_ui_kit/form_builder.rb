@@ -1,17 +1,17 @@
 module OkonomiUiKit
-  class TailwindFormBuilder < ActionView::Helpers::FormBuilder
+  class FormBuilder < ActionView::Helpers::FormBuilder
   delegate :tag, :content_tag, :safe_join, to: :@template
 
   def field_set(options = {}, &block)
-    @template.render('forms/tailwind/field_set', options:, form: self, &block)
+    @template.render('okonomi_ui_kit/forms/tailwind/field_set', options:, form: self, &block)
   end
 
   def field(field_id = nil, options = {}, &block)
-    @template.render('forms/tailwind/field', field_id:, options:, form: self, &block)
+    @template.render('okonomi_ui_kit/forms/tailwind/field', field_id:, options:, form: self, &block)
   end
 
   def upload_field(method, options = {})
-    @template.render('forms/tailwind/upload_field', method:, options:, form: self)
+    @template.render('okonomi_ui_kit/forms/tailwind/upload_field', method:, options:, form: self)
   end
 
   def text_field(method, options = {})
@@ -127,13 +127,13 @@ module OkonomiUiKit
                          checked_value,
                          unchecked_value
                        )
-      @template.concat @template.render('forms/tailwind/checkbox_label', method:, options:, form: self)
+      @template.concat @template.render('okonomi_ui_kit/forms/tailwind/checkbox_label', method:, options:, form: self)
     end
   end
 
   def multi_select(method, **options)
     @template.render(
-      partial: 'forms/tailwind/multi_select',
+      partial: 'okonomi_ui_kit/forms/tailwind/multi_select',
       locals: {
         form: self,
         method: method,

@@ -29,3 +29,32 @@
 
 en:
   hello: "Hello world"
+  
+  activerecord:
+    attributes:
+      user_form:
+        first_name: "First Name"
+        last_name: "Last Name"
+        email: "Email Address"
+        phone: "Phone Number"
+        website: "Website URL"
+        bio: "Bio"
+        birth_date: "Date of Birth"
+        country: "Country"
+        terms_accepted: "I accept the terms and conditions"
+        newsletter_subscription: "Subscribe to newsletter"
+        profile_visibility: "Profile Visibility"
+    
+    hints:
+      user_form:
+        first_name: "Enter your given name as it appears on official documents"
+        last_name: "Enter your family name or surname"
+        email: "We'll use this email for account notifications and password resets"
+        phone: "Optional. Include country code for international numbers (e.g., +1 555-123-4567)"
+        website: "Optional. Your personal website or blog (must include http:// or https://)"
+        bio: "Tell us about yourself in 500 characters or less"
+        birth_date: "Required for age verification and personalized content"
+        country: "Select your country of residence"
+        terms_accepted: "You must accept our terms and conditions to create an account"
+        newsletter_subscription: "Receive updates about new features and product announcements"
+        profile_visibility: "Control who can see your profile information"

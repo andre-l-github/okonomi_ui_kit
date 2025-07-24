@@ -29,6 +29,7 @@ module OkonomiUiKit
         include OkonomiUiKit::NavigationHelper
         include OkonomiUiKit::PageBuilderHelper
         include OkonomiUiKit::TableHelper
+        # include OkonomiUiKit::FormBuilder
       end
     end
   end

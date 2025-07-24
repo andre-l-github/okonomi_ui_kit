@@ -1,0 +1,209 @@
+<div class="max-w-4xl mx-auto p-6 space-y-8">
+  <div class="text-center">
+    <h1 class="text-3xl font-bold text-gray-900">Form Builder Showcase</h1>
+    <p class="mt-2 text-lg text-gray-600">
+      Demonstrates Tailwind-styled forms with validation, labels, hints, and i18n support
+    </p>
+  </div>
+
+  <!-- Clean Form Example -->
+  <div class="bg-white shadow-lg rounded-lg p-6">
+    <h2 class="text-xl font-semibold text-gray-900 mb-4">Clean Form (No Errors)</h2>
+    
+    <%= form_with model: @user_form, 
+                  builder: OkonomiUiKit::FormBuilder,
+                  url: form_builder_demo_path,
+                  local: true,
+                  class: "space-y-6" do |form| %>
+      
+      <%= form.field_set do %>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <%= form.field :first_name, hint: true do %>
+            <%= form.text_field :first_name, placeholder: "e.g., John" %>
+          <% end %>
+          
+          <%= form.field :last_name, hint: true do %>
+            <%= form.text_field :last_name, placeholder: "e.g., Doe" %>
+          <% end %>
+        </div>
+        
+        <%= form.field :email, hint: true do %>
+          <%= form.email_field :email, placeholder: "john.doe@example.com" %>
+        <% end %>
+        
+        <%= form.field :phone, hint: true do %>
+          <%= form.telephone_field :phone, placeholder: "+1 (555) 123-4567" %>
+        <% end %>
+        
+        <%= form.field :website, hint: true do %>
+          <%= form.url_field :website, placeholder: "https://johndoe.com" %>
+        <% end %>
+        
+        <%= form.field :bio, hint: true do %>
+          <%= form.text_area :bio, rows: 3, placeholder: "Tell us about yourself..." %>
+        <% end %>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <%= form.field :birth_date, hint: true do %>
+            <%= form.date_field :birth_date %>
+          <% end %>
+          
+          <%= form.field :country, hint: true do %>
+            <%= form.select :country, @user_form.country_options, { prompt: "Select your country" } %>
+          <% end %>
+        </div>
+        
+        <%= form.field :profile_visibility, hint: true do %>
+          <%= form.select :profile_visibility, @user_form.profile_visibility_options %>
+        <% end %>
+        
+        <div class="space-y-3">
+          <%= form.check_box_with_label :terms_accepted %>
+          <%= form.check_box_with_label :newsletter_subscription %>
+        </div>
+        
+        <div class="flex justify-end">
+          <%= form.submit "Create Account", class: "bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors" %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <!-- Form with Validation Errors -->
+  <div class="bg-white shadow-lg rounded-lg p-6">
+    <h2 class="text-xl font-semibold text-gray-900 mb-4">Form with Validation Errors</h2>
+    <p class="text-sm text-gray-600 mb-4">
+      This form shows how validation errors are displayed with error styling and messages.
+    </p>
+    
+    <%= form_with model: @user_form_with_errors, 
+                  builder: OkonomiUiKit::FormBuilder,
+                  url: "#",
+                  local: true,
+                  class: "space-y-6" do |form| %>
+      
+      <%= form.field_set do %>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <%= form.field :first_name, hint: true do %>
+            <%= form.text_field :first_name %>
+          <% end %>
+          
+          <%= form.field :last_name, hint: true do %>
+            <%= form.text_field :last_name %>
+          <% end %>
+        </div>
+        
+        <%= form.field :email, hint: true do %>
+          <%= form.email_field :email %>
+        <% end %>
+        
+        <%= form.field :phone, hint: true do %>
+          <%= form.telephone_field :phone %>
+        <% end %>
+        
+        <%= form.field :website, hint: true do %>
+          <%= form.url_field :website %>
+        <% end %>
+        
+        <%= form.field :bio, hint: true do %>
+          <%= form.text_area :bio, rows: 3 %>
+        <% end %>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <%= form.field :birth_date, hint: true do %>
+            <%= form.date_field :birth_date %>
+          <% end %>
+          
+          <%= form.field :country, hint: true do %>
+            <%= form.select :country, @user_form_with_errors.country_options, { prompt: "Select your country" } %>
+          <% end %>
+        </div>
+        
+        <%= form.field :profile_visibility, hint: true do %>
+          <%= form.select :profile_visibility, @user_form_with_errors.profile_visibility_options %>
+        <% end %>
+        
+        <div class="space-y-3">
+          <%= form.check_box_with_label :terms_accepted %>
+          <%= form.check_box_with_label :newsletter_subscription %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <!-- Interactive Demo -->
+  <div class="bg-white shadow-lg rounded-lg p-6">
+    <h2 class="text-xl font-semibold text-gray-900 mb-4">Interactive Demo</h2>
+    <p class="text-sm text-gray-600 mb-4">
+      Submit this form to see live validation in action.
+    </p>
+    
+    <% if flash[:notice] %>
+      <div class="mb-4 p-4 bg-green-100 border border-green-300 text-green-700 rounded-md">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    
+    <% if flash[:alert] %>
+      <div class="mb-4 p-4 bg-red-100 border border-red-300 text-red-700 rounded-md">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+    
+    <%= link_to "Try Interactive Form Demo", form_builder_demo_path, 
+                class: "inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors" %>
+  </div>
+
+  <!-- Documentation Section -->
+  <div class="bg-gray-50 rounded-lg p-6">
+    <h2 class="text-xl font-semibold text-gray-900 mb-4">Form Builder Features</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <h3 class="text-lg font-medium text-gray-900 mb-2">Built-in Components</h3>
+        <ul class="text-sm text-gray-600 space-y-1">
+          <li>• Text, email, password, number fields</li>
+          <li>• Date, time, datetime fields</li>
+          <li>• Text areas with auto-sizing</li>
+          <li>• Select dropdowns with styling</li>
+          <li>• Checkboxes with labels</li>
+          <li>• File upload fields</li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="text-lg font-medium text-gray-900 mb-2">Advanced Features</h3>
+        <ul class="text-sm text-gray-600 space-y-1">
+          <li>• Automatic error state styling</li>
+          <li>• i18n support for labels and hints</li>
+          <li>• Hover tooltips for help text</li>
+          <li>• Responsive grid layouts</li>
+          <li>• Alpine.js integration</li>
+          <li>• Consistent Tailwind styling</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="mt-6">
+      <h3 class="text-lg font-medium text-gray-900 mb-2">Usage Example</h3>
+      <pre class="bg-white p-4 rounded border text-sm overflow-x-auto"><code>&lt;%= form_with model: @user, builder: OkonomiUiKit::FormBuilder do |form| %&gt;
+  &lt;%= form.field_set do %&gt;
+    &lt;%= form.field :name, hint: true do %&gt;
+      &lt;%= form.text_field :name %&gt;
+    &lt;% end %&gt;
+    
+    &lt;%= form.field :email, hint: true do %&gt;
+      &lt;%= form.email_field :email %&gt;
+    &lt;% end %&gt;
+    
+    &lt;%= form.submit "Save" %&gt;
+  &lt;% end %&gt;
+&lt;% end %&gt;</code></pre>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <%= link_to "← Back to Components", root_path, 
+                class: "text-blue-600 hover:text-blue-800 font-medium" %>
+  </div>
+</div>
