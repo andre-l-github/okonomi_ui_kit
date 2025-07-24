@@ -86,6 +86,18 @@ module OkonomiUiKit
         },
         label: {
           root: "block text-sm/6 font-medium text-default-700"
+        },
+        checkbox: {
+          wrapper: "flex gap-2 items-center",
+          input: {
+            root: "cursor-pointer h-4 w-4 rounded-sm border-gray-300 text-primary-600 focus:ring-0 focus:ring-primary-600"
+          },
+          label: {
+            root: "cursor-pointer font-medium text-gray-700"
+          },
+          hint: {
+            root: "cursor-pointer text-sm text-gray-400"
+          }
         }
       }
     }

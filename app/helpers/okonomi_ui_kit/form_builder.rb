@@ -133,11 +133,11 @@ module OkonomiUiKit
     end
 
     def check_box_with_label(method, options = {}, checked_value = true, unchecked_value = false)
-      @template.content_tag(:div, class: 'flex gap-2 items-center') do
+      @template.content_tag(:div, class: ui.get_theme.dig(:components, :checkbox, :wrapper)) do
         @template.concat check_box(
                            method,
                            {
-                             class: 'cursor-pointer h-4 w-4 rounded-sm border-gray-300 text-primary-600 focus:ring-0 focus:ring-primary-600'
+                             class: ui.get_theme.dig(:components, :checkbox, :input, :root)
                            }.merge(options || {}),
                            checked_value,
                            unchecked_value

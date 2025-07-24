@@ -3,7 +3,7 @@
   label_options[:for] = options[:id] if options[:id]
 %>
 <%= form.label(method, label_options) do %>
-  <div class="cursor-pointer font-medium text-gray-700">
+  <div class="<%= form.ui.get_theme.dig(:components, :checkbox, :label, :root) %>">
     <% if options[:label] %>
       <%= options[:label] %>
     <% else %>
@@ -11,7 +11,7 @@
     <% end %>
   </div>
   <% if options[:hint] %>
-    <div class="cursor-pointer text-sm text-gray-400">
+    <div class="<%= form.ui.get_theme.dig(:components, :checkbox, :hint, :root) %>">
       <%= t("activerecord.hints.#{form.object.class.name.underscore}.#{method}") %>
     </div>
   <% end %>
