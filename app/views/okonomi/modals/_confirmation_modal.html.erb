@@ -1,0 +1,77 @@
+<div data-controller="modal" 
+     data-modal-size-value="<%= options[:size] %>" 
+     <% if options[:auto_open] %>data-modal-auto-open-value="true"<% end %>
+     class="relative z-10" 
+     style="display: none;" 
+     data-modal-target="container"
+     <%= ui.modal_data_attributes(options) %>>
+  
+  <!-- Backdrop -->
+  <div class="<%= ui.get_theme.dig(:components, :modal, :backdrop) %>" 
+       data-modal-target="backdrop" 
+       data-action="click->modal#close"
+       aria-hidden="true"></div>
+  
+  <!-- Modal container -->
+  <div class="<%= ui.get_theme.dig(:components, :modal, :container) %>">
+    <div class="<%= ui.get_theme.dig(:components, :modal, :wrapper) %>">
+      <!-- Modal panel -->
+      <div class="<%= ui.modal_panel_class(options[:size]) %>" 
+           data-modal-target="panel"
+           role="dialog" 
+           aria-modal="true" 
+           aria-labelledby="modal-title">
+        
+        <!-- Close button -->
+        <div class="<%= ui.get_theme.dig(:components, :modal, :close_button, :wrapper) %>">
+          <button type="button" 
+                  class="<%= ui.get_theme.dig(:components, :modal, :close_button, :button) %>" 
+                  data-action="click->modal#close">
+            <span class="sr-only">Close</span>
+            <%= svg_icon(ui.get_theme.dig(:components, :modal, :close_button, :icon, :file), 
+                         class: ui.get_theme.dig(:components, :modal, :close_button, :icon, :class)) %>
+          </button>
+        </div>
+        
+        <!-- Content -->
+        <div class="<%= ui.get_theme.dig(:components, :modal, :content, :wrapper) %>">
+          <!-- Icon -->
+          <div class="<%= ui.modal_icon_wrapper_class(options[:variant]) %>">
+            <%= svg_icon(ui.get_theme.dig(:components, :modal, :icon, :variants, options[:variant], :file), 
+                         class: [ui.get_theme.dig(:components, :modal, :icon, :class), 
+                                ui.get_theme.dig(:components, :modal, :icon, :variants, options[:variant], :icon)].join(' ')) %>
+          </div>
+          
+          <!-- Text content -->
+          <div class="<%= ui.get_theme.dig(:components, :modal, :content, :text_wrapper) %>">
+            <h3 id="modal-title" class="<%= ui.get_theme.dig(:components, :modal, :content, :title) %>">
+              <%= options[:title] %>
+            </h3>
+            <div class="<%= ui.get_theme.dig(:components, :modal, :content, :message) %>">
+              <p><%= options[:message] %></p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Actions -->
+        <div class="<%= ui.get_theme.dig(:components, :modal, :actions, :wrapper) %>">
+          <% if options[:has_custom_actions] %>
+            <%= yield %>
+          <% else %>
+            <% button_color = options[:variant] == :warning ? :danger : options[:variant] %>
+            <button type="button" 
+                    class="<%= ui.button_class(variant: :contained, color: button_color) %> sm:ml-3 sm:w-auto" 
+                    data-action="click->modal#confirm">
+              <%= options[:confirm_text] %>
+            </button>
+            <button type="button" 
+                    class="<%= ui.button_class(variant: :outlined, color: :default) %> mt-3 sm:mt-0 sm:w-auto" 
+                    data-action="click->modal#close">
+              <%= options[:cancel_text] %>
+            </button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,493 @@
+<%= page do |p| %>
+  <%= p.page_header do |header| %>
+    <% header.breadcrumbs do |b| %>
+      <% b.link("Components", root_path) %>
+      <% b.link("Confirmation Modals", "#", current: true) %>
+    <% end %>
+    
+    <%= header.row do |row| %>
+      <% row.title("Confirmation Modals Showcase") %>
+      <% row.actions do %>
+        <%= link_to root_path, class: "inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" do %>
+          <%= svg_icon("heroicons/outline/arrow-path", class: "h-4 w-4 mr-2") %>
+          Back to Components
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= p.section(title: "Overview") do |s| %>
+    <%= s.body do %>
+      <div class="prose prose-blue max-w-none">
+        <p class="text-gray-600 mb-4">
+          Confirmation modals provide accessible, customizable dialogs for critical user actions. 
+          Built with proper ARIA attributes, keyboard navigation, and full theme integration.
+        </p>
+        
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <h3 class="text-blue-900 font-medium mb-2">Key Features</h3>
+          <ul class="text-sm text-blue-800 space-y-1">
+            <li>• Self-contained with Stimulus controller wrapper included</li>
+            <li>• Accessible with proper ARIA attributes and focus management</li>
+            <li>• Three variants: warning, info, success with appropriate icons</li>
+            <li>• Uses existing button system for consistent styling</li>
+            <li>• Custom action block support for complex forms</li>
+            <li>• ESC key and click-outside-to-close functionality</li>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= p.section(title: "Basic Variants") do |s| %>
+    <%= s.subtitle("Default confirmation modals with different variants") %>
+    <%= s.body do %>
+      <div class="space-y-8">
+        <!-- Warning Variant (Default) -->
+        <div class="modal-demo-container">
+          <h3 class="text-lg font-medium text-gray-900 mb-3">Warning Variant (Default)</h3>
+          <div class="flex gap-4 items-center mb-4">
+            <%= ui.button_to "Delete Account", "#", 
+                variant: :contained, 
+                color: :danger,
+                id: "delete-account-trigger" %>
+            <span class="text-sm text-gray-500">← Click to open modal</span>
+          </div>
+          
+          <%= ui.confirmation_modal(
+            title: "Delete Account",
+            message: "Are you sure you want to delete your account? All of your data will be permanently removed from our servers forever. This action cannot be undone.",
+            confirm_text: "Delete Account",
+            cancel_text: "Cancel",
+            variant: :warning
+          ) %>
+          
+          <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"><code>&lt;%= ui.confirmation_modal(
+  title: "Delete Account",
+  message: "Are you sure you want to delete your account?",
+  variant: :warning  # default
+) %&gt;</code></pre>
+        </div>
+
+        <!-- Info Variant -->
+        <div class="modal-demo-container">
+          <h3 class="text-lg font-medium text-gray-900 mb-3">Info Variant</h3>
+          <div class="flex gap-4 items-center mb-4">
+            <%= ui.button_to "View Details", "#", 
+                variant: :contained, 
+                color: :info,
+                id: "view-details-trigger" %>
+            <span class="text-sm text-gray-500">← Click to open modal</span>
+          </div>
+          
+          <%= ui.confirmation_modal(
+            title: "Additional Information",
+            message: "This action will send a notification email to all users in your organization. Would you like to proceed?",
+            confirm_text: "Send Notification",
+            cancel_text: "Cancel",
+            variant: :info
+          ) %>
+          
+          <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"><code>&lt;%= ui.confirmation_modal(
+  title: "Additional Information",
+  message: "This action will send a notification...",
+  variant: :info
+) %&gt;</code></pre>
+        </div>
+
+        <!-- Success Variant -->
+        <div class="modal-demo-container">
+          <h3 class="text-lg font-medium text-gray-900 mb-3">Success Variant</h3>
+          <div class="flex gap-4 items-center mb-4">
+            <%= ui.button_to "Complete Setup", "#", 
+                variant: :contained, 
+                color: :success,
+                id: "complete-setup-trigger" %>
+            <span class="text-sm text-gray-500">← Click to open modal</span>
+          </div>
+          
+          <%= ui.confirmation_modal(
+            title: "Setup Complete",
+            message: "Your account setup is ready to be finalized. This will activate all features and send you a welcome email.",
+            confirm_text: "Complete Setup",
+            cancel_text: "Cancel",
+            variant: :success
+          ) %>
+          
+          <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"><code>&lt;%= ui.confirmation_modal(
+  title: "Setup Complete", 
+  message: "Your account setup is ready...",
+  variant: :success
+) %&gt;</code></pre>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= p.section(title: "Size Variants") do |s| %>
+    <%= s.subtitle("Different modal sizes for various content amounts") %>
+    <%= s.body do %>
+      <div class="space-y-6">
+        <% [:sm, :md, :lg, :xl].each do |size| %>
+          <div class="modal-demo-container">
+            <%= ui.button_to "#{size.to_s.upcase} Modal", "#", 
+                variant: :outlined, 
+                color: :default,
+                id: "#{size}-modal-trigger" %>
+            
+            <%= ui.confirmation_modal(
+              title: "#{size.to_s.upcase} Size Modal",
+              message: "This is a demonstration of the #{size} size variant. The modal width will adjust based on the size parameter.",
+              size: size,
+              variant: :info
+            ) %>
+          </div>
+        <% end %>
+        
+        <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"><code>&lt;%= ui.confirmation_modal(
+  title: "Large Modal",
+  message: "Content...",
+  size: :lg  # :sm, :md, :lg, :xl
+) %&gt;</code></pre>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= p.section(title: "Custom Actions") do |s| %>
+    <%= s.subtitle("Using custom action blocks for forms and complex interactions") %>
+    <%= s.body do %>
+      <div class="space-y-6">
+        <div class="modal-demo-container">
+          <div class="flex gap-4 items-center">
+            <%= ui.button_to "Custom Form Modal", "#", 
+                variant: :contained, 
+                color: :primary,
+                id: "custom-form-trigger" %>
+            <span class="text-sm text-gray-500">← Opens modal with form</span>
+          </div>
+          
+          <%= ui.confirmation_modal(
+            title: "Transfer Ownership",
+            message: "Enter the email address of the user you want to transfer ownership to:",
+            variant: :warning,
+            size: :lg
+          ) do %>
+          <form class="mt-4 mb-6">
+            <div class="space-y-4">
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                <input type="email" id="email" name="email" 
+                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                       placeholder="user@example.com">
+              </div>
+              <div class="flex items-center">
+                <input type="checkbox" id="confirm-transfer" name="confirm" 
+                       class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                <label for="confirm-transfer" class="ml-2 block text-sm text-gray-900">
+                  I understand this action cannot be undone
+                </label>
+              </div>
+            </div>
+          </form>
+          
+          <div class="flex gap-3 justify-end">
+            <%= ui.button_to "Cancel", "#", 
+                data: { action: "click->modal#close" }, 
+                variant: :outlined, 
+                color: :default %>
+            <%= ui.button_to "Transfer Ownership", "#", 
+                data: { action: "click->modal#confirm" }, 
+                variant: :contained, 
+                color: :danger %>
+          </div>
+        <% end %>
+        </div>
+        
+        <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"><code>&lt;%= ui.confirmation_modal(
+  title: "Transfer Ownership",
+  message: "Enter the email address...",
+  variant: :warning
+) do %&gt;
+  &lt;form class="mt-4 mb-6"&gt;
+    &lt;!-- Form fields --&gt;
+  &lt;/form&gt;
+  
+  &lt;div class="flex gap-3 justify-end"&gt;
+    &lt;%= ui.button_to "Cancel", "#", 
+        data: { action: "click->modal#close" } %&gt;
+    &lt;%= ui.button_to "Transfer", "#", 
+        data: { action: "click->modal#confirm" } %&gt;
+  &lt;/div&gt;
+&lt;% end %&gt;</code></pre>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= p.section(title: "Programmatic Usage") do |s| %>
+    <%= s.subtitle("Using modals with Turbo streams and server responses") %>
+    <%= s.body do %>
+      <div class="space-y-6">
+        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+          <div class="flex">
+            <%= svg_icon("heroicons/outline/exclamation-triangle", class: "h-5 w-5 text-yellow-400 mt-0.5 mr-3") %>
+            <div>
+              <h3 class="text-yellow-800 font-medium">Auto-open Example</h3>
+              <p class="text-yellow-700 text-sm mt-1">
+                This modal can be programmatically opened using the <code>auto_open: true</code> option.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modal-demo-container">
+          <div class="flex gap-4 items-center">
+            <%= ui.button_to "Simulate Server Response", "#", 
+                variant: :contained, 
+                color: :primary,
+                id: "auto-modal-trigger" %>
+            <span class="text-sm text-gray-500">← Simulates turbo_stream response</span>
+          </div>
+          
+          <%= ui.confirmation_modal(
+            title: "Server Response",
+            message: "This modal was opened programmatically, as you might do in a Turbo Stream response.",
+            variant: :info
+          ) %>
+        </div>
+        
+        <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"><code># In a controller action
+&lt;%= turbo_stream.append "modals" do %&gt;
+  &lt;%= ui.confirmation_modal(
+    title: "Action Complete",
+    message: "Your request has been processed.",
+    auto_open: true
+  ) %&gt;
+&lt;% end %&gt;</code></pre>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= p.section(title: "Integration with Forms") do |s| %>
+    <%= s.subtitle("Real-world examples with Rails forms and validations") %>
+    <%= s.body do %>
+      <div class="space-y-6">
+        <div class="modal-demo-container">
+          <div class="flex gap-4 items-center">
+            <%= ui.button_to "Delete with Form", "#", 
+                variant: :contained, 
+                color: :danger,
+                id: "delete-form-trigger" %>
+            <span class="text-sm text-gray-500">← Form submission example</span>
+          </div>
+          
+          <%= ui.confirmation_modal(
+            title: "Delete User",
+            message: "This will permanently delete the user and all associated data.",
+            variant: :warning
+          ) do %>
+          <%= form_with url: "#", method: :delete, 
+                        data: { action: "submit->modal#close" },
+                        class: "flex gap-3 justify-end" do |f| %>
+            <%= ui.button_to "Cancel", "#", 
+                type: :button,
+                data: { action: "click->modal#close" }, 
+                variant: :outlined, 
+                color: :default %>
+            <%= f.submit "Delete User", 
+                class: ui.button_class(variant: :contained, color: :danger) %>
+          <% end %>
+        <% end %>
+        </div>
+        
+        <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"><code>&lt;%= ui.confirmation_modal(
+  title: "Delete User",
+  message: "This will permanently delete...",
+  variant: :warning
+) do %&gt;
+  &lt;%= form_with url: user_path(@user), method: :delete,
+                data: { action: "submit->modal#close" } do |f| %&gt;
+    &lt;div class="flex gap-3 justify-end"&gt;
+      &lt;%= ui.button_to "Cancel", "#",
+          data: { action: "click->modal#close" } %&gt;
+      &lt;%= f.submit "Delete User",
+          class: ui.button_class(color: :danger) %&gt;
+    &lt;/div&gt;
+  &lt;% end %&gt;
+&lt;% end %&gt;</code></pre>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= p.section(title: "API Reference") do |s| %>
+    <%= s.subtitle("Complete method signature and options") %>
+    <%= s.body do %>
+      <div class="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto">
+        <pre class="text-sm"><code># Method Signature
+ui.confirmation_modal(
+  title:,                    # Required - Modal title
+  message:,                  # Required - Modal message  
+  confirm_text: "Confirm",   # Optional - Primary button text
+  cancel_text: "Cancel",     # Optional - Secondary button text
+  variant: :warning,         # Optional - :warning, :info, :success
+  size: :md,                 # Optional - :sm, :md, :lg, :xl
+  auto_open: false,          # Optional - Auto-open on render
+  data: {},                  # Optional - Custom data attributes
+  &block                     # Optional - Custom actions block
+)
+
+# Stimulus Actions Available
+data-action="click->modal#open"     # Open modal
+data-action="click->modal#close"    # Close modal  
+data-action="click->modal#confirm"  # Confirm action (closes modal)
+
+# Custom Events Dispatched
+modal:confirm  # When confirm button clicked
+modal:cancel   # When cancel/close clicked
+
+# Theme Customization Points
+components:
+  modal:
+    backdrop:           # Backdrop overlay styling
+    container:          # Modal container positioning  
+    wrapper:            # Modal wrapper centering
+    panel:              # Modal panel and size variants
+      base:             # Base panel classes
+      sizes:            # Size variants (sm, md, lg, xl)
+    close_button:       # Close button styling
+      wrapper:          # Close button positioning
+      button:           # Close button classes
+      icon:             # Close icon configuration
+    icon:               # Variant icon configuration
+      wrapper:          # Icon wrapper classes
+      variants:         # Per-variant icon and colors
+        warning/info/success:
+          wrapper:      # Icon background color
+          icon:         # Icon text color  
+          file:         # Icon file path
+    content:            # Text content styling
+      wrapper:          # Content layout
+      text_wrapper:     # Text positioning
+      title:            # Title styling
+      message:          # Message styling
+    actions:            # Action button wrapper
+      wrapper:          # Button layout classes</code></pre>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+
+<script>
+// Modal showcase JavaScript - simplified approach
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('Modal showcase JavaScript loaded');
+  
+  // Set up click handlers for all modal triggers
+  document.querySelectorAll('[id$="-trigger"]').forEach(trigger => {
+    console.log('Found trigger:', trigger.id);
+    
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Trigger clicked:', trigger.id);
+      
+      // Find the modal within the same demo container
+      const demoContainer = trigger.closest('.modal-demo-container');
+      const modalElement = demoContainer ? demoContainer.querySelector('[data-controller="modal"]') : null;
+      
+      console.log('Found modal element:', modalElement);
+      
+      if (modalElement) {
+        openModal(modalElement);
+      } else {
+        console.error('No modal found for trigger:', trigger.id);
+      }
+    });
+  });
+  
+  // Set up event delegation for modal actions
+  document.addEventListener('click', function(e) {
+    // Handle backdrop clicks and close buttons
+    if (e.target.matches('[data-modal-target="backdrop"]') || 
+        e.target.matches('[data-action*="modal#close"]') ||
+        e.target.closest('[data-action*="modal#close"]')) {
+      
+      const modal = e.target.closest('[data-controller="modal"]');
+      if (modal) {
+        closeModal(modal);
+      }
+    }
+    
+    // Handle confirm buttons
+    if (e.target.matches('[data-action*="modal#confirm"]') ||
+        e.target.closest('[data-action*="modal#confirm"]')) {
+      
+      const modal = e.target.closest('[data-controller="modal"]');
+      if (modal) {
+        // For demo purposes, just close the modal
+        closeModal(modal);
+      }
+    }
+  });
+  
+  // ESC key to close modals
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const openModal = document.querySelector('[data-controller="modal"]:not([style*="display: none"])');
+      if (openModal) {
+        closeModal(openModal);
+      }
+    }
+  });
+  
+  function openModal(modalElement) {
+    // Show the modal
+    modalElement.style.display = 'block';
+    
+    // Lock body scroll
+    document.body.style.overflow = 'hidden';
+    
+    // Animate in
+    requestAnimationFrame(() => {
+      const backdrop = modalElement.querySelector('[data-modal-target="backdrop"]');
+      const panel = modalElement.querySelector('[data-modal-target="panel"]');
+      
+      if (backdrop) {
+        backdrop.classList.remove('opacity-0');
+        backdrop.classList.add('opacity-100');
+      }
+      
+      if (panel) {
+        panel.classList.remove('opacity-0', 'translate-y-4', 'sm:translate-y-0', 'sm:scale-95');
+        panel.classList.add('opacity-100', 'translate-y-0', 'sm:scale-100');
+      }
+      
+      // Focus first focusable element
+      const firstFocusable = panel?.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (firstFocusable) {
+        firstFocusable.focus();
+      }
+    });
+  }
+  
+  function closeModal(modalElement) {
+    const backdrop = modalElement.querySelector('[data-modal-target="backdrop"]');
+    const panel = modalElement.querySelector('[data-modal-target="panel"]');
+    
+    // Animate out
+    if (backdrop) {
+      backdrop.classList.add('opacity-0');
+      backdrop.classList.remove('opacity-100');
+    }
+    
+    if (panel) {
+      panel.classList.add('opacity-0', 'translate-y-4', 'sm:translate-y-0', 'sm:scale-95');
+      panel.classList.remove('opacity-100', 'translate-y-0', 'sm:scale-100');
+    }
+    
+    // Hide after animation and unlock scroll
+    setTimeout(() => {
+      modalElement.style.display = 'none';
+      document.body.style.overflow = '';
+    }, 200);
+  }
+});
+</script>

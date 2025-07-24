@@ -98,6 +98,58 @@ module OkonomiUiKit
           hint: {
             root: "cursor-pointer text-sm text-gray-400"
           }
+        },
+        modal: {
+          backdrop: "fixed inset-0 bg-gray-500/75 transition-opacity duration-300 ease-out opacity-0",
+          container: "fixed inset-0 z-10 w-screen overflow-y-auto",
+          wrapper: "flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0",
+          panel: {
+            base: "relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all duration-300 ease-out sm:my-8 sm:w-full sm:p-6 opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95",
+            sizes: {
+              sm: "sm:max-w-sm",
+              md: "sm:max-w-lg", 
+              lg: "sm:max-w-2xl",
+              xl: "sm:max-w-4xl"
+            }
+          },
+          close_button: {
+            wrapper: "absolute top-0 right-0 hidden pt-4 pr-4 sm:block",
+            button: "rounded-md bg-white text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none",
+            icon: {
+              file: "heroicons/outline/x-mark",
+              class: "size-6"
+            }
+          },
+          icon: {
+            wrapper: "mx-auto flex size-12 shrink-0 items-center justify-center rounded-full sm:mx-0 sm:size-10",
+            class: "size-6",
+            variants: {
+              warning: {
+                wrapper: "bg-red-100",
+                icon: "text-red-600",
+                file: "heroicons/outline/exclamation-triangle"
+              },
+              info: {
+                wrapper: "bg-blue-100",
+                icon: "text-blue-600", 
+                file: "heroicons/outline/information-circle"
+              },
+              success: {
+                wrapper: "bg-green-100",
+                icon: "text-green-600",
+                file: "heroicons/outline/check-circle"
+              }
+            }
+          },
+          content: {
+            wrapper: "sm:flex sm:items-start",
+            text_wrapper: "mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left",
+            title: "text-base font-semibold text-gray-900",
+            message: "mt-2 text-sm text-gray-500"
+          },
+          actions: {
+            wrapper: "mt-5 sm:mt-4 sm:flex sm:flex-row-reverse"
+          }
         }
       }
     }
