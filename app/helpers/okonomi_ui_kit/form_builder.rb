@@ -71,13 +71,22 @@ module OkonomiUiKit
 
   def select(method, choices = nil, options = {}, html_options = {}, &block)
     css = [
-      select_class_base,
+      'col-start-1 row-start-1 w-full appearance-none rounded-md py-2 pr-8 pl-3 text-base outline-1 focus:outline-2 focus:-outline-offset-2 sm:text-sm/6',
       when_errors(method,
                   'bg-danger-100 text-danger-600 ring-1 ring-inset ring-danger-300 focus-within:ring-2 focus-within:ring-danger-400',
-                  select_class_default_state),
+                  'bg-white outline-gray-300 text-gray-900 focus:outline-primary-600'),
       html_options[:class]
     ].compact.join(' ').split(' ').uniq
-    super(method, choices, options, html_options.merge(class: css), &block)
+    
+    select_html = super(method, choices, options, html_options.merge(class: css), &block)
+    
+    @template.content_tag(:div, class: "grid grid-cols-1") do
+      @template.concat(select_html)
+      @template.concat(@template.svg_icon(
+        'heroicons/solid/chevron-down',
+        class: "pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+      ))
+    end
   end
 
   def collection_select(method, collection, value_method, text_method, options = {}, html_options = {})
@@ -88,7 +97,16 @@ module OkonomiUiKit
                   select_class_default_state),
       html_options[:class]
     ].compact.join(' ').split(' ').uniq
-    super(method, collection, value_method, text_method, options, html_options.merge(class: css))
+    
+    select_html = super(method, collection, value_method, text_method, options, html_options.merge(class: css))
+    
+    @template.content_tag(:div, class: "mt-2 grid grid-cols-1") do
+      @template.concat(select_html)
+      @template.concat(@template.ui.svg_icon(
+        'chevron-down',
+        class: "pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+      ))
+    end
   end
 
   def select_class_default
@@ -132,17 +150,6 @@ module OkonomiUiKit
                        )
       @template.concat @template.render('okonomi/forms/tailwind/checkbox_label', method:, options:, form: self)
     end
-  end
-
-  def multi_select(method, **options)
-    @template.render(
-      partial: 'okonomi/forms/tailwind/multi_select',
-      locals: {
-        form: self,
-        method: method,
-        options: options
-      }
-    )
   end
 
   def show_if(field:, equals:, &block)
