@@ -3,7 +3,7 @@ module OkonomiUiKit
   def table(**options, &block)
     builder = TableBuilder.new(self)
 
-    render 'tables/table', builder: builder, options: options, &block
+    render 'okonomi_ui_kit/tables/table', builder: builder, options: options, &block
   end
 
   class TableBuilder
