@@ -119,6 +119,17 @@ module OkonomiUiKit
       end
     end
 
+    def multi_select(method, **options)
+      @template.render(
+        partial: 'okonomi/forms/tailwind/multi_select',
+        locals: {
+          form: self,
+          method: method,
+          options: options
+        }
+      )
+    end
+
     def label(method, text = nil, options = {}, &block)
       base_classes = ui.get_theme.dig(:components, :label, :root)
       super(method, text, merge_class(options, base_classes), &block)
