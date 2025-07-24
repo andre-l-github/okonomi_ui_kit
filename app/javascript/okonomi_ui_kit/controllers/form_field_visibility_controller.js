@@ -4,6 +4,7 @@ export default class extends Controller {
   static values = { fieldId: String, equals: String }
 
   connect() {
+    console.log("FormFieldVisibilityController connected")
     this.field = document.getElementById(this.fieldIdValue)
     if (this.field) {
       this.toggle()

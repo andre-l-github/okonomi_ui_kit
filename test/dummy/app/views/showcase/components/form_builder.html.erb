@@ -59,7 +59,9 @@
         
         <div class="space-y-3">
           <%= form.check_box_with_label :terms_accepted %>
-          <%= form.check_box_with_label :newsletter_subscription %>
+          <%= form.show_if field: :terms_accepted, equals: 'true' do %>
+            <%= form.check_box_with_label :newsletter_subscription %>
+          <% end %>
         </div>
         
         <div class="flex justify-end">
@@ -75,59 +77,63 @@
     <p class="text-sm text-gray-600 mb-4">
       This form shows how validation errors are displayed with error styling and messages.
     </p>
-    
-    <%= form_with model: @user_form_with_errors, 
+
+    <%= form_with model: @user_form_with_errors,
                   builder: OkonomiUiKit::FormBuilder,
                   url: "#",
                   local: true,
                   class: "space-y-6" do |form| %>
-      
+
       <%= form.field_set do %>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <%= form.field :first_name, hint: true do %>
             <%= form.text_field :first_name %>
           <% end %>
-          
+
           <%= form.field :last_name, hint: true do %>
             <%= form.text_field :last_name %>
           <% end %>
         </div>
-        
+
         <%= form.field :email, hint: true do %>
           <%= form.email_field :email %>
         <% end %>
-        
+
         <%= form.field :phone, hint: true do %>
           <%= form.telephone_field :phone %>
         <% end %>
-        
+
         <%= form.field :website, hint: true do %>
           <%= form.url_field :website %>
         <% end %>
-        
+
         <%= form.field :bio, hint: true do %>
           <%= form.text_area :bio, rows: 3 %>
         <% end %>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <%= form.field :birth_date, hint: true do %>
             <%= form.date_field :birth_date %>
           <% end %>
-          
+
           <%= form.field :country, hint: true do %>
             <%= form.select :country, @user_form_with_errors.country_options, { prompt: "Select your country" } %>
           <% end %>
         </div>
-        
+
         <%= form.field :profile_visibility, hint: true do %>
           <%= form.select :profile_visibility, @user_form_with_errors.profile_visibility_options %>
         <% end %>
-        
+
         <div class="space-y-3">
           <%= form.check_box_with_label :terms_accepted %>
           <%= form.show_if field: :terms_accepted, equals: 'true' do %>
             <%= form.check_box_with_label :newsletter_subscription %>
           <% end %>
+        </div>
+
+        <div class="flex justify-end">
+          <%= form.submit "Create Account", color: :primary %>
         </div>
       <% end %>
     <% end %>

@@ -12,6 +12,9 @@ module Dummy
 
     # For compatibility with applications that use this config
     config.action_controller.include_all_helpers = false
+    
+    # Initialize importmap for JavaScript
+    config.importmap.draw(Rails.root.join("config/importmap.rb"))
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
