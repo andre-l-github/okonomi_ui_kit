@@ -120,7 +120,7 @@ module OkonomiUiKit
     end
 
     def label(method, text = nil, options = {}, &block)
-      base_classes = "block text-sm/6 font-medium text-gray-900"
+      base_classes = ui.get_theme.dig(:components, :label, :root)
       super(method, text, merge_class(options, base_classes), &block)
     end
 
@@ -130,10 +130,6 @@ module OkonomiUiKit
 
       base_classes = ui.button_class(variant:, color:)
       super(value, merge_class(options, base_classes))
-    end
-
-    def label_class(label_css = nil)
-      ["block text-base font-medium leading-6 text-gray-900 whitespace-nowrap", label_css].compact_blank.join(' ')
     end
 
     def check_box_with_label(method, options = {}, checked_value = true, unchecked_value = false)

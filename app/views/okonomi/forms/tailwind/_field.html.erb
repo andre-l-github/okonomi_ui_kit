@@ -1,7 +1,7 @@
 <div class="w-full flex flex-col gap-2">
   <div class="flex justify-between items-center" x-data="{ open: false }">
     <% if field_id %>
-      <%= form.label field_id, t("activerecord.attributes.#{form.object_name}.#{field_id}"), class: form.label_class(options.dig(:label, :class)) %>
+      <%= form.label field_id, t("activerecord.attributes.#{form.object_name}.#{field_id}") %>
     <% end %>
     <% if options[:hint] %>
       <div class="relative">

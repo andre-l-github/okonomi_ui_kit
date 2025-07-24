@@ -83,6 +83,9 @@ module OkonomiUiKit
             file: 'heroicons/solid/chevron-down',
             class: "pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
           }
+        },
+        label: {
+          root: "block text-sm/6 font-medium text-default-700"
         }
       }
     }
