@@ -1,0 +1,17 @@
+<%# app/views/forms/tailwind/_multi_select.html.erb %>
+<% association = form.object.class.reflect_on_association(method) %>
+<% raise "#{method} is not a valid association" unless association %>
+
+<% associated_class = association.klass %>
+<% associated_records = options[:collection] || associated_class.all %>
+
+<% p associated_records %>
+
+<div class="grid grid-cols-2 gap-2">
+  <% associated_records.each do |record| %>
+    <div class="flex items-center">
+      <% id = "#{method}_#{record.id}" %>
+      <%= form.check_box_with_label method, { label: record.send(options[:label] || :name), multiple: true, id: id, checked: form.object.send(method).include?(record) }, record.id, nil %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,217 @@
+module OkonomiUiKit
+  module PageBuilderHelper
+  def page(**options, &block)
+    builder = PageBuilder.new(self)
+    
+    render 'okonomi_ui_kit/page_builder/page', builder: builder, options: options, &block
+  end
+
+  class PageBuilder
+    include ActionView::Helpers::TagHelper
+    include ActionView::Helpers::CaptureHelper
+
+    def initialize(template)
+      @template = template
+    end
+
+    def page_header(**options, &block)
+      header_builder = PageHeaderBuilder.new(@template)
+      yield(header_builder) if block_given?
+      header_builder.render
+    end
+
+    def section(**options, &block)
+      section_builder = SectionBuilder.new(@template)
+      yield(section_builder) if block_given?
+      section_builder.render
+    end
+
+    private
+
+    def tag
+      @template.tag
+    end
+
+    def capture(*args, &block)
+      @template.capture(*args, &block)
+    end
+  end
+
+  class PageHeaderBuilder
+    include ActionView::Helpers::TagHelper
+    include ActionView::Helpers::CaptureHelper
+
+    def initialize(template)
+      @template = template
+      @breadcrumbs_content = nil
+      @row_content = nil
+    end
+
+    def breadcrumbs(&block)
+      @breadcrumbs_content = @template.breadcrumbs(&block)
+    end
+
+    def row(&block)
+      row_builder = PageHeaderRowBuilder.new(@template)
+      yield(row_builder) if block_given?
+      @row_content = row_builder.render
+    end
+
+    def render
+      content = []
+      content << @breadcrumbs_content if @breadcrumbs_content
+      content << @row_content if @row_content
+      
+      tag.div(class: "flex flex-col gap-2") do
+        @template.safe_join(content.compact)
+      end
+    end
+
+    private
+
+    def tag
+      @template.tag
+    end
+
+    def capture(*args, &block)
+      @template.capture(*args, &block)
+    end
+  end
+
+  class PageHeaderRowBuilder
+    include ActionView::Helpers::TagHelper
+    include ActionView::Helpers::CaptureHelper
+
+    def initialize(template)
+      @template = template
+      @title_content = nil
+      @actions_content = nil
+    end
+
+    def title(text, **options)
+      @title_content = tag.h1(text, class: "text-2xl font-bold leading-7 text-gray-900 truncate sm:text-3xl sm:tracking-tight")
+    end
+
+    def actions(&block)
+      @actions_content = tag.div(class: "mt-4 flex md:ml-4 md:mt-0 gap-2") do
+        capture(&block) if block_given?
+      end
+    end
+
+    def render
+      tag.div(class: "flex w-full justify-between items-center") do
+        content = []
+        content << @title_content if @title_content
+        content << @actions_content if @actions_content
+        @template.safe_join(content.compact)
+      end
+    end
+
+    private
+
+    def tag
+      @template.tag
+    end
+
+    def capture(*args, &block)
+      @template.capture(*args, &block)
+    end
+  end
+
+  class SectionBuilder
+    include ActionView::Helpers::TagHelper
+    include ActionView::Helpers::CaptureHelper
+
+    def initialize(template)
+      @template = template
+      @title_content = nil
+      @subtitle_content = nil
+      @actions_content = nil
+      @body_content = nil
+    end
+
+    def title(text, **options)
+      @title_content = tag.h3(text, class: "text-base/7 font-semibold text-gray-900")
+    end
+
+    def subtitle(text, **options)
+      @subtitle_content = tag.p(text, class: "mt-1 max-w-2xl text-sm/6 text-gray-500")
+    end
+
+    def actions(&block)
+      @actions_content = tag.div(class: "mt-4 flex md:ml-4 md:mt-0") do
+        capture(&block) if block_given?
+      end
+    end
+
+    def body(&block)
+      @body_content = tag.div do
+        tag.dl(class: "divide-y divide-gray-100") do
+          capture(&block) if block_given?
+        end
+      end
+    end
+
+    def attribute(label, value = nil, **options, &block)
+      content = if block_given?
+        capture(&block)
+      elsif value.respond_to?(:call)
+        value.call
+      else
+        value
+      end
+
+      tag.div(class: "py-6 sm:grid sm:grid-cols-3 sm:gap-4") do
+        dt_content = tag.dt(label, class: "text-sm font-medium text-gray-900")
+        dd_content = tag.dd(content, class: "mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0")
+        
+        dt_content + dd_content
+      end
+    end
+
+    def render
+      tag.div(class: "overflow-hidden bg-white") do
+        header_content = build_header
+        content_parts = []
+        content_parts << header_content if header_content.present?
+        content_parts << @body_content if @body_content
+        @template.safe_join(content_parts.compact)
+      end
+    end
+
+    private
+
+    def build_header
+      return nil unless @title_content || @subtitle_content || @actions_content
+      
+      tag.div(class: "py-6") do
+        if @actions_content
+          tag.div(class: "flex w-full justify-between items-start") do
+            title_section = tag.div do
+              content_parts = []
+              content_parts << @title_content if @title_content
+              content_parts << @subtitle_content if @subtitle_content
+              @template.safe_join(content_parts.compact)
+            end
+            
+            title_section + @actions_content
+          end
+        else
+          content_parts = []
+          content_parts << @title_content if @title_content
+          content_parts << @subtitle_content if @subtitle_content
+          @template.safe_join(content_parts.compact)
+        end
+      end
+    end
+
+    def tag
+      @template.tag
+    end
+
+    def capture(*args, &block)
+      @template.capture(*args, &block)
+    end
+  end
+  end
+end

@@ -1,0 +1,9 @@
+<div class="flow-root">
+  <div class="overflow-x-auto">
+    <div class="inline-block min-w-full py-2 align-middle">
+      <%= content_tag(:table, class: options[:class] || "min-w-full divide-y divide-gray-300") do %>
+        <%= yield(builder) %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="overflow-hidden bg-white <%= options[:class] || '' %>">
+  <div class="py-6">
+    <h3 class="text-base/7 font-semibold text-gray-900"><%= title %></h3>
+    <% if description.present? %>
+      <p class="mt-1 max-w-2xl text-sm/6 text-gray-500"><%= description %></p>
+    <% end %>
+  </div>
+  <div class="border-t border-gray-100">
+    <dl class="divide-y divide-gray-100">
+      <%= yield(builder) %>
+    </dl>
+  </div>
+</div>

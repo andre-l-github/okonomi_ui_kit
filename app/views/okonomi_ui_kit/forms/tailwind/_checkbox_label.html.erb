@@ -1,0 +1,18 @@
+<%
+  label_options = {}
+  label_options[:for] = options[:id] if options[:id]
+%>
+<%= form.label(method, label_options) do %>
+  <div class="cursor-pointer font-medium text-gray-700">
+    <% if options[:label] %>
+      <%= options[:label] %>
+    <% else %>
+      <%= t("activerecord.attributes.#{form.object.class.name.underscore}.#{method}") %>
+    <% end %>
+  </div>
+  <% if options[:hint] %>
+    <div class="cursor-pointer text-sm text-gray-400">
+      <%= t("activerecord.hints.#{form.object.class.name.underscore}.#{method}") %>
+    </div>
+  <% end %>
+<% end %>

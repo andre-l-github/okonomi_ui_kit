@@ -1,0 +1,10 @@
+<%= form.label("#{method}_#{tag_value}".to_sym) do %>
+  <div class="cursor-pointer font-medium text-gray-700">
+    <%= t("activerecord.attributes.#{form.object.class.name.underscore}.#{method}_#{tag_value}") %>
+  </div>
+  <% if options[:hint] %>
+    <div class="cursor-pointer text-sm text-gray-400">
+      <%= t("activerecord.hints.#{form.object.class.name.underscore}.#{method}_#{tag_value}") %>
+    </div>
+  <% end %>
+<% end %>

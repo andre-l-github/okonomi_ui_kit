@@ -20,7 +20,15 @@ module OkonomiUiKit
 
     initializer "okonomi_ui_kit.view_helpers" do
       ActiveSupport.on_load(:action_view) do
+        include OkonomiUiKit::ApplicationHelper
+        include OkonomiUiKit::AttributeSectionHelper
+        include OkonomiUiKit::BadgeHelper
+        include OkonomiUiKit::BreadcrumbsHelper
         include OkonomiUiKit::ButtonHelper
+        include OkonomiUiKit::IconHelper
+        include OkonomiUiKit::NavigationHelper
+        include OkonomiUiKit::PageBuilderHelper
+        include OkonomiUiKit::TableHelper
       end
     end
   end
