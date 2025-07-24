@@ -29,7 +29,8 @@ module OkonomiUiKit
         include OkonomiUiKit::PageBuilderHelper
         include OkonomiUiKit::TableHelper
         include OkonomiUiKit::UiHelper
-        # include OkonomiUiKit::FormBuilder
+
+        ActionView::Base.field_error_proc = ->(html_tag, _instance) { html_tag.html_safe }
       end
     end
   end

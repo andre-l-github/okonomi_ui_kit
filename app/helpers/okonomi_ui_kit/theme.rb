@@ -63,6 +63,26 @@ module OkonomiUiKit
               info: "text-info-600 hover:underline"
             }
           }
+        },
+        input: {
+          types: {
+            text: {
+              root: "w-full border-0 px-3 py-2 rounded-md ring-1 focus:outline-none focus-within:ring-1",
+              error: "bg-danger-100 text-danger-400 ring-danger-400 focus:ring-danger-600",
+              valid: "text-default-700 ring-gray-300 focus-within:ring-gray-400",
+              disabled: "disabled:bg-gray-50 disabled:cursor-not-allowed"
+            }
+          }
+        },
+        select: {
+          root: "col-start-1 row-start-1 w-full appearance-none rounded-md py-2 pr-8 pl-3 text-base outline-1 focus:outline-none sm:text-sm/6",
+          error: "bg-danger-100 text-danger-400 ring-1 ring-danger-400",
+          valid: "bg-white outline-default-300 text-default-700",
+          wrapper: "grid grid-cols-1",
+          icon: {
+            file: 'heroicons/solid/chevron-down',
+            class: "pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+          }
         }
       }
     }
