@@ -63,7 +63,7 @@
         </div>
         
         <div class="flex justify-end">
-          <%= form.submit "Create Account", class: "bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors" %>
+          <%= form.submit "Create Account", color: :primary %>
         </div>
       <% end %>
     <% end %>
@@ -150,8 +150,7 @@
       </div>
     <% end %>
     
-    <%= link_to "Try Interactive Form Demo", form_builder_demo_path, 
-                class: "inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors" %>
+    <%= ui.link_to "Try Interactive Form Demo", form_builder_demo_path, variant: :contained, color: :secondary %>
   </div>
 
   <!-- Documentation Section -->

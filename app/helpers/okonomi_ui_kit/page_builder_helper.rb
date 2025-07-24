@@ -3,7 +3,7 @@ module OkonomiUiKit
   def page(**options, &block)
     builder = PageBuilder.new(self)
     
-    render 'okonomi_ui_kit/page_builder/page', builder: builder, options: options, &block
+    render 'okonomi/page_builder/page', builder: builder, options: options, &block
   end
 
   class PageBuilder

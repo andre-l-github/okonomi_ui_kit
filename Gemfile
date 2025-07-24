@@ -14,9 +14,6 @@ gem "turbo-rails"
 gem "stimulus-rails"
 gem "importmap-rails"
 
-# Tailwind CSS
-gem "tailwindcss-rails"
-
 # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
 gem "rubocop-rails-omakase", require: false
 

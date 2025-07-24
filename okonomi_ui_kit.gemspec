@@ -19,4 +19,6 @@ Gem::Specification.new do |spec|
   end
 
   spec.add_dependency "rails", ">= 8.0.0"
+  spec.add_dependency "tailwindcss-ruby"
+  spec.add_dependency "tailwindcss-rails"
 end

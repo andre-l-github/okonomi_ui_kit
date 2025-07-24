@@ -3,7 +3,7 @@ module OkonomiUiKit
     def attribute_section(title:, description: nil, **options, &block)
       builder = AttributeSectionBuilder.new(self)
 
-      render 'okonomi_ui_kit/attribute_sections/section',
+      render 'okonomi/attribute_sections/section',
              builder: builder,
              title: title,
              description: description,

@@ -2,7 +2,7 @@ module OkonomiUiKit
   module NavigationHelper
   def navigation_menu(**options, &block)
     builder = NavigationBuilder.new(self)
-    render 'okonomi_ui_kit/navigation/menu', builder: builder, options: options, &block
+    render 'okonomi/navigation/menu', builder: builder, options: options, &block
   end
 
   class NavigationBuilder
@@ -49,7 +49,7 @@ module OkonomiUiKit
 
     def nav_link(title, path, icon: nil, initials: nil, exact: false)
       tag.li do
-        @template.render "okonomi_ui_kit/navigation/link",
+        @template.render "okonomi/navigation/link",
                         path: path, 
                         title: title, 
                         icon: icon,

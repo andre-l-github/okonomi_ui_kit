@@ -26,7 +26,7 @@
       <%= yield %>
     </div>
     <% if field_id && form.object.errors.include?(field_id) %>
-      <div class="mt-1 text-red-500 text-sm">
+      <div class="mt-1 text-danger-600 text-sm">
         <%= form.object.errors[field_id].join(", ") %>
       </div>
     <% end %>

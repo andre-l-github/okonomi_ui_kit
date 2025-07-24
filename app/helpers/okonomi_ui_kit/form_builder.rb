@@ -3,15 +3,15 @@ module OkonomiUiKit
   delegate :tag, :content_tag, :safe_join, to: :@template
 
   def field_set(options = {}, &block)
-    @template.render('okonomi_ui_kit/forms/tailwind/field_set', options:, form: self, &block)
+    @template.render('okonomi/forms/tailwind/field_set', options:, form: self, &block)
   end
 
   def field(field_id = nil, options = {}, &block)
-    @template.render('okonomi_ui_kit/forms/tailwind/field', field_id:, options:, form: self, &block)
+    @template.render('okonomi/forms/tailwind/field', field_id:, options:, form: self, &block)
   end
 
   def upload_field(method, options = {})
-    @template.render('okonomi_ui_kit/forms/tailwind/upload_field', method:, options:, form: self)
+    @template.render('okonomi/forms/tailwind/upload_field', method:, options:, form: self)
   end
 
   def text_field(method, options = {})
@@ -73,7 +73,7 @@ module OkonomiUiKit
     css = [
       select_class_base,
       when_errors(method,
-                  'bg-red-100 text-red-600 ring-1 ring-inset ring-red-300 focus-within:ring-2 focus-within:ring-red-400',
+                  'bg-danger-100 text-danger-600 ring-1 ring-inset ring-danger-300 focus-within:ring-2 focus-within:ring-danger-400',
                   select_class_default_state),
       html_options[:class]
     ].compact.join(' ').split(' ').uniq
@@ -84,7 +84,7 @@ module OkonomiUiKit
     css = [
       select_class_base,
       when_errors(method,
-                  'bg-red-100 text-red-600 ring-1 ring-inset ring-red-300 focus-within:ring-2 focus-within:ring-red-400',
+                  'bg-danger-100 text-danger-600 ring-1 ring-inset ring-danger-300 focus-within:ring-2 focus-within:ring-danger-400',
                   select_class_default_state),
       html_options[:class]
     ].compact.join(' ').split(' ').uniq
@@ -109,7 +109,10 @@ module OkonomiUiKit
   end
 
   def submit(value = nil, options = {})
-    base_classes = "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+    variant = options.delete(:variant) || 'contained'
+    color = options.delete(:color) || 'primary'
+
+    base_classes = @template.ui.button_class(variant:, color:)
     super(value, merge_class(options, base_classes))
   end
 
@@ -127,13 +130,13 @@ module OkonomiUiKit
                          checked_value,
                          unchecked_value
                        )
-      @template.concat @template.render('okonomi_ui_kit/forms/tailwind/checkbox_label', method:, options:, form: self)
+      @template.concat @template.render('okonomi/forms/tailwind/checkbox_label', method:, options:, form: self)
     end
   end
 
   def multi_select(method, **options)
     @template.render(
-      partial: 'okonomi_ui_kit/forms/tailwind/multi_select',
+      partial: 'okonomi/forms/tailwind/multi_select',
       locals: {
         form: self,
         method: method,
@@ -159,9 +162,8 @@ module OkonomiUiKit
 
   def input_field_classes(method, options, focus_ring: 'focus-within:ring-1', include_disabled: true)
     css_classes = [
-      'w-full border-0 text-gray-700 px-3 py-2 rounded-md',
-      "ring-1 ring-inset ring-gray-300 #{focus_ring} focus-within:ring-gray-400",
-      when_errors(method, 'bg-red-100 ring-2 ring-red-400'),
+      'w-full border-0 px-3 py-2 rounded-md ring-1 focus:outline-none',
+      when_errors(method, 'bg-danger-100 ring-danger-400 focus:ring-danger-600', "text-gray-700 ring-gray-300 #{focus_ring} focus-within:ring-gray-400"),
       options[:class]
     ]
     

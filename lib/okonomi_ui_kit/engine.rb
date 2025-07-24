@@ -24,11 +24,11 @@ module OkonomiUiKit
         include OkonomiUiKit::AttributeSectionHelper
         include OkonomiUiKit::BadgeHelper
         include OkonomiUiKit::BreadcrumbsHelper
-        include OkonomiUiKit::ButtonHelper
         include OkonomiUiKit::IconHelper
         include OkonomiUiKit::NavigationHelper
         include OkonomiUiKit::PageBuilderHelper
         include OkonomiUiKit::TableHelper
+        include OkonomiUiKit::UiHelper
         # include OkonomiUiKit::FormBuilder
       end
     end

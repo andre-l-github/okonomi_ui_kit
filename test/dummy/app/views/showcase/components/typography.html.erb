@@ -1,0 +1,37 @@
+<div class="flex flex-col gap-8 p-8">
+  <div class="flex flex-col gap-2">
+    <%= ui.typography "h1. Heading 1", variant: "h1" %>
+    <%= ui.typography "h2. Heading 2", variant: "h2" %>
+    <%= ui.typography "h3. Heading 3", variant: "h3" %>
+    <%= ui.typography "h4. Heading 4", variant: "h4" %>
+    <%= ui.typography "h5. Heading 5", variant: "h5" %>
+    <%= ui.typography "h5. Heading 6", variant: "h6" %>
+    <%= ui.typography "Body 1", variant: "body1" %>
+    <%= ui.typography "Body 2", variant: "body2" %>
+  </div>
+  <div class="flex flex-col gap-2">
+    <%= ui.typography "h1. Heading 1", variant: "h1", color: :primary %>
+    <%= ui.typography "h2. Heading 2", variant: "h2", color: :secondary %>
+    <%= ui.typography "h3. Heading 3", variant: "h3", color: :success %>
+    <%= ui.typography "h4. Heading 4", variant: "h4", color: :danger %>
+    <%= ui.typography "h5. Heading 5", variant: "h5", color: :warning %>
+    <%= ui.typography "h5. Heading 6", variant: "h6", color: :info %>
+    <%= ui.typography "Body 1", variant: "body1", color: :dark %>
+    <%= ui.typography "Body 2", variant: "body2", color: :muted %>
+  </div>
+</div>
+<% colors = ["default", "primary", "secondary", "success", "danger", "warning", "info"] %>
+<% variants = ["text", "contained", "outlined"] %>
+<% [:link_to, :button_to].each do |action| %>
+  <div class="flex flex-col gap-8 p-8">
+    <%= ui.typography "Component #{action}", variant: "h3" %>
+    <% variants.each do |variant| %>
+      <%= ui.typography "Variant: #{variant}", variant: "h4" %>
+      <div class="flex gap-2">
+        <% colors.each do |color| %>
+          <%= ui.send(action, (color || "default").capitalize, "#", variant:,color:) %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
