@@ -14,5 +14,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="net-pop (v0.1.2, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="racc (v1.8.1, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="thor (v1.4.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
   </component>
 </module>

@@ -140,6 +140,14 @@ module OkonomiUiKit
         ].compact.join(' ')
       end
 
+      def method_missing(method_name, *args, &block)
+        component_name = "OkonomiUiKit::Components::#{method_name.to_s.camelize}"
+        if Object.const_defined?(component_name)
+          return component_name.constantize.new(@template, get_theme).render(*args, &block)
+        else
+          super
+        end
+      end
     end
   end
 end
