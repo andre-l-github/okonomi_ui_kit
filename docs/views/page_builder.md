@@ -16,7 +16,7 @@ The Page Builder system consists of nested builders that handle different aspect
 Every page should use the page builder as the root container:
 
 ```erb
-<%= page do |p| %>
+<%= ui.page do |p| %>
   <!-- All page content goes here -->
 <% end %>
 ```
@@ -28,7 +28,7 @@ The page header provides consistent structure for breadcrumbs, page titles, and 
 ### Basic Page Header
 
 ```erb
-<%= page do |p| %>
+<%= ui.page do |p| %>
   <%= p.page_header do |h| %>
     <% h.breadcrumbs do |crumb| %>
       <% crumb.link "Home", root_path %>
@@ -45,7 +45,7 @@ The page header provides consistent structure for breadcrumbs, page titles, and 
 ### Page Header with Actions
 
 ```erb
-<%= page do |p| %>
+<%= ui.page do |p| %>
   <%= p.page_header do |h| %>
     <% h.breadcrumbs do |crumb| %>
       <% crumb.link "Organisation", organisation_path(current_organisation) %>
@@ -69,7 +69,7 @@ Sections are flexible containers that can hold any type of content. They provide
 ### Basic Section
 
 ```erb
-<%= page do |p| %>
+<%= ui.page do |p| %>
   <%= p.section do |s| %>
     <% s.title "Basic Information" %>
     <% s.body do %>
@@ -82,7 +82,7 @@ Sections are flexible containers that can hold any type of content. They provide
 ### Section with Subtitle
 
 ```erb
-<%= page do |p| %>
+<%= ui.page do |p| %>
   <%= p.section do |s| %>
     <% s.title "User Settings" %>
     <% s.subtitle "Manage your account preferences and personal information." %>
@@ -96,7 +96,7 @@ Sections are flexible containers that can hold any type of content. They provide
 ### Section with Actions
 
 ```erb
-<%= page do |p| %>
+<%= ui.page do |p| %>
   <%= p.section do |s| %>
     <% s.title "Team Members" %>
     <% s.subtitle "Manage who has access to this organisation." %>
@@ -118,7 +118,7 @@ Attributes provide a structured way to display key-value pairs within sections. 
 ### Basic Attributes
 
 ```erb
-<%= page do |p| %>
+<%= ui.page do |p| %>
   <%= p.section do |s| %>
     <% s.title "Product Details" %>
     <% s.body do %>
@@ -134,7 +134,7 @@ Attributes provide a structured way to display key-value pairs within sections. 
 ### Attributes with Custom Content
 
 ```erb
-<%= page do |p| %>
+<%= ui.page do |p| %>
   <%= p.section do |s| %>
     <% s.title "User Information" %>
     <% s.body do %>
@@ -159,7 +159,7 @@ Attributes provide a structured way to display key-value pairs within sections. 
 ### Conditional Attributes
 
 ```erb
-<%= page do |p| %>
+<%= ui.page do |p| %>
   <%= p.section do |s| %>
     <% s.title "Product Information" %>
     <% s.body do %>
@@ -184,7 +184,7 @@ Sections can contain any type of content, not just attributes.
 ### Tables in Sections
 
 ```erb
-<%= page do |p| %>
+<%= ui.page do |p| %>
   <%= p.section do |s| %>
     <% s.title "Recent Orders" %>
     <% s.subtitle "Your most recent purchases and their status." %>
@@ -220,7 +220,7 @@ Sections can contain any type of content, not just attributes.
 ### Forms in Sections
 
 ```erb
-<%= page do |p| %>
+<%= ui.page do |p| %>
   <%= p.section do |s| %>
     <% s.title "Account Settings" %>
     <% s.subtitle "Update your personal information and preferences." %>
@@ -252,7 +252,7 @@ Sections can contain any type of content, not just attributes.
 Pages often contain multiple sections. Each section is independent and can have different content types.
 
 ```erb
-<%= page do |p| %>
+<%= ui.page do |p| %>
   <%= p.page_header do |h| %>
     <% h.breadcrumbs do |crumb| %>
       <% crumb.link "Dashboard", root_path %>
@@ -303,7 +303,7 @@ Every view should use the page builder as its root container. This ensures consi
 
 ```erb
 <!-- ✅ Good -->
-<%= page do |p| %>
+<%= ui.page do |p| %>
   <!-- content -->
 <% end %>
 
@@ -431,7 +431,7 @@ Always use the provided helpers like `badge()`, `l()`, and `svg_icon()` within y
 
 **After:**
 ```erb
-<%= page do |p| %>
+<%= ui.page do |p| %>
   <%= p.page_header do |h| %>
     <% h.breadcrumbs do |crumb| %>
       <!-- breadcrumbs -->

@@ -296,7 +296,7 @@ Icons can respond to hover and focus states:
 Icons work seamlessly within the page builder system:
 
 ```erb
-<%= page do |p| %>
+<%= ui.page do |p| %>
   <%= p.page_header do |h| %>
     <% h.row do |r| %>
       <% r.title "Dashboard" %>

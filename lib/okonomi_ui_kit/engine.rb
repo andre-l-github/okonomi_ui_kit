@@ -26,7 +26,6 @@ module OkonomiUiKit
         include OkonomiUiKit::BreadcrumbsHelper
         include OkonomiUiKit::IconHelper
         include OkonomiUiKit::NavigationHelper
-        include OkonomiUiKit::PageBuilderHelper
         include OkonomiUiKit::TableHelper
         include OkonomiUiKit::UiHelper
 

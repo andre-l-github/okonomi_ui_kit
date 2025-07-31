@@ -26,11 +26,6 @@ module OkonomiUiKit
         @_okonomi_ui_kit_theme ||= OkonomiUiKit::Theme::DEFAULT_THEME
       end
 
-
-      def page(&block)
-        @template.page(&block)
-      end
-
       def button_class(variant: 'contained', color: 'default', classes: '')
         [
           get_theme.dig(:components, :link, :root) || '',

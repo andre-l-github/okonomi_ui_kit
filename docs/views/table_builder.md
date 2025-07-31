@@ -250,7 +250,7 @@ Handle tables with no data using the built-in empty state support:
 Tables work seamlessly within the page builder system:
 
 ```erb
-<%= page do |p| %>
+<%= ui.page do |p| %>
   <%= p.page_header do |h| %>
     <% h.breadcrumbs do |crumb| %>
       <% crumb.link "Dashboard", dashboard_path %>

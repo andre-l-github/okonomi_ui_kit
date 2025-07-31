@@ -1,4 +1,4 @@
-<%= page do |p| %>
+<%= ui.page do |p| %>
   <%= p.page_header do |header| %>
     <% header.breadcrumbs do |b| %>
       <% b.link("Components", root_path) %>
@@ -52,7 +52,7 @@
     &lt;%= header.row do |row| %&gt;
       &lt;% row.title("Page Title") %&gt;
       &lt;% row.actions do %&gt;
-        &lt;%= okonomi_button("Action", "#") %&gt;
+        &lt;%= ui.button_to("Action", "#") %&gt;
       &lt;% end %&gt;
     &lt;% end %&gt;
   &lt;% end %&gt;
@@ -138,8 +138,8 @@
           <pre class="mt-3 bg-gray-900 text-gray-100 p-3 rounded text-xs overflow-x-auto"><code>&lt;%= header.row do |row| %&gt;
   &lt;%= row.title("User Management") %&gt;
   &lt;%= row.actions do %&gt;
-    &lt;%= okonomi_button("Export", "#", variant: :secondary) %&gt;
-    &lt;%= okonomi_button("Add User", "#", variant: :primary) %&gt;
+    &lt;%= ui.button_to("Export", "#", variant: :secondary) %&gt;
+    &lt;%= ui.button_to("Add User", "#", variant: :primary) %&gt;
   &lt;% end %&gt;
 &lt;% end %&gt;</code></pre>
         </div>
@@ -202,7 +202,7 @@
   &lt;%= s.subtitle("Configure advanced options for your account") %&gt;
   &lt;%= s.actions do %&gt;
     &lt;%= link_to "Reset", "#", class: "text-blue-600 hover:text-blue-800 text-sm" %&gt;
-    &lt;%= okonomi_button("Save", "#", size: :small) %&gt;
+    &lt;%= ui.button_to("Save", "#", size: :small) %&gt;
   &lt;% end %&gt;
   &lt;%= s.body do %&gt;
     &lt;!-- Form content --&gt;
@@ -243,7 +243,7 @@
     &lt;%= s.attribute("Full name", "John Doe") %&gt;
     &lt;%= s.attribute("Email address", "john.doe@example.com") %&gt;
     &lt;%= s.attribute("Status") do %&gt;
-      &lt;%= badge("Active", :success) %&gt;
+      &lt;%= ui.badge("Active", severity: :success) %&gt;
     &lt;% end %&gt;
   &lt;% end %&gt;
 &lt;% end %&gt;</code></pre>
@@ -306,7 +306,7 @@
         <!-- Simulated Page -->
         <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
           <div class="p-6">
-            <%= page do |profile_page| %>
+            <%= ui.page do |profile_page| %>
               <%= profile_page.page_header do |header| %>
                 <% header.breadcrumbs do |b| %>
                   <% b.link("Dashboard", "#") %>
@@ -317,8 +317,8 @@
                 <%= header.row do |row| %>
                   <%= row.title("John Doe") %>
                   <%= row.actions do %>
-                    <%= okonomi_button("Edit Profile", "#", variant: :primary, size: :small) %>
-                    <%= okonomi_button("Send Message", "#", variant: :secondary, size: :small) %>
+                    <%= ui.button_to("Edit Profile", "#", variant: :primary, size: :small) %>
+                    <%= ui.button_to("Send Message", "#", variant: :secondary, size: :small) %>
                   <% end %>
                 <% end %>
               <% end %>
@@ -336,7 +336,7 @@
                   <%= info.attribute("Email", "john.doe@example.com") %>
                   <%= info.attribute("Phone", "+1 (555) 123-4567") %>
                   <%= info.attribute("Status") do %>
-                    <%= badge("Active", :success) %>
+                    <%= ui.badge("Active", severity: :success) %>
                   <% end %>
                   <%= info.attribute("Last login", "2 hours ago") %>
                 <% end %>
