@@ -1,11 +1,11 @@
 <%= ui.page do |p| %>
-  <%= p.page_header do |header| %>
+  <% p.page_header do |header| %>
     <% header.breadcrumbs do |b| %>
       <% b.link("Components", root_path) %>
       <% b.link("Page Builder", "#", current: true) %>
     <% end %>
     
-    <%= header.row do |row| %>
+    <% header.row do |row| %>
       <% row.title("Page Builder Showcase") %>
       <% row.actions do %>
         <%= link_to root_path, class: "inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" do %>
@@ -16,8 +16,8 @@
     <% end %>
   <% end %>
 
-  <%= p.section(title: "Overview") do |s| %>
-    <%= s.body do %>
+  <% p.section(title: "Overview") do |s| %>
+    <% s.body do %>
       <div class="prose prose-blue max-w-none">
         <p class="text-gray-600 mb-4">
           The PageBuilder provides a semantic, component-based approach to building consistent page layouts. 
@@ -37,13 +37,14 @@
     <% end %>
   <% end %>
 
-  <%= p.section(title: "Basic Structure") do |s| %>
-    <%= s.subtitle("The fundamental page layout using the page builder") %>
-    <%= s.body do %>
+  <% p.section(title: "Basic Structure") do |s| %>
+    <% s.subtitle("The fundamental page layout using the page builder") %>
+    <% s.body do %>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div>
           <h3 class="text-lg font-medium text-gray-900 mb-3">Code Example</h3>
-          <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm"><code>&lt;%= page do |p| %&gt;
+          <%= ui.code do %>
+&lt;%= ui.page do |p| %&gt;
   &lt;%= p.page_header do |header| %&gt;
     &lt;%= header.breadcrumbs do |b| %&gt;
       &lt;% b.link("Home", "/") %&gt;
@@ -62,7 +63,8 @@
       Content goes here
     &lt;% end %&gt;
   &lt;% end %&gt;
-&lt;% end %&gt;</code></pre>
+&lt;% end %&gt;
+          <% end %>
         </div>
         
         <div>
@@ -83,15 +85,15 @@
     <% end %>
   <% end %>
 
-  <%= p.section(title: "Page Headers") do |s| %>
-    <%= s.subtitle("Headers with breadcrumbs, titles, and actions") %>
-    <%= s.actions do %>
+  <% p.section(title: "Page Headers") do |s| %>
+    <% s.subtitle("Headers with breadcrumbs, titles, and actions") %>
+    <% s.actions do %>
       <%= link_to "#", class: "text-blue-600 hover:text-blue-800 text-sm font-medium" do %>
         <%= svg_icon("heroicons/outline/document-text", class: "h-4 w-4 mr-1 inline") %>
         View Documentation
       <% end %>
     <% end %>
-    <%= s.body do %>
+    <% s.body do %>
       <div class="space-y-6">
         <!-- Simple Header -->
         <div>
@@ -106,7 +108,8 @@
               </div>
             </div>
           </div>
-          <pre class="mt-3 bg-gray-900 text-gray-100 p-3 rounded text-xs overflow-x-auto"><code>&lt;%= p.page_header do |header| %&gt;
+          <%= ui.code(variant: :minimal, class: "mt-3") do %>
+&lt;%= p.page_header do |header| %&gt;
   &lt;%= header.breadcrumbs do |b| %&gt;
     &lt;%= b.link("Components", "/") %&gt;
     &lt;%= b.link("Page Builder", "#", current: true) %&gt;
@@ -115,7 +118,8 @@
   &lt;%= header.row do |row| %&gt;
     &lt;%= row.title("Simple Page Title") %&gt;
   &lt;% end %&gt;
-&lt;% end %&gt;</code></pre>
+&lt;% end %&gt;
+          <% end %>
         </div>
 
         <!-- Header with Actions -->
@@ -135,21 +139,23 @@
               </div>
             </div>
           </div>
-          <pre class="mt-3 bg-gray-900 text-gray-100 p-3 rounded text-xs overflow-x-auto"><code>&lt;%= header.row do |row| %&gt;
+          <%= ui.code(variant: :minimal, class: "mt-3") do %>
+&lt;%= header.row do |row| %&gt;
   &lt;%= row.title("User Management") %&gt;
   &lt;%= row.actions do %&gt;
     &lt;%= ui.button_to("Export", "#", variant: :secondary) %&gt;
     &lt;%= ui.button_to("Add User", "#", variant: :primary) %&gt;
   &lt;% end %&gt;
-&lt;% end %&gt;</code></pre>
+&lt;% end %&gt;
+          <% end %>
         </div>
       </div>
     <% end %>
   <% end %>
 
-  <%= p.section(title: "Sections") do |s| %>
-    <%= s.subtitle("Flexible content sections with titles, subtitles, and actions") %>
-    <%= s.body do %>
+  <% p.section(title: "Sections") do |s| %>
+    <% s.subtitle("Flexible content sections with titles, subtitles, and actions") %>
+    <% s.body do %>
       <div class="space-y-6">
         <!-- Basic Section -->
         <div>
@@ -162,11 +168,13 @@
               <p class="text-gray-600">This is the section body content. It can contain any HTML elements.</p>
             </div>
           </div>
-          <pre class="mt-3 bg-gray-900 text-gray-100 p-3 rounded text-xs overflow-x-auto"><code>&lt;%= p.section(title: "Section Title") do |s| %&gt;
+          <%= ui.code(variant: :minimal, class: "mt-3") do %>
+&lt;%= p.section(title: "Section Title") do |s| %&gt;
   &lt;%= s.body do %&gt;
     &lt;p&gt;This is the section body content.&lt;/p&gt;
   &lt;% end %&gt;
-&lt;% end %&gt;</code></pre>
+&lt;% end %&gt;
+          <% end %>
         </div>
 
         <!-- Section with Subtitle and Actions -->
@@ -198,7 +206,8 @@
               </div>
             </div>
           </div>
-          <pre class="mt-3 bg-gray-900 text-gray-100 p-3 rounded text-xs overflow-x-auto"><code>&lt;%= p.section(title: "Advanced Settings") do |s| %&gt;
+          <%= ui.code(variant: :minimal, class: "mt-3") do %>
+&lt;%= p.section(title: "Advanced Settings") do |s| %&gt;
   &lt;%= s.subtitle("Configure advanced options for your account") %&gt;
   &lt;%= s.actions do %&gt;
     &lt;%= link_to "Reset", "#", class: "text-blue-600 hover:text-blue-800 text-sm" %&gt;
@@ -207,15 +216,16 @@
   &lt;%= s.body do %&gt;
     &lt;!-- Form content --&gt;
   &lt;% end %&gt;
-&lt;% end %&gt;</code></pre>
+&lt;% end %&gt;
+          <% end %>
         </div>
       </div>
     <% end %>
   <% end %>
 
-  <%= p.section(title: "Attributes") do |s| %>
-    <%= s.subtitle("Structured key-value display for data") %>
-    <%= s.body do %>
+  <% p.section(title: "Attributes") do |s| %>
+    <% s.subtitle("Structured key-value display for data") %>
+    <% s.body do %>
       <div class="space-y-6">
         <!-- Basic Attributes -->
         <div>
@@ -238,7 +248,8 @@
               </div>
             </div>
           </div>
-          <pre class="mt-3 bg-gray-900 text-gray-100 p-3 rounded text-xs overflow-x-auto"><code>&lt;%= p.section(title: "User Details") do |s| %&gt;
+          <%= ui.code(variant: :minimal, class: "mt-3") do %>
+&lt;%= p.section(title: "User Details") do |s| %&gt;
   &lt;%= s.body do %&gt;
     &lt;%= s.attribute("Full name", "John Doe") %&gt;
     &lt;%= s.attribute("Email address", "john.doe@example.com") %&gt;
@@ -246,7 +257,8 @@
       &lt;%= ui.badge("Active", severity: :success) %&gt;
     &lt;% end %&gt;
   &lt;% end %&gt;
-&lt;% end %&gt;</code></pre>
+&lt;% end %&gt;
+          <% end %>
         </div>
 
         <!-- Complex Attributes -->
@@ -282,7 +294,8 @@
               </div>
             </div>
           </div>
-          <pre class="mt-3 bg-gray-900 text-gray-100 p-3 rounded text-xs overflow-x-auto"><code>&lt;%= s.attribute("Profile picture") do %&gt;
+          <%= ui.code(variant: :minimal, class: "mt-3") do %>
+&lt;%= s.attribute("Profile picture") do %&gt;
   &lt;div class="flex items-center gap-3"&gt;
     &lt;div class="h-10 w-10 rounded-full bg-gray-300"&gt;&lt;/div&gt;
     &lt;div&gt;
@@ -291,15 +304,16 @@
     &lt;/div&gt;
     &lt;button class="ml-auto text-blue-600"&gt;Change&lt;/button&gt;
   &lt;/div&gt;
-&lt;% end %&gt;</code></pre>
+&lt;% end %&gt;
+          <% end %>
         </div>
       </div>
     <% end %>
   <% end %>
 
-  <%= p.section(title: "Complete Example") do |s| %>
-    <%= s.subtitle("A real-world example combining all PageBuilder features") %>
-    <%= s.body do %>
+  <% p.section(title: "Complete Example") do |s| %>
+    <% s.subtitle("A real-world example combining all PageBuilder features") %>
+    <% s.body do %>
       <div class="bg-gray-50 p-6 rounded-lg">
         <h3 class="text-lg font-medium text-gray-900 mb-4">Live Example: User Profile Page</h3>
         
@@ -307,45 +321,45 @@
         <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
           <div class="p-6">
             <%= ui.page do |profile_page| %>
-              <%= profile_page.page_header do |header| %>
+              <% profile_page.page_header do |header| %>
                 <% header.breadcrumbs do |b| %>
                   <% b.link("Dashboard", "#") %>
                   <% b.link("Users", "#") %>
                   <% b.link("John Doe", "#", current: true) %>
                 <% end %>
                 
-                <%= header.row do |row| %>
-                  <%= row.title("John Doe") %>
-                  <%= row.actions do %>
+                <% header.row do |row| %>
+                  <% row.title("John Doe") %>
+                  <% row.actions do %>
                     <%= ui.button_to("Edit Profile", "#", variant: :primary, size: :small) %>
                     <%= ui.button_to("Send Message", "#", variant: :secondary, size: :small) %>
                   <% end %>
                 <% end %>
               <% end %>
 
-              <%= profile_page.section(title: "Personal Information") do |info| %>
-                <%= info.subtitle("Basic user details and contact information") %>
-                <%= info.actions do %>
+              <% profile_page.section(title: "Personal Information") do |info| %>
+                <% info.subtitle("Basic user details and contact information") %>
+                <% info.actions do %>
                   <%= link_to "#", class: "text-blue-600 hover:text-blue-800 text-sm font-medium" do %>
                     <%= svg_icon("heroicons/outline/pencil", class: "h-4 w-4 mr-1 inline") %>
                     Edit
                   <% end %>
                 <% end %>
-                <%= info.body do %>
-                  <%= info.attribute("Full name", "John Doe") %>
-                  <%= info.attribute("Email", "john.doe@example.com") %>
-                  <%= info.attribute("Phone", "+1 (555) 123-4567") %>
-                  <%= info.attribute("Status") do %>
+                <% info.body do %>
+                  <% info.attribute("Full name", "John Doe") %>
+                  <% info.attribute("Email", "john.doe@example.com") %>
+                  <% info.attribute("Phone", "+1 (555) 123-4567") %>
+                  <% info.attribute("Status") do %>
                     <%= ui.badge("Active", severity: :success) %>
                   <% end %>
-                  <%= info.attribute("Last login", "2 hours ago") %>
+                  <% info.attribute("Last login", "2 hours ago") %>
                 <% end %>
               <% end %>
 
-              <%= profile_page.section(title: "Account Settings") do |settings| %>
-                <%= settings.subtitle("Security and notification preferences") %>
-                <%= settings.body do %>
-                  <%= settings.attribute("Two-factor authentication") do %>
+              <% profile_page.section(title: "Account Settings") do |settings| %>
+                <% settings.subtitle("Security and notification preferences") %>
+                <% settings.body do %>
+                  <% settings.attribute("Two-factor authentication") do %>
                     <div class="flex items-center justify-between">
                       <span class="text-green-600 flex items-center">
                         <%= svg_icon("heroicons/outline/check-circle", class: "h-4 w-4 mr-1") %>
@@ -354,8 +368,8 @@
                       <button class="text-blue-600 hover:text-blue-800 text-sm">Configure</button>
                     </div>
                   <% end %>
-                  <%= settings.attribute("Email notifications", "Enabled for all activities") %>
-                  <%= settings.attribute("API Access") do %>
+                  <% settings.attribute("Email notifications", "Enabled for all activities") %>
+                  <% settings.attribute("API Access") do %>
                     <div class="flex items-center justify-between">
                       <code class="text-xs bg-gray-100 px-2 py-1 rounded">sk_live_abcd1234...</code>
                       <button class="text-blue-600 hover:text-blue-800 text-sm">Regenerate</button>
@@ -370,11 +384,12 @@
     <% end %>
   <% end %>
 
-  <%= p.section(title: "Code Reference") do |s| %>
-    <%= s.subtitle("Quick reference for all PageBuilder methods") %>
-    <%= s.body do %>
-      <div class="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto">
-        <pre class="text-sm"><code># Page Builder Methods
+  <% p.section(title: "Code Reference") do |s| %>
+    <% s.subtitle("Quick reference for all PageBuilder methods") %>
+    <% s.body do %>
+      <div class="p-6">
+        <%= ui.code(language: "ruby", class: "text-sm") do %>
+# Page Builder Methods
 page                              # Root container
 ├── page_header                   # Page header section  
 │   ├── breadcrumbs              # Breadcrumb navigation
@@ -389,7 +404,7 @@ page                              # Root container
     └── attribute(label, value)   # Key-value attribute display
 
 # Usage Pattern
-&lt;%= page do |p| %&gt;
+&lt;%= ui.page do |p| %&gt;
   &lt;%= p.page_header do |h| %&gt;
     &lt;%= h.breadcrumbs do %&gt;...&lt;% end %&gt;
     &lt;%= h.row do |r| %&gt;
@@ -405,7 +420,8 @@ page                              # Root container
       &lt;%= s.attribute("Key", "Value") %&gt;
     &lt;% end %&gt;
   &lt;% end %&gt;
-&lt;% end %&gt;</code></pre>
+&lt;% end %&gt;
+        <% end %>
       </div>
     <% end %>
   <% end %>
