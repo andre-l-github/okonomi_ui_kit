@@ -26,9 +26,9 @@ module OkonomiUiKit
           }
         },
         link: {
-          root: "hover:cursor-pointer",
+          root: "hover:cursor-pointer text-sm",
           outlined: {
-            root: "inline-flex border items-center justify-center px-4 py-2 font-medium focus:outline-none focus:ring-2 focus:ring-offset-2",
+            root: "inline-flex border items-center justify-center px-2 py-1 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-offset-2",
             colors: {
               default: "bg-white text-default-700 border-default-700 hover:bg-default-50",
               primary: "bg-white text-primary-600 border-primary-600 hover:bg-primary-50",
@@ -40,7 +40,7 @@ module OkonomiUiKit
             }
           },
           contained: {
-            root: "inline-flex border items-center justify-center px-4 py-2 font-medium focus:outline-none focus:ring-2 focus:ring-offset-2",
+            root: "inline-flex border items-center justify-center px-2 py-1 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-offset-2",
             colors: {
               default: "border-default-700 bg-default-600 text-white hover:bg-default-700",
               primary: "border-primary-700 bg-primary-600 text-white hover:bg-primary-700",

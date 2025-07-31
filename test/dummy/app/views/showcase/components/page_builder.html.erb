@@ -68,18 +68,26 @@
         </div>
         
         <div>
-          <h3 class="text-lg font-medium text-gray-900 mb-3">Result</h3>
-          <div class="border border-gray-200 rounded-lg p-4 bg-white">
-            <div class="text-sm text-gray-500 mb-2">Breadcrumbs: Home</div>
-            <div class="flex justify-between items-center mb-4">
-              <h1 class="text-xl font-bold text-gray-900">Page Title</h1>
-              <button class="px-3 py-1 bg-blue-600 text-white rounded text-sm">Action</button>
-            </div>
-            <div class="bg-gray-50 p-3 rounded">
-              <h2 class="font-medium text-gray-900 mb-2">Section</h2>
-              <p class="text-gray-600">Content goes here</p>
-            </div>
-          </div>
+          <%= ui.page do |p| %>
+            <%= p.page_header do |header| %>
+              <%= header.breadcrumbs do |b| %>
+                <% b.link("Home", "/") %>
+              <% end %>
+
+              <%= header.row do |row| %>
+                <% row.title("Page Title") %>
+                <% row.actions do %>
+                  <%= ui.button_to("Action", "#") %>
+                <% end %>
+              <% end %>
+            <% end %>
+
+            <%= p.section(title: "Section") do |s| %>
+              <%= s.body do %>
+                Content goes here
+              <% end %>
+            <% end %>
+          <% end %>
         </div>
       </div>
     <% end %>
