@@ -1,13 +1,3 @@
 #!/usr/bin/env sh
 
-GEM_NAME="gem-release"
-
-if gem list -i "$GEM_NAME" > /dev/null 2>&1; then
-  echo "✅ Gem '$GEM_NAME' is already installed."
-else
-  echo "📦 Installing '$GEM_NAME'..."
-  gem install "$GEM_NAME"
-fi
-
-gem bump patch
 gem build okonomi_ui_kit.gemspec

@@ -26,40 +26,9 @@ module OkonomiUiKit
         @_okonomi_ui_kit_theme ||= OkonomiUiKit::Theme::DEFAULT_THEME
       end
 
-      def link_to(name = nil, options = nil, html_options = nil, &block)
-        html_options, options, name = options, name, block if block_given?
 
-        html_options ||= {}
-        html_options[:class] ||= ''
-
-        variant = (html_options.delete(:variant) || 'text').to_sym
-        color = (html_options.delete(:color) || 'default').to_sym
-
-        html_options[:class] = button_class(variant:, color:, classes: html_options[:class])
-
-        if block_given?
-          @template.link_to(options, html_options, &block)
-        else
-          @template.link_to(name, options, html_options)
-        end
-      end
-
-      def button_to(name = nil, options = nil, html_options = nil, &block)
-        html_options, options, name = options, name, block if block_given?
-
-        html_options ||= {}
-        html_options[:class] ||= ''
-
-        variant = (html_options.delete(:variant) || 'contained').to_sym
-        color = (html_options.delete(:color) || 'default').to_sym
-
-        html_options[:class] = button_class(variant:, color:, classes: html_options[:class])
-
-        if block_given?
-          @template.button_to(options, html_options, &block)
-        else
-          @template.button_to(name, options, html_options)
-        end
+      def page(&block)
+        @template.page(&block)
       end
 
       def button_class(variant: 'contained', color: 'default', classes: '')
@@ -69,10 +38,6 @@ module OkonomiUiKit
           get_theme.dig(:components, :link, variant.to_sym, :colors, color.to_sym) || '',
           classes,
         ].join(' ')
-      end
-
-      def page(&block)
-        @template.page(&block)
       end
 
       def confirmation_modal(title:, message:, confirm_text: "Confirm", cancel_text: "Cancel", variant: :warning, size: :md, **options, &block)
