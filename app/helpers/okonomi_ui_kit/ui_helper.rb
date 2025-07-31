@@ -75,37 +75,6 @@ module OkonomiUiKit
         @template.page(&block)
       end
 
-      TYPOGRAPHY_COMPONENTS = {
-        body1: 'p',
-        body2: 'p',
-        h1: 'h1',
-        h2: 'h2',
-        h3: 'h3',
-        h4: 'h4',
-        h5: 'h5',
-        h6: 'h6',
-      }.freeze
-
-      def typography(text = nil, options = nil, &block)
-        options, text = text, nil if block_given?
-        options ||= {}
-
-        variant = (options.delete(:variant) || 'body1').to_sym
-        component = (TYPOGRAPHY_COMPONENTS[variant] || 'span').to_s
-        color = (options.delete(:color) || 'default').to_sym
-        classes = [
-          get_theme.dig(:components, :typography, :variants, variant) || '',
-          get_theme.dig(:components, :typography, :colors, color) || '',
-          options.delete(:class) || ''
-        ]
-
-        if block_given?
-          @template.render("okonomi/components/typography", options:, variant:, component:, classes:, &block)
-        else
-          @template.render("okonomi/components/typography", text:, options:, variant:, component:, classes:)
-        end
-      end
-
       def confirmation_modal(title:, message:, confirm_text: "Confirm", cancel_text: "Cancel", variant: :warning, size: :md, **options, &block)
         modal_options = {
           title: title,

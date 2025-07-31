@@ -71,6 +71,11 @@ The UI components are organized as helper modules in `app/helpers/okonomi_ui_kit
 - **AttributeSectionHelper** - Attribute display sections
 - **UiHelper** - Core UI builder with theme context management
 
+### Component Plugin System
+OkonomiUiKit uses a plugin-based architecture for components. New components are automatically available through the `ui` helper via the `method_missing` mechanism. Components are implemented as classes in `app/helpers/okonomi_ui_kit/components/` that inherit from `OkonomiUiKit::Component`.
+
+For detailed instructions on creating new components, see [Component Implementation Guide](docs/COMPONENT_GUIDE.md).
+
 ### Theme System
 The theme system (`app/helpers/okonomi_ui_kit/theme.rb`) provides:
 - Hierarchical theme structure with components, variants, and colors

@@ -1,0 +1,7 @@
+<%= content_tag component, options.merge(class: classes) do %>
+  <% if defined?(text) && text.present? %>
+    <%= text %>
+  <% else %>
+    <%= yield %>
+  <% end %>
+<% end %>
