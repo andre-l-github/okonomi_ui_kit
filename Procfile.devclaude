@@ -1,0 +1,2 @@
+web: cd test/dummy && bundle exec rails server -p 3001 -b 0.0.0.0 -P tmp/pids/server_claude.pid
+css: bundle exec tailwindcss -i ./app/assets/stylesheets/okonomi_ui_kit/application.tailwind.css -o ./app/assets/builds/okonomi_ui_kit/application.tailwind.css --watch
