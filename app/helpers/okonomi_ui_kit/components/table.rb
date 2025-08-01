@@ -2,8 +2,45 @@ module OkonomiUiKit
   module Components
     class Table < OkonomiUiKit::Component
       def render(options = {}, &block)
-        builder = TableBuilder.new(view, theme)
-        view.render(template_path, builder: builder, options: options.with_indifferent_access, &block)
+        options = options.with_indifferent_access
+        variant = (options.delete(:variant) || :default).to_sym
+        
+        builder = TableBuilder.new(view, theme, self, variant)
+        view.render(template_path, builder: builder, options: options, &block)
+      end
+
+      register_styles :default do
+        {
+          default: {
+            body: {
+              base: "divide-y divide-gray-200 bg-white"
+            },
+            th: {
+              base: "text-sm font-semibold text-gray-900",
+              first: "py-3.5 pr-3",
+              last: "relative py-3.5",
+              middle: "pl-3 pr-3 py-3.5"
+            },
+            td: {
+              base: "text-sm whitespace-nowrap",
+              first: "py-4 pr-3 font-medium text-gray-900",
+              last: "relative py-4 font-medium",
+              middle: "pl-3 pr-3 py-4 text-gray-500"
+            },
+            alignment: {
+              left: "text-left",
+              center: "text-center",
+              right: "text-right"
+            },
+            empty_state: {
+              wrapper: "text-center py-8",
+              icon: "mx-auto h-12 w-12 text-gray-400",
+              title: "mt-2 text-sm font-medium text-gray-900",
+              subtitle: "mt-1 text-sm text-gray-500",
+              cell: "text-center py-8 text-gray-500"
+            }
+          }
+        }
       end
     end
 
@@ -11,9 +48,11 @@ module OkonomiUiKit
       include ActionView::Helpers::TagHelper
       include ActionView::Helpers::CaptureHelper
 
-      def initialize(template, theme)
+      def initialize(template, theme, style_provider, variant = :default)
         @template = template
         @theme = theme
+        @style_provider = style_provider
+        @variant = variant
         @current_row_cells = []
         @in_header = false
         @in_body = false
@@ -30,7 +69,7 @@ module OkonomiUiKit
       def body(&block)
         @in_header = false
         @in_body = true
-        result = tag.tbody(class: "divide-y divide-gray-200 bg-white", &block)
+        result = tag.tbody(class: style(:body, :base), &block)
         @in_body = false
         result
       end
@@ -87,20 +126,20 @@ module OkonomiUiKit
         content = if block_given?
           capture(&block)
         else
-          tag.div(class: "text-center py-8") do
+          tag.div(class: style(:empty_state, :wrapper)) do
             icon_content = if @template.respond_to?(:svg_icon)
-              @template.svg_icon(icon, class: "mx-auto h-12 w-12 text-gray-400")
+              @template.svg_icon(icon, class: style(:empty_state, :icon))
             else
-              tag.div(class: "mx-auto h-12 w-12 text-gray-400")
+              tag.div(class: style(:empty_state, :icon))
             end
 
-            icon_content + tag.p(title, class: "mt-2 text-sm font-medium text-gray-900") +
-            tag.p("Get started by creating a new record.", class: "mt-1 text-sm text-gray-500")
+            icon_content + tag.p(title, class: style(:empty_state, :title)) +
+            tag.p("Get started by creating a new record.", class: style(:empty_state, :subtitle))
           end
         end
 
         tr do
-          td(colspan: colspan, class: "text-center py-8 text-gray-500") do
+          td(colspan: colspan, class: style(:empty_state, :cell)) do
             content
           end
         end
@@ -117,46 +156,51 @@ module OkonomiUiKit
       end
 
       def render_th(cell, is_first, is_last)
-        align_class = alignment_class(cell[:align])
-
-        if is_first
-          full_class = "py-3.5 pr-3 #{align_class} text-sm font-semibold text-gray-900 #{cell[:options][:class] || ""}".strip
+        align_class = style(:alignment, cell[:align]) || style(:alignment, :left)
+        
+        position_class = if is_first
+          style(:th, :first)
         elsif is_last
-          full_class = "relative py-3.5 #{align_class} text-sm font-semibold text-gray-900 #{cell[:options][:class] || ""}".strip
+          style(:th, :last)
         else
-          full_class = "pl-3 pr-3 py-3.5 #{align_class} text-sm font-semibold text-gray-900 #{cell[:options][:class] || ""}".strip
+          style(:th, :middle)
         end
 
+        classes = [
+          style(:th, :base),
+          position_class,
+          align_class,
+          cell[:options][:class]
+        ].compact.join(' ')
+
         options = cell[:options].except(:class)
-        tag.th(cell[:content], scope: cell[:scope], class: full_class, **options)
+        tag.th(cell[:content], scope: cell[:scope], class: classes, **options)
       end
 
       def render_td(cell, is_first, is_last)
-        align_class = alignment_class(cell[:align])
-
-        if is_first
-          full_class = "py-4 pr-3 #{align_class} text-sm font-medium whitespace-nowrap text-gray-900 #{cell[:options][:class] || ""}".strip
+        align_class = style(:alignment, cell[:align]) || style(:alignment, :left)
+        
+        position_class = if is_first
+          style(:td, :first)
         elsif is_last
-          full_class = "relative py-4 #{align_class} text-sm font-medium whitespace-nowrap #{cell[:options][:class] || ""}".strip
+          style(:td, :last)
         else
-          full_class = "pl-3 pr-3 py-4 #{align_class} text-sm whitespace-nowrap text-gray-500 #{cell[:options][:class] || ""}".strip
+          style(:td, :middle)
         end
+
+        classes = [
+          style(:td, :base),
+          position_class,
+          align_class,
+          cell[:options][:class]
+        ].compact.join(' ')
 
         options = cell[:options].except(:class)
-        tag.td(cell[:content], class: full_class, **options)
+        tag.td(cell[:content], class: classes, **options)
       end
 
-      def alignment_class(align)
-        case align.to_sym
-        when :left
-          "text-left"
-        when :center
-          "text-center"
-        when :right
-          "text-right"
-        else
-          "text-left"
-        end
+      def style(*keys)
+        @style_provider.style(@variant, *keys)
       end
     end
   end
