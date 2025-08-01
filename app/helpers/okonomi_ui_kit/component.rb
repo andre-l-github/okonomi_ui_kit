@@ -30,7 +30,7 @@ module OkonomiUiKit
       internal_styles = internal_styles_registry[internal_name] || {}
       config_styles = config_styles_registry[config_name] || {}
 
-      {}.deep_merge(internal_styles).deep_merge(config_styles)
+      deep_merge({}, internal_styles, config_styles)
     end
 
     def internal_styles_registry
@@ -45,16 +45,42 @@ module OkonomiUiKit
       :default
     end
 
-    def self.config_styles_registry
-      return Hash.new({}) unless config_class?
+    def self.register_styles(theme = :default, &block)
+      styles = block.call if block_given?
 
-      config_class.styles_registry
+      raise ArgumentError, "Styles must be a Hash" unless styles.is_a?(Hash)
+
+      internal_styles_registry[theme] = styles if styles.is_a?(Hash)
     end
 
-    def self.config_class
-      return nil unless config_class?
+    def self.internal_styles_registry
+      @internal_styles_registry ||= deep_merge({}, parent_styles_registry)
+    end
 
-      Object.const_get(config_class_name)
+    def self.parent_styles_registry
+      if superclass.respond_to?(:internal_styles_registry)
+        superclass.internal_styles_registry
+      else
+        {}
+      end
+    end
+
+    def self.config_styles_registry
+      @config_styles_registry ||= config_classes.reverse.reduce({}) do |hash, klass|
+        deep_merge(hash, klass.styles_registry)
+      end
+    end
+
+    def self.config_classes
+      @config_classes ||= resolve_config_classes
+    end
+
+    def self.resolve_config_classes
+      classes = []
+      classes << Object.const_get(config_class_name) if config_class?
+      classes += superclass.config_classes if superclass <= OkonomiUiKit::Component
+
+      classes.compact
     end
 
     def self.config_class_name
@@ -65,16 +91,9 @@ module OkonomiUiKit
       Object.const_defined?(config_class_name)
     end
 
-    def self.register_styles(theme = :default, &block)
-      styles = block.call if block_given?
-
-      raise ArgumentError, "Styles must be a Hash" unless styles.is_a?(Hash)
-
-      internal_styles_registry[theme] = styles if styles.is_a?(Hash)
+    def self.deep_merge(*hashes)
+      OkonomiUiKit::TWMerge.deep_merge_all(*hashes)
     end
-
-    def self.internal_styles_registry
-      @internal_styles_registry ||= {}
-    end
+    delegate :deep_merge, to: :class
   end
 end

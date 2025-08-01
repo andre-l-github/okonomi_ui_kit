@@ -3,8 +3,8 @@ module OkonomiUiKit
     class Badge < OkonomiUiKit::Component
       def render(text, options = {})
         options = options.with_indifferent_access
-        severity = (options.delete(:severity) || :default).to_sym
-        
+        severity = (options.delete(:severity) || options.delete(:variant) || :default).to_sym
+
         classes = [
           style(:base),
           style(:severities, severity) || '',

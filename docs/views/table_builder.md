@@ -92,7 +92,7 @@ Control text alignment with the `align` parameter:
     <%= t.tr do %>
       <%= t.td { "Widget Pro" } %>                      <!-- Default: left -->
       <%= t.td(align: :center) do %>                    <!-- Center aligned -->
-        <%= badge("Active", :success) %>
+        <%= ui.badge("Active", :success) %>
       <% end %>
       <%= t.td(align: :right) { "$299.99" } %>          <!-- Right aligned -->
       <%= t.td(align: :right) do %>                     <!-- Right aligned -->
@@ -194,7 +194,7 @@ Handle tables with no data using the built-in empty state support:
         <% end %>
         
         <%= t.td(align: :center) do %>
-          <%= badge(product.status.humanize, product.status_color) %>
+          <%= ui.badge(product.status.humanize, product.status_color) %>
         <% end %>
         
         <%= t.td(align: :right) { number_to_currency(product.price) } %>

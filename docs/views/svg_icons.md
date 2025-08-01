@@ -333,12 +333,12 @@ Icons can be used within badges for enhanced meaning:
 
 ```erb
 <!-- Status badges with icons -->
-<%= badge("Active", :success) do %>
+<%= ui.badge("Active", :success) do %>
   <%= svg_icon("heroicons/mini/check-circle", class: "h-3 w-3 mr-1") %>
   Active
 <% end %>
 
-<%= badge("Pending", :warning) do %>
+<%= ui.badge("Pending", :warning) do %>
   <%= svg_icon("heroicons/mini/clock", class: "h-3 w-3 mr-1") %>
   Pending
 <% end %>

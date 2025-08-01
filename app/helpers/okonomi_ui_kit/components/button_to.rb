@@ -1,6 +1,6 @@
 module OkonomiUiKit
   module Components
-    class ButtonTo < OkonomiUiKit::Component
+    class ButtonTo < OkonomiUiKit::Components::ButtonBase
       def render(name = nil, options = nil, html_options = nil, &block)
         html_options, options, name = options, name, block if block_given?
 
@@ -17,17 +17,6 @@ module OkonomiUiKit
         else
           view.button_to(name, options, html_options)
         end
-      end
-
-      private
-
-      def build_button_class(variant:, color:, classes: '')
-        [
-          theme.dig(:components, :link, :root) || '',
-          theme.dig(:components, :link, variant.to_sym, :root) || '',
-          theme.dig(:components, :link, variant.to_sym, :colors, color.to_sym) || '',
-          classes,
-        ].reject(&:blank?).join(' ')
       end
     end
   end

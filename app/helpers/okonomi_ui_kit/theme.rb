@@ -2,29 +2,6 @@ module OkonomiUiKit
   module Theme
     LIGHT_THEME = {
       components: {
-        typography: {
-          variants: {
-            body1: "text-base font-normal",
-            body2: "text-sm font-normal",
-            h1: "text-3xl font-bold",
-            h2: "text-2xl font-bold",
-            h3: "text-xl font-semibold",
-            h4: "text-lg font-semibold",
-            h5: "text-base font-semibold",
-            h6: "text-sm font-semibold"
-          },
-          colors: {
-            default: "text-default-700",
-            dark: "text-default-900",
-            muted: "text-default-500",
-            primary: "text-primary-600",
-            secondary: "text-secondary-600",
-            success: "text-success-600",
-            danger: "text-danger-600",
-            warning: "text-warning-600",
-            info: "text-info-600"
-          }
-        },
         link: {
           root: "hover:cursor-pointer text-sm",
           outlined: {

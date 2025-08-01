@@ -141,7 +141,7 @@ Attributes provide a structured way to display key-value pairs within sections. 
       <%= s.attribute("Name", @user.display_name) %>
       <%= s.attribute("Email", @user.email) %>
       <%= s.attribute("Status") do %>
-        <%= badge(@user.active? ? "Active" : "Inactive", @user.active? ? :success : :danger) %>
+        <%= ui.badge(@user.active? ? "Active" : "Inactive", @user.active? ? :success : :danger) %>
       <% end %>
       <%= s.attribute("Last Login", l(@user.last_sign_in_at, format: :long)) %>
       <%= s.attribute("Profile Picture") do %>
@@ -168,7 +168,7 @@ Attributes provide a structured way to display key-value pairs within sections. 
       <% if @product.tags.any? %>
         <%= s.attribute("Tags") do %>
           <% @product.tags.each do |tag| %>
-            <%= badge(tag.name, :info) %>
+            <%= ui.badge(tag.name, :info) %>
           <% end %>
         <% end %>
       <% end %>
@@ -393,7 +393,7 @@ Always use the provided helpers like `badge()`, `l()`, and `svg_icon()` within y
 ```erb
 <!-- ✅ Good -->
 <%= s.attribute("Status") do %>
-  <%= badge(@record.active? ? "Active" : "Inactive", @record.active? ? :success : :danger) %>
+  <%= ui.badge(@record.active? ? "Active" : "Inactive", @record.active? ? :success : :danger) %>
 <% end %>
 <%= s.attribute("Created", l(@record.created_at, format: :long)) %>
 
