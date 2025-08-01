@@ -119,6 +119,10 @@ end
 - [Component Guide](docs/COMPONENT_GUIDE.md) - Creating custom components
 - [CLAUDE.md](CLAUDE.md) - AI assistant instructions and architecture details
 
+### Component Guides
+
+- [Typography](guides/components/typography.md) - Text styling with semantic HTML elements
+
 ### Development
 
 For development setup and commands, see [CLAUDE.md](CLAUDE.md#development-commands).
