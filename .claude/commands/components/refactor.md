@@ -9,3 +9,4 @@ Follow the guidelines from `docs/COMPONENT_GUIDE.md`.
 * create a user guide under `guides/components/<component_name>.md`, link it from `README.md`
 * create a migration guid under `guides/migrations/<component_name>.md`, do not link it from `README.md`
 * Ensure $ARGUMENTS has been removed
+* Ensure all tests pass
