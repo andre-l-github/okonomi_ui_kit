@@ -9,7 +9,7 @@
       <section class="bg-white rounded-lg shadow p-6">
         <h2 class="text-xl font-semibold text-gray-900 mb-4">Overview</h2>
         <p class="text-gray-600 mb-4">
-          Icons are powered by the <code class="text-sm bg-gray-100 px-2 py-1 rounded">svg_icon</code> helper, 
+          Icons are powered by the <code class="text-sm bg-gray-100 px-2 py-1 rounded">ui.icon</code> component, 
           which loads SVG icons from the Heroicons collection. The helper supports custom styling, sizing, and caching for performance.
         </p>
         
@@ -24,7 +24,7 @@
         
         <div class="bg-gray-50 p-4 rounded">
           <h3 class="font-medium text-gray-900 mb-2">Usage</h3>
-          <pre class="text-sm text-gray-700"><code>&lt;%= svg_icon("heroicons/outline/home", class: "h-6 w-6 text-blue-500") %&gt;</code></pre>
+          <pre class="text-sm text-gray-700"><code>&lt;%= ui.icon("heroicons/outline/home", class: "h-6 w-6 text-blue-500") %&gt;</code></pre>
         </div>
       </section>
 
@@ -33,19 +33,19 @@
         <h2 class="text-xl font-semibold text-gray-900 mb-4">Common Sizes</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
           <div class="text-center">
-            <%= svg_icon("heroicons/outline/home", class: "h-4 w-4 text-gray-600 mx-auto mb-2") %>
+            <%= ui.icon("heroicons/outline/home", class: "h-4 w-4 text-gray-600 mx-auto mb-2") %>
             <p class="text-xs text-gray-500">h-4 w-4</p>
           </div>
           <div class="text-center">
-            <%= svg_icon("heroicons/outline/home", class: "h-5 w-5 text-gray-600 mx-auto mb-2") %>
+            <%= ui.icon("heroicons/outline/home", class: "h-5 w-5 text-gray-600 mx-auto mb-2") %>
             <p class="text-xs text-gray-500">h-5 w-5</p>
           </div>
           <div class="text-center">
-            <%= svg_icon("heroicons/outline/home", class: "h-6 w-6 text-gray-600 mx-auto mb-2") %>
+            <%= ui.icon("heroicons/outline/home", class: "h-6 w-6 text-gray-600 mx-auto mb-2") %>
             <p class="text-xs text-gray-500">h-6 w-6</p>
           </div>
           <div class="text-center">
-            <%= svg_icon("heroicons/outline/home", class: "h-8 w-8 text-gray-600 mx-auto mb-2") %>
+            <%= ui.icon("heroicons/outline/home", class: "h-8 w-8 text-gray-600 mx-auto mb-2") %>
             <p class="text-xs text-gray-500">h-8 w-8</p>
           </div>
         </div>
@@ -60,7 +60,7 @@
                  class="w-full px-4 py-2 pr-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                  placeholder="Search icons by name...">
           <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-            <%= svg_icon("heroicons/outline/magnifying-glass", class: "h-5 w-5 text-gray-400") %>
+            <%= ui.icon("heroicons/outline/magnifying-glass", class: "h-5 w-5 text-gray-400") %>
           </div>
         </div>
         <p class="text-sm text-gray-500 mt-2">Type to filter icons across all collections</p>
@@ -106,19 +106,19 @@
         <h2 class="text-xl font-semibold text-gray-900 mb-4">Semantic Colors</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
           <div class="text-center">
-            <%= svg_icon("heroicons/outline/check-circle", class: "h-8 w-8 text-green-500 mx-auto mb-2") %>
+            <%= ui.icon("heroicons/outline/check-circle", class: "h-8 w-8 text-green-500 mx-auto mb-2") %>
             <p class="text-xs text-gray-500">Success (green)</p>
           </div>
           <div class="text-center">
-            <%= svg_icon("heroicons/outline/exclamation-triangle", class: "h-8 w-8 text-yellow-500 mx-auto mb-2") %>
+            <%= ui.icon("heroicons/outline/exclamation-triangle", class: "h-8 w-8 text-yellow-500 mx-auto mb-2") %>
             <p class="text-xs text-gray-500">Warning (yellow)</p>
           </div>
           <div class="text-center">
-            <%= svg_icon("heroicons/outline/x-mark", class: "h-8 w-8 text-red-500 mx-auto mb-2") %>
+            <%= ui.icon("heroicons/outline/x-mark", class: "h-8 w-8 text-red-500 mx-auto mb-2") %>
             <p class="text-xs text-gray-500">Error (red)</p>
           </div>
           <div class="text-center">
-            <%= svg_icon("heroicons/outline/light-bulb", class: "h-8 w-8 text-blue-500 mx-auto mb-2") %>
+            <%= ui.icon("heroicons/outline/light-bulb", class: "h-8 w-8 text-blue-500 mx-auto mb-2") %>
             <p class="text-xs text-gray-500">Info (blue)</p>
           </div>
         </div>
@@ -151,7 +151,7 @@
         <div class="grid grid-cols-6 md:grid-cols-10 lg:grid-cols-12 gap-4">
           <% outline_icons.each do |icon| %>
             <div class="text-center group cursor-pointer" title="heroicons/outline/<%= icon %>" data-icon-name="<%= icon %>">
-              <%= svg_icon("heroicons/outline/#{icon}", class: "h-6 w-6 text-gray-600 group-hover:text-blue-500 mx-auto mb-1 transition-colors") %>
+              <%= ui.icon("heroicons/outline/#{icon}", class: "h-6 w-6 text-gray-600 group-hover:text-blue-500 mx-auto mb-1 transition-colors") %>
               <p class="text-xs text-gray-400 truncate"><%= icon %></p>
             </div>
           <% end %>
@@ -167,7 +167,7 @@
         <div class="grid grid-cols-6 md:grid-cols-10 lg:grid-cols-12 gap-4">
           <% solid_icons.each do |icon| %>
             <div class="text-center group cursor-pointer" title="heroicons/solid/<%= icon %>" data-icon-name="<%= icon %>">
-              <%= svg_icon("heroicons/solid/#{icon}", class: "h-6 w-6 text-gray-600 group-hover:text-blue-500 mx-auto mb-1 transition-colors") %>
+              <%= ui.icon("heroicons/solid/#{icon}", class: "h-6 w-6 text-gray-600 group-hover:text-blue-500 mx-auto mb-1 transition-colors") %>
               <p class="text-xs text-gray-400 truncate"><%= icon %></p>
             </div>
           <% end %>
@@ -183,7 +183,7 @@
         <div class="grid grid-cols-6 md:grid-cols-10 lg:grid-cols-12 gap-4">
           <% mini_icons.each do |icon| %>
             <div class="text-center group cursor-pointer" title="heroicons/mini/<%= icon %>" data-icon-name="<%= icon %>">
-              <%= svg_icon("heroicons/mini/#{icon}", class: "h-5 w-5 text-gray-600 group-hover:text-blue-500 mx-auto mb-1 transition-colors") %>
+              <%= ui.icon("heroicons/mini/#{icon}", class: "h-5 w-5 text-gray-600 group-hover:text-blue-500 mx-auto mb-1 transition-colors") %>
               <p class="text-xs text-gray-400 truncate"><%= icon %></p>
             </div>
           <% end %>
@@ -200,7 +200,7 @@
         <div class="grid grid-cols-6 md:grid-cols-10 lg:grid-cols-12 gap-4">
           <% micro_icons.each do |icon| %>
             <div class="text-center group cursor-pointer" title="heroicons/micro/<%= icon %>" data-icon-name="<%= icon %>">
-              <%= svg_icon("heroicons/micro/#{icon}", class: "h-4 w-4 text-gray-600 group-hover:text-blue-500 mx-auto mb-1 transition-colors") %>
+              <%= ui.icon("heroicons/micro/#{icon}", class: "h-4 w-4 text-gray-600 group-hover:text-blue-500 mx-auto mb-1 transition-colors") %>
               <p class="text-xs text-gray-400 truncate"><%= icon %></p>
             </div>
           <% end %>
@@ -224,11 +224,11 @@
             </p>
             <div class="flex items-center gap-8">
               <div class="text-center">
-                <%= svg_icon("custom/rocket", class: "h-12 w-12 text-indigo-600 mx-auto mb-2") %>
+                <%= ui.icon("custom/rocket", class: "h-12 w-12 text-indigo-600 mx-auto mb-2") %>
                 <p class="text-xs text-gray-500">custom/rocket</p>
               </div>
               <div class="bg-gray-50 p-3 rounded flex-1">
-                <pre class="text-xs text-gray-700"><code>&lt;%= svg_icon("custom/rocket", class: "h-12 w-12 text-indigo-600") %&gt;</code></pre>
+                <pre class="text-xs text-gray-700"><code>&lt;%= ui.icon("custom/rocket", class: "h-12 w-12 text-indigo-600") %&gt;</code></pre>
               </div>
             </div>
           </div>
@@ -241,7 +241,7 @@
             </p>
             <div class="flex items-center gap-8">
               <div class="text-center">
-                <%= svg_icon("heroicons/outline/home", class: "h-12 w-12 text-green-600 mx-auto mb-2") %>
+                <%= ui.icon("heroicons/outline/home", class: "h-12 w-12 text-green-600 mx-auto mb-2") %>
                 <p class="text-xs text-gray-500">Overridden home icon</p>
               </div>
               <div class="bg-gray-50 p-3 rounded flex-1">
@@ -267,17 +267,17 @@
             <h3 class="text-lg font-medium text-gray-900 mb-2">Buttons with Icons</h3>
             <div class="flex flex-wrap gap-4">
               <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
-                <%= svg_icon("heroicons/outline/plus", class: "h-4 w-4 mr-2") %>
+                <%= ui.icon("heroicons/outline/plus", class: "h-4 w-4 mr-2") %>
                 Add Item
               </button>
               
               <button class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                <%= svg_icon("heroicons/outline/magnifying-glass", class: "h-4 w-4 mr-2") %>
+                <%= ui.icon("heroicons/outline/magnifying-glass", class: "h-4 w-4 mr-2") %>
                 Search
               </button>
               
               <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700">
-                <%= svg_icon("heroicons/outline/trash", class: "h-4 w-4 mr-2") %>
+                <%= ui.icon("heroicons/outline/trash", class: "h-4 w-4 mr-2") %>
                 Delete
               </button>
             </div>
@@ -288,15 +288,15 @@
             <h3 class="text-lg font-medium text-gray-900 mb-2">Navigation</h3>
             <nav class="flex space-x-4">
               <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900">
-                <%= svg_icon("heroicons/solid/home", class: "h-4 w-4 mr-2") %>
+                <%= ui.icon("heroicons/solid/home", class: "h-4 w-4 mr-2") %>
                 Home
               </a>
               <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900">
-                <%= svg_icon("heroicons/outline/document-text", class: "h-4 w-4 mr-2") %>
+                <%= ui.icon("heroicons/outline/document-text", class: "h-4 w-4 mr-2") %>
                 Documents
               </a>
               <a href="#" class="flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900">
-                <%= svg_icon("heroicons/outline/cog-6-tooth", class: "h-4 w-4 mr-2") %>
+                <%= ui.icon("heroicons/outline/cog-6-tooth", class: "h-4 w-4 mr-2") %>
                 Settings
               </a>
             </nav>
@@ -307,15 +307,15 @@
             <h3 class="text-lg font-medium text-gray-900 mb-2">Status Indicators</h3>
             <div class="space-y-2">
               <div class="flex items-center">
-                <%= svg_icon("heroicons/outline/check-circle", class: "h-5 w-5 text-green-500 mr-2") %>
+                <%= ui.icon("heroicons/outline/check-circle", class: "h-5 w-5 text-green-500 mr-2") %>
                 <span class="text-sm text-gray-900">Task completed successfully</span>
               </div>
               <div class="flex items-center">
-                <%= svg_icon("heroicons/outline/exclamation-triangle", class: "h-5 w-5 text-yellow-500 mr-2") %>
+                <%= ui.icon("heroicons/outline/exclamation-triangle", class: "h-5 w-5 text-yellow-500 mr-2") %>
                 <span class="text-sm text-gray-900">Warning: Check your settings</span>
               </div>
               <div class="flex items-center">
-                <%= svg_icon("heroicons/outline/x-mark", class: "h-5 w-5 text-red-500 mr-2") %>
+                <%= ui.icon("heroicons/outline/x-mark", class: "h-5 w-5 text-red-500 mr-2") %>
                 <span class="text-sm text-gray-900">Error: Unable to save</span>
               </div>
             </div>
@@ -329,17 +329,17 @@
         <div class="space-y-4">
           <div>
             <h3 class="font-medium text-gray-900 mb-2">Basic Usage</h3>
-            <pre class="bg-gray-900 text-gray-100 p-4 rounded overflow-x-auto text-sm"><code>&lt;%= svg_icon("heroicons/outline/home") %&gt;</code></pre>
+            <pre class="bg-gray-900 text-gray-100 p-4 rounded overflow-x-auto text-sm"><code>&lt;%= ui.icon("heroicons/outline/home") %&gt;</code></pre>
           </div>
           
           <div>
             <h3 class="font-medium text-gray-900 mb-2">With CSS Classes</h3>
-            <pre class="bg-gray-900 text-gray-100 p-4 rounded overflow-x-auto text-sm"><code>&lt;%= svg_icon("heroicons/outline/user", class: "h-6 w-6 text-blue-500") %&gt;</code></pre>
+            <pre class="bg-gray-900 text-gray-100 p-4 rounded overflow-x-auto text-sm"><code>&lt;%= ui.icon("heroicons/outline/user", class: "h-6 w-6 text-blue-500") %&gt;</code></pre>
           </div>
           
           <div>
             <h3 class="font-medium text-gray-900 mb-2">With Custom Attributes</h3>
-            <pre class="bg-gray-900 text-gray-100 p-4 rounded overflow-x-auto text-sm"><code>&lt;%= svg_icon("heroicons/outline/search", 
+            <pre class="bg-gray-900 text-gray-100 p-4 rounded overflow-x-auto text-sm"><code>&lt;%= ui.icon("heroicons/outline/search", 
     width: "24", 
     height: "24", 
     class: "text-gray-400") %&gt;</code></pre>

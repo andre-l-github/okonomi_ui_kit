@@ -123,6 +123,7 @@ end
 
 - [Breadcrumbs](guides/components/breadcrumbs.md) - Navigation breadcrumb trails
 - [Typography](guides/components/typography.md) - Text styling with semantic HTML elements
+- [Icon](guides/components/icon.md) - SVG icon rendering with theme support
 
 ### Development
 

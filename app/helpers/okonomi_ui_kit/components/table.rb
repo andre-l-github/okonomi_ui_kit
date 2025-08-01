@@ -127,8 +127,8 @@ module OkonomiUiKit
           capture(&block)
         else
           tag.div(class: style(:empty_state, :wrapper)) do
-            icon_content = if @template.respond_to?(:svg_icon)
-              @template.svg_icon(icon, class: style(:empty_state, :icon))
+            icon_content = if @template.respond_to?(:ui)
+              @template.ui.icon(icon, class: style(:empty_state, :icon))
             else
               tag.div(class: style(:empty_state, :icon))
             end

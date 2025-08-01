@@ -28,7 +28,7 @@
                   class="<%= ui.get_theme.dig(:components, :modal, :close_button, :button) %>" 
                   data-action="click->modal#close">
             <span class="sr-only">Close</span>
-            <%= svg_icon(ui.get_theme.dig(:components, :modal, :close_button, :icon, :file), 
+            <%= ui.icon(ui.get_theme.dig(:components, :modal, :close_button, :icon, :file), 
                          class: ui.get_theme.dig(:components, :modal, :close_button, :icon, :class)) %>
           </button>
         </div>
@@ -37,7 +37,7 @@
         <div class="<%= ui.get_theme.dig(:components, :modal, :content, :wrapper) %>">
           <!-- Icon -->
           <div class="<%= ui.modal_icon_wrapper_class(options[:variant]) %>">
-            <%= svg_icon(ui.get_theme.dig(:components, :modal, :icon, :variants, options[:variant], :file), 
+            <%= ui.icon(ui.get_theme.dig(:components, :modal, :icon, :variants, options[:variant], :file), 
                          class: [ui.get_theme.dig(:components, :modal, :icon, :class), 
                                 ui.get_theme.dig(:components, :modal, :icon, :variants, options[:variant], :icon)].join(' ')) %>
           </div>

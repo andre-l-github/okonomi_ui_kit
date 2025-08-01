@@ -11,10 +11,10 @@
           <% if blob.image? %>
             <%= image_tag url_for(blob), class: "max-h-32" %>
           <% else %>
-            <%= svg_icon("heroicons/solid/document", class: "size-12 text-gray-400") %>
+            <%= ui.icon("heroicons/solid/document", class: "size-12 text-gray-400") %>
           <% end %>
         <% else %>
-          <%= svg_icon("heroicons/solid/plus", class: "size-12 w-12 text-gray-400") %>
+          <%= ui.icon("heroicons/solid/plus", class: "size-12 w-12 text-gray-400") %>
         <% end %>
       </div>
 

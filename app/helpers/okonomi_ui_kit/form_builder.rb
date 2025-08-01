@@ -85,7 +85,7 @@ module OkonomiUiKit
       ].compact.join(' ').split(' ').uniq
 
       select_html = super(method, choices, options, html_options.merge(class: css), &block)
-      icon_html = @template.svg_icon(
+      icon_html = @template.ui.icon(
         ui.get_theme.dig(:components, :select, :icon, :file),
         class: ui.get_theme.dig(:components, :select, :icon, :class)
       )
@@ -108,7 +108,7 @@ module OkonomiUiKit
       ].compact.join(' ').split(' ').uniq
 
       select_html = super(method, collection, value_method, text_method, options, html_options.merge(class: css))
-      icon_html = @template.svg_icon(
+      icon_html = @template.ui.icon(
         ui.get_theme.dig(:components, :select, :icon, :file),
         class: ui.get_theme.dig(:components, :select, :icon, :class)
       )

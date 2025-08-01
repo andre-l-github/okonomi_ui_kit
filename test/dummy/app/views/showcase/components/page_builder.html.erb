@@ -9,7 +9,7 @@
       <% row.title("Page Builder Showcase") %>
       <% row.actions do %>
         <%= link_to root_path, class: "inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" do %>
-          <%= svg_icon("heroicons/outline/arrow-path", class: "h-4 w-4 mr-2") %>
+          <%= ui.icon("heroicons/outline/arrow-path", class: "h-4 w-4 mr-2") %>
           Back to Components
         <% end %>
       <% end %>
@@ -97,7 +97,7 @@
     <% s.subtitle("Headers with breadcrumbs, titles, and actions") %>
     <% s.actions do %>
       <%= link_to "#", class: "text-blue-600 hover:text-blue-800 text-sm font-medium" do %>
-        <%= svg_icon("heroicons/outline/document-text", class: "h-4 w-4 mr-1 inline") %>
+        <%= ui.icon("heroicons/outline/document-text", class: "h-4 w-4 mr-1 inline") %>
         View Documentation
       <% end %>
     <% end %>
@@ -281,7 +281,7 @@
                     <%= ui.badge("Admin", severity: :info) %>
                     <%= ui.badge("Editor", severity: :default) %>
                     <button class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-gray-300 hover:bg-gray-50">
-                      <%= svg_icon("heroicons/outline/plus", class: "h-3 w-3 mr-1") %>
+                      <%= ui.icon("heroicons/outline/plus", class: "h-3 w-3 mr-1") %>
                       Add
                     </button>
                   </div>
@@ -336,7 +336,7 @@
                 <% info.subtitle("Basic user details and contact information") %>
                 <% info.actions do %>
                   <%= link_to "#", class: "text-blue-600 hover:text-blue-800 text-sm font-medium" do %>
-                    <%= svg_icon("heroicons/outline/pencil", class: "h-4 w-4 mr-1 inline") %>
+                    <%= ui.icon("heroicons/outline/pencil", class: "h-4 w-4 mr-1 inline") %>
                     Edit
                   <% end %>
                 <% end %>
@@ -357,7 +357,7 @@
                   <% settings.attribute("Two-factor authentication") do %>
                     <div class="flex items-center justify-between">
                       <span class="text-green-600 flex items-center">
-                        <%= svg_icon("heroicons/outline/check-circle", class: "h-4 w-4 mr-1") %>
+                        <%= ui.icon("heroicons/outline/check-circle", class: "h-4 w-4 mr-1") %>
                         Enabled
                       </span>
                       <button class="text-blue-600 hover:text-blue-800 text-sm">Configure</button>

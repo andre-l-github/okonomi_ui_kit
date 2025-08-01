@@ -1,0 +1,38 @@
+<%
+  # Load the SVG content
+  svg_content = if OkonomiUiKit::SvgIcons.exist?(name)
+    OkonomiUiKit::SvgIcons.read(name)
+  else
+    "<!-- SVG #{name} not found -->"
+  end
+  
+  # Parse and modify the SVG
+  if svg_content.start_with?("<!--")
+%><%= raw svg_content %><%
+  else
+    doc = Nokogiri::HTML::DocumentFragment.parse(svg_content)
+    svg = doc.at_css('svg')
+    
+    if svg
+      # Apply classes
+      svg['class'] = classes if classes.present?
+      
+      # Apply dimensions
+      svg['width'] = width if width.present?
+      svg['height'] = height if height.present?
+      
+      # Apply any additional options as attributes
+      options.each do |key, value|
+        if key.to_s == 'data' && value.is_a?(Hash)
+          # Handle data attributes specially
+          value.each do |data_key, data_value|
+            svg["data-#{data_key.to_s.dasherize}"] = data_value
+          end
+        else
+          svg[key.to_s.dasherize] = value
+        end
+      end
+    end
+%><%= raw doc.to_html %><%
+  end
+%>
