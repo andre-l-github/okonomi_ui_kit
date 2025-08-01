@@ -59,8 +59,7 @@ module OkonomiUiKit
             success: "text-success-600",
             danger: "text-danger-600",
             warning: "text-warning-600",
-            info: "text-info-600",
-            pimmel: "text-pimmel-600"
+            info: "text-info-600"
           }
         }
       end
