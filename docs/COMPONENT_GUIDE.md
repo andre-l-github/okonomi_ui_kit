@@ -153,6 +153,210 @@ end
 4. **Class Composition**: Build classes arrays and join them, filtering out blanks
 5. **Template Variables**: Pass all necessary variables to the template explicitly
 
+## Defining and Using Styles in Components
+
+### Style Registration
+
+Components can define their default styles using the `register_styles` class method. This approach provides:
+- Clean separation of styling from logic
+- Easy style overrides via theme system
+- Consistent style access patterns
+
+#### Basic Style Registration
+
+```ruby
+module OkonomiUiKit
+  module Components
+    class Button < OkonomiUiKit::Component
+      register_styles :default do
+        {
+          base: "inline-flex items-center justify-center rounded-md font-medium",
+          sizes: {
+            sm: "px-3 py-1.5 text-sm",
+            md: "px-4 py-2 text-base",
+            lg: "px-6 py-3 text-lg"
+          },
+          variants: {
+            primary: "bg-primary-600 text-white hover:bg-primary-700",
+            secondary: "bg-secondary-600 text-white hover:bg-secondary-700",
+            outlined: "border border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+          }
+        }
+      end
+    end
+  end
+end
+```
+
+### Accessing Styles in Components
+
+The `Component` base class provides a `style` method to access registered styles:
+
+```ruby
+def render(text, options = {})
+  size = (options.delete(:size) || :md).to_sym
+  variant = (options.delete(:variant) || :primary).to_sym
+  
+  classes = [
+    style(:base),                    # Access base styles
+    style(:sizes, size),             # Access nested styles
+    style(:variants, variant),       # Access variant styles
+    options.delete(:class)           # Include custom classes
+  ].compact.join(' ')
+  
+  view.tag.button(text, class: classes, **options)
+end
+```
+
+### Style Registration Patterns
+
+#### 1. Simple Components
+For components with basic styling needs:
+
+```ruby
+register_styles :default do
+  {
+    base: "inline-block rounded px-2 py-1 text-sm",
+    colors: {
+      default: "bg-gray-100 text-gray-800",
+      primary: "bg-blue-100 text-blue-800",
+      success: "bg-green-100 text-green-800"
+    }
+  }
+end
+```
+
+#### 2. Complex Components
+For components with multiple style dimensions:
+
+```ruby
+register_styles :default do
+  {
+    base: "relative inline-flex items-center",
+    variants: {
+      solid: "shadow-sm",
+      ghost: "shadow-none",
+      raised: "shadow-lg"
+    },
+    sizes: {
+      sm: "h-8 text-sm",
+      md: "h-10 text-base",
+      lg: "h-12 text-lg"
+    },
+    states: {
+      disabled: "opacity-50 cursor-not-allowed",
+      loading: "cursor-wait",
+      active: "ring-2 ring-offset-2"
+    }
+  }
+end
+```
+
+#### 3. Conditional Styles
+When styles depend on multiple conditions:
+
+```ruby
+def render(content, options = {})
+  variant = options.delete(:variant) || :solid
+  size = options.delete(:size) || :md
+  disabled = options.delete(:disabled)
+  loading = options.delete(:loading)
+  
+  classes = [
+    style(:base),
+    style(:variants, variant),
+    style(:sizes, size),
+    disabled ? style(:states, :disabled) : nil,
+    loading ? style(:states, :loading) : nil
+  ].compact.join(' ')
+  
+  # ...
+end
+```
+
+### Theme Integration
+
+Registered styles automatically integrate with the theme system. Users can override component styles via theme configuration:
+
+```ruby
+# In an initializer
+Rails.application.config.after_initialize do
+  OkonomiUiKit::Theme::DEFAULT_THEME.deep_merge!({
+    components: {
+      button: {
+        base: "custom-button-base-classes",
+        variants: {
+          primary: "bg-brand-500 hover:bg-brand-600"
+        }
+      }
+    }
+  })
+end
+```
+
+### Style Method Reference
+
+The `style` method supports multiple access patterns:
+
+```ruby
+# Access base styles
+style(:base)                     # => "inline-flex items-center..."
+
+# Access nested styles
+style(:variants, :primary)       # => "bg-primary-600 text-white..."
+
+# Access deeply nested styles
+style(:states, :hover, :primary) # => "hover:bg-primary-700"
+
+# Returns nil for non-existent keys (safe access)
+style(:variants, :unknown)       # => nil
+```
+
+### Best Practices for Component Styles
+
+1. **Use Semantic Keys**: Name style groups based on their purpose (variants, sizes, states)
+2. **Provide Defaults**: Always include sensible defaults for optional style parameters
+3. **Keep Base Minimal**: Base styles should only include essential, always-applied classes
+4. **Avoid Conflicts**: Design style groups to be composable without conflicts
+5. **Use Tailwind Utilities**: Leverage Tailwind's utility classes for consistency
+6. **Document Style Options**: Include comments describing available style options
+
+### Complete Example: Badge Component
+
+```ruby
+module OkonomiUiKit
+  module Components
+    class Badge < OkonomiUiKit::Component
+      def render(text, options = {})
+        options = options.with_indifferent_access
+        severity = (options.delete(:severity) || :default).to_sym
+        
+        classes = [
+          style(:base),
+          style(:severities, severity) || '',
+          options.delete(:class) || ''
+        ].reject(&:blank?).join(' ')
+
+        view.tag.span(text, class: classes, **options)
+      end
+
+      register_styles :default do
+        {
+          base: "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium",
+          severities: {
+            default: "bg-gray-100 text-gray-800",
+            success: "bg-green-100 text-green-800",
+            danger: "bg-red-100 text-red-800",
+            info: "bg-blue-100 text-blue-800",
+            warning: "bg-yellow-100 text-yellow-800"
+          }
+        }
+      end
+    end
+  end
+end
+```
+
 ## Adding Theme Support
 
 Components should integrate with the theme system. Access theme configuration using:
@@ -162,6 +366,8 @@ theme.dig(:components, :your_component, :base)
 theme.dig(:components, :your_component, :variants, variant_name)
 theme.dig(:components, :your_component, :colors, color_name)
 ```
+
+Note: When using `register_styles`, the `style` method is preferred over direct `theme.dig` calls as it provides cleaner syntax and automatic style registration.
 
 ## Testing Your Component
 
