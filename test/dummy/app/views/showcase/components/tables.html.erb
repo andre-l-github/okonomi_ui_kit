@@ -1,0 +1,225 @@
+<div class="space-y-8 p-8">
+  <div>
+    <h1 class="text-3xl font-bold">Tables</h1>
+    <p class="text-gray-600 mt-2">Responsive data tables with customizable styling and empty states.</p>
+  </div>
+
+  <div class="space-y-12">
+    <!-- Basic Table -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Basic Table</h2>
+      <%= ui.table do |table| %>
+        <%= table.head do %>
+          <%= table.tr do %>
+            <% table.th { "Name" } %>
+            <% table.th { "Email" } %>
+            <% table.th { "Role" } %>
+            <% table.th { "Status" } %>
+          <% end %>
+        <% end %>
+        <%= table.body do %>
+          <%= table.tr do %>
+            <% table.td { "John Doe" } %>
+            <% table.td { "john.doe@example.com" } %>
+            <% table.td { "Admin" } %>
+            <% table.td { ui.badge("Active", color: :success) } %>
+          <% end %>
+          <%= table.tr do %>
+            <% table.td { "Jane Smith" } %>
+            <% table.td { "jane.smith@example.com" } %>
+            <% table.td { "User" } %>
+            <% table.td { ui.badge("Active", color: :success) } %>
+          <% end %>
+          <%= table.tr do %>
+            <% table.td { "Bob Johnson" } %>
+            <% table.td { "bob.johnson@example.com" } %>
+            <% table.td { "User" } %>
+            <% table.td { ui.badge("Inactive", color: :gray) } %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </section>
+
+    <!-- Table with Alignment -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Table with Alignment</h2>
+
+      <%= ui.table do |table| %>
+        <%= table.head do %>
+          <%= table.tr do %>
+            <% table.th(align: :left) { "Product" } %>
+            <% table.th(align: :center) { "Quantity" } %>
+            <% table.th(align: :right) { "Price" } %>
+            <% table.th(align: :right) { "Total" } %>
+          <% end %>
+        <% end %>
+        <%= table.body do %>
+          <%= table.tr do %>
+            <% table.td(align: :left) { "Widget A" } %>
+            <% table.td(align: :center) { "5" } %>
+            <% table.td(align: :right) { "$10.00" } %>
+            <% table.td(align: :right) { "$50.00" } %>
+          <% end %>
+          <%= table.tr do %>
+            <% table.td(align: :left) { "Gadget B" } %>
+            <% table.td(align: :center) { "3" } %>
+            <% table.td(align: :right) { "$25.00" } %>
+            <% table.td(align: :right) { "$75.00" } %>
+          <% end %>
+          <%= table.tr do %>
+            <% table.td(align: :left) { "Doohickey C" } %>
+            <% table.td(align: :center) { "10" } %>
+            <% table.td(align: :right) { "$5.00" } %>
+            <% table.td(align: :right) { "$50.00" } %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </section>
+
+    <!-- Table with Complex Content -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Table with Complex Content</h2>
+      <%= ui.table do |table| %>
+        <%= table.head do %>
+          <%= table.tr do %>
+            <% table.th { "User" } %>
+            <% table.th { "Details" } %>
+            <% table.th { "Actions" } %>
+          <% end %>
+        <% end %>
+        <%= table.body do %>
+          <%= table.tr do %>
+            <% table.td do %>
+              <div class="flex items-center">
+                <div class="h-10 w-10 flex-shrink-0">
+                  <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900">
+                    Lindsay Walton
+                  </div>
+                  <div class="text-sm text-gray-500">
+                    lindsay.walton@example.com
+                  </div>
+                </div>
+              </div>
+            <% end %>
+            <% table.td do %>
+              <div class="text-sm text-gray-900">Front-end Developer</div>
+              <div class="text-sm text-gray-500">Member since 2020</div>
+            <% end %>
+            <% table.td do %>
+              <%= ui.button_to("Edit", size: :sm, variant: :outlined, color: :primary) %>
+            <% end %>
+          <% end %>
+          <%= table.tr do %>
+            <% table.td do %>
+              <div class="flex items-center">
+                <div class="h-10 w-10 flex-shrink-0">
+                  <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900">
+                    Michael Foster
+                  </div>
+                  <div class="text-sm text-gray-500">
+                    michael.foster@example.com
+                  </div>
+                </div>
+              </div>
+            <% end %>
+            <% table.td do %>
+              <div class="text-sm text-gray-900">Backend Developer</div>
+              <div class="text-sm text-gray-500">Member since 2019</div>
+            <% end %>
+            <% table.td do %>
+              <%= ui.button_to("Edit", size: :sm, variant: :outlined, color: :primary) %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </section>
+
+    <!-- Empty State Table -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Table with Empty State</h2>
+      <%= ui.table do |table| %>
+        <%= table.head do %>
+          <%= table.tr do %>
+            <% table.th { "Name" } %>
+            <% table.th { "Email" } %>
+            <% table.th { "Role" } %>
+          <% end %>
+        <% end %>
+        <%= table.body do %>
+          <%= table.empty_state(title: "No users found", colspan: 3) %>
+        <% end %>
+      <% end %>
+    </section>
+
+    <!-- Custom Empty State -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Table with Custom Empty State</h2>
+      <div class="bg-white rounded-lg shadow p-6">
+        <%= ui.table do |table| %>
+          <%= table.head do %>
+            <%= table.tr do %>
+              <% table.th { "Product" } %>
+              <% table.th { "Stock" } %>
+              <% table.th { "Price" } %>
+            <% end %>
+          <% end %>
+          <%= table.body do %>
+            <%= table.empty_state(colspan: 3) do %>
+              <div class="text-center py-12">
+                <%= svg_icon("heroicons/outline/shopping-cart", class: "mx-auto h-12 w-12 text-gray-400") %>
+                <h3 class="mt-2 text-sm font-medium text-gray-900">No products</h3>
+                <p class="mt-1 text-sm text-gray-500">Get started by creating a new product.</p>
+                <div class="mt-6">
+                  <%= ui.button_to("New Product", variant: :primary, size: :sm) %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
+
+    <!-- Table with Custom Styling -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Table with Custom Styling</h2>
+      <div class="bg-white rounded-lg shadow p-6">
+        <%= ui.table(class: "custom-table", data: { controller: "table" }) do |table| %>
+          <%= table.head do %>
+            <%= table.tr do %>
+              <% table.th(class: "bg-gray-50") { "Feature" } %>
+              <% table.th(class: "bg-gray-50") { "Basic" } %>
+              <% table.th(class: "bg-gray-50") { "Pro" } %>
+              <% table.th(class: "bg-gray-50") { "Enterprise" } %>
+            <% end %>
+          <% end %>
+          <%= table.body do %>
+            <%= table.tr do %>
+              <% table.td(class: "font-medium") { "Users" } %>
+              <% table.td { "10" } %>
+              <% table.td { "100" } %>
+              <% table.td { "Unlimited" } %>
+            <% end %>
+            <%= table.tr do %>
+              <% table.td(class: "font-medium") { "Storage" } %>
+              <% table.td { "10 GB" } %>
+              <% table.td { "100 GB" } %>
+              <% table.td { "Unlimited" } %>
+            <% end %>
+            <%= table.tr do %>
+              <% table.td(class: "font-medium") { "Support" } %>
+              <% table.td { ui.badge("Email", color: :gray, size: :sm) } %>
+              <% table.td { ui.badge("Priority", color: :primary, size: :sm) } %>
+              <% table.td { ui.badge("24/7", color: :success, size: :sm) } %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
+  </div>
+</div>

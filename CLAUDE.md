@@ -64,8 +64,6 @@ The UI components are organized as helper modules in `app/helpers/okonomi_ui_kit
 - **FormBuilder** (`form_builder.rb`) - Custom form builder with Tailwind-styled inputs
 - **Theme** (`theme.rb`) - Centralized theme configuration with component variants
 - **NavigationHelper** - Navigation components (menus, breadcrumbs)
-- **TableHelper** - Table components with sorting and filtering
-- **BadgeHelper** - Badge and status indicators
 - **IconHelper** - Icon system integration
 - **PageBuilderHelper** - Page layout components
 - **AttributeSectionHelper** - Attribute display sections
@@ -86,8 +84,7 @@ The theme system (`app/helpers/okonomi_ui_kit/theme.rb`) provides:
 ### View Templates
 Templates are organized by component type:
 - `app/views/okonomi/forms/tailwind/` - Form field templates
-- `app/views/okonomi/tables/` - Table components
-- `app/views/okonomi/page_builder/` - Page layout templates
+- `app/views/okonomi/components/` - Component templates (alert, badge, table, typography, etc.)
 - `app/views/okonomi/attribute_sections/` - Attribute display templates
 
 ### Stimulus Controllers
