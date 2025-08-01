@@ -121,6 +121,7 @@ end
 
 ### Component Guides
 
+- [Breadcrumbs](guides/components/breadcrumbs.md) - Navigation breadcrumb trails
 - [Typography](guides/components/typography.md) - Text styling with semantic HTML elements
 
 ### Development

@@ -359,15 +359,39 @@ end
 
 ## Adding Theme Support
 
-Components should integrate with the theme system. Access theme configuration using:
+**DEPRECATION NOTICE**: The old theme system using `theme.rb` and `theme.dig` is deprecated and will be removed once all components are refactored. New components should use the `register_styles` approach exclusively.
+
+### Legacy Theme System (Deprecated)
+
+The old approach of accessing theme configuration via `theme.dig` is deprecated:
 
 ```ruby
+# DEPRECATED - Do not use in new components
 theme.dig(:components, :your_component, :base)
 theme.dig(:components, :your_component, :variants, variant_name)
 theme.dig(:components, :your_component, :colors, color_name)
 ```
 
-Note: When using `register_styles`, the `style` method is preferred over direct `theme.dig` calls as it provides cleaner syntax and automatic style registration.
+### Current Approach (Required for New Components)
+
+All new components must use the `register_styles` method and access styles via the `style` helper:
+
+```ruby
+class MyComponent < OkonomiUiKit::Component
+  register_styles :default do
+    {
+      base: "...",
+      variants: { ... }
+    }
+  end
+  
+  def render(...)
+    style(:base)  # Use this instead of theme.dig
+  end
+end
+```
+
+The `style` method provides cleaner syntax, automatic style registration, and better integration with the component system.
 
 ## Testing Your Component
 

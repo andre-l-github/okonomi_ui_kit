@@ -1,0 +1,46 @@
+<%= tag.nav(**options.merge(class: component.style(:nav), 'aria-label': 'Breadcrumb')) do %>
+  <ol role="list" class="<%= component.style(:list) %>">
+    <% items.each_with_index do |item, index| %>
+      <li>
+        <div class="flex items-center">
+          <% if index == 0 %>
+            <% if item[:icon] %>
+              <% if item[:path] %>
+                <%= link_to item[:path], class: "text-gray-400 hover:text-gray-500", 'aria-current': (item[:current] ? 'page' : nil) do %>
+                  <%= item[:icon] %>
+                  <span class="sr-only"><%= item[:text] %></span>
+                <% end %>
+              <% else %>
+                <span class="text-gray-400" aria-current="<%= item[:current] ? 'page' : nil %>">
+                  <%= item[:icon] %>
+                  <span class="sr-only"><%= item[:text] %></span>
+                </span>
+              <% end %>
+            <% else %>
+              <div class="flex items-center">
+                <% if item[:path] && !item[:current] %>
+                  <%= link_to item[:text], item[:path], class: component.style(:link, :first), 'aria-current': nil %>
+                <% else %>
+                  <span class="<%= component.style(:link, :first) %>" aria-current="<%= item[:current] ? 'page' : nil %>">
+                    <%= item[:text] %>
+                  </span>
+                <% end %>
+              </div>
+            <% end %>
+          <% else %>
+            <svg class="<%= component.style(:separator, :base) %>" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+            </svg>
+            <% if item[:path] && !item[:current] %>
+              <%= link_to item[:text], item[:path], class: component.style(:link, :base), 'aria-current': nil %>
+            <% else %>
+              <span class="<%= component.style(:link, :current) %>" aria-current="<%= item[:current] ? 'page' : nil %>">
+                <%= item[:text] %>
+              </span>
+            <% end %>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ol>
+<% end %>

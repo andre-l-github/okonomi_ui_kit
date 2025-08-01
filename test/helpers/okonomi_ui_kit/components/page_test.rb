@@ -38,20 +38,18 @@ module OkonomiUiKit
       end
 
       test "page header with breadcrumbs" do
-        # Mock breadcrumbs helper
-        def breadcrumbs(&block)
-          "<nav>Breadcrumbs</nav>".html_safe
-        end
-        
         html = ui.page do |page|
           page.page_header do |header|
-            header.breadcrumbs do
-              # Breadcrumb content
+            header.breadcrumbs do |crumb|
+              crumb.link("Home", "/")
+              crumb.link("Users", "/users")
             end
           end
         end
         
-        assert_includes html, "<nav>Breadcrumbs</nav>"
+        assert_includes html, 'aria-label="Breadcrumb"'
+        assert_includes html, "Home"
+        assert_includes html, "Users"
       end
 
       test "page header with actions" do

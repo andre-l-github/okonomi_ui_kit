@@ -62,7 +62,7 @@ module OkonomiUiKit
       end
 
       def breadcrumbs(&block)
-        @breadcrumbs_content = @template.breadcrumbs(&block)
+        @breadcrumbs_content = @template.ui.breadcrumbs(&block)
       end
 
       def row(&block)
