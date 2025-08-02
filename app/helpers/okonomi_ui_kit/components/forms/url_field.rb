@@ -1,0 +1,8 @@
+module OkonomiUiKit
+  module Components
+    module Forms
+      class UrlField < OkonomiUiKit::Components::Forms::InputBase
+      end
+    end
+  end
+end

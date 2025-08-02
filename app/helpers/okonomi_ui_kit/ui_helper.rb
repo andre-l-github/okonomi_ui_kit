@@ -8,8 +8,11 @@ module OkonomiUiKit
       include ActionView::Helpers::TagHelper
       include ActionView::Helpers::CaptureHelper
 
-      def initialize(template)
+      attr_reader :template, :namespace
+
+      def initialize(template, namespace: OkonomiUiKit::Components)
         @template = template
+        @namespace = namespace
       end
 
       def theme(t = {}, &block)
@@ -70,12 +73,25 @@ module OkonomiUiKit
       end
 
       def method_missing(method_name, *args, &block)
-        component_name = "OkonomiUiKit::Components::#{method_name.to_s.camelize}"
-        if Object.const_defined?(component_name)
-          return component_name.constantize.new(@template, get_theme).render(*args, &block)
+        component = resolve_component(method_name)
+
+        if component
+          component.render(*args, &block)
         else
           super
         end
+      end
+
+      def resolve_component(name)
+        component_name = "#{namespace.name}::#{name.to_s.camelize}"
+
+        return nil unless Object.const_defined?(component_name)
+
+        component_name.constantize.new(@template, get_theme)
+      end
+
+      def forms
+        @forms ||= self.class.new(@template, namespace: OkonomiUiKit::Components::Forms)
       end
     end
   end

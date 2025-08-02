@@ -19,18 +19,25 @@ module OkonomiUiKit
     end
 
     def text_field(method, options = {})
-      css = input_field_classes(method, :text, options)
-      super(method, { autocomplete: "off" }.merge(options).merge(class: css))
+      super(*resolve_arguments(:text_field, method, options))
     end
 
     def email_field(method, options = {})
-      css = input_field_classes(method, :email, options)
-      super(method, options.merge(class: css))
+      super(*resolve_arguments(:email_field, method, options))
     end
 
     def url_field(method, options = {})
-      css = input_field_classes(method, :url, options)
-      super(method, options.merge(class: css))
+      super(*resolve_arguments(:url_field, method, options))
+    end
+
+    def resolve_arguments(component_name, *args)
+      component = ui.forms.resolve_component(component_name)
+
+      if component.nil?
+        args
+      else
+        component.render_arguments(object, *args)
+      end
     end
 
     def password_field(method, options = {})

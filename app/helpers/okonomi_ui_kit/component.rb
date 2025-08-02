@@ -50,7 +50,11 @@ module OkonomiUiKit
 
       raise ArgumentError, "Styles must be a Hash" unless styles.is_a?(Hash)
 
-      internal_styles_registry[theme] = styles if styles.is_a?(Hash)
+      internal_styles_registry[theme] ||= {}
+      internal_styles_registry[theme] = deep_merge(internal_styles_registry[theme], styles)
+
+      p "[#{self.name}] Merged"
+      p internal_styles_registry
     end
 
     def self.internal_styles_registry
@@ -58,7 +62,9 @@ module OkonomiUiKit
     end
 
     def self.parent_styles_registry
+      p [superclass.name, superclass.respond_to?(:internal_styles_registry)]
       if superclass.respond_to?(:internal_styles_registry)
+        p superclass.internal_styles_registry
         superclass.internal_styles_registry
       else
         {}
@@ -84,7 +90,11 @@ module OkonomiUiKit
     end
 
     def self.config_class_name
-      "OkonomiUiKit::Configs::#{name.demodulize}"
+      "#{config_namespace.name}::#{name.demodulize}"
+    end
+
+    def self.config_namespace
+      OkonomiUiKit::Configs
     end
 
     def self.config_class?

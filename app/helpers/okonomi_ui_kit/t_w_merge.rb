@@ -25,6 +25,12 @@ module OkonomiUiKit
       result.join(' ')
     end
 
+    def self.merge_all(*args)
+      args.compact.reduce do |merged, arg|
+        merge(merged, arg)
+      end
+    end
+
     # Deep-merge two hashes; when both values are strings, merge as Tailwind classes.
     # For other types, the right-hand value wins unless it is nil.
     def self.deep_merge(a, b)
