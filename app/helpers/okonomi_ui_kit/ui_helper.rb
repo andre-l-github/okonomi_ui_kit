@@ -29,19 +29,19 @@ module OkonomiUiKit
         @_okonomi_ui_kit_theme ||= OkonomiUiKit::Theme::DEFAULT_THEME
       end
 
-      def button_class(variant: 'contained', color: 'default', classes: '')
+      def button_class(variant: "contained", color: "default", classes: "")
         [
-          get_theme.dig(:components, :link, :root) || '',
-          get_theme.dig(:components, :link, variant.to_sym, :root) || '',
-          get_theme.dig(:components, :link, variant.to_sym, :colors, color.to_sym) || '',
-          classes,
-        ].join(' ')
+          get_theme.dig(:components, :link, :root) || "",
+          get_theme.dig(:components, :link, variant.to_sym, :root) || "",
+          get_theme.dig(:components, :link, variant.to_sym, :colors, color.to_sym) || "",
+          classes
+        ].compact.join(" ")
       end
 
       def confirmation_modal(title:, message:, confirm_text: "Confirm", cancel_text: "Cancel", variant: :warning, size: :md, **options, &block)
         modal_options = {
           title: title,
-          message: message, 
+          message: message,
           confirm_text: confirm_text,
           cancel_text: cancel_text,
           variant: variant,
@@ -54,22 +54,22 @@ module OkonomiUiKit
 
       def modal_data_attributes(options)
         return "" unless options[:data]
-        
-        options[:data].map { |k, v| "data-#{k.to_s.dasherize}=\"#{v}\"" }.join(' ').html_safe
+
+        options[:data].map { |k, v| "data-#{k.to_s.dasherize}=\"#{v}\"" }.join(" ").html_safe
       end
 
       def modal_panel_class(size)
         [
           get_theme.dig(:components, :modal, :panel, :base),
           get_theme.dig(:components, :modal, :panel, :sizes, size)
-        ].compact.join(' ')
+        ].compact.join(" ")
       end
 
       def modal_icon_wrapper_class(variant)
         [
           get_theme.dig(:components, :modal, :icon, :wrapper),
           get_theme.dig(:components, :modal, :icon, :variants, variant, :wrapper)
-        ].compact.join(' ')
+        ].compact.join(" ")
       end
 
       def method_missing(method_name, *args, &block)

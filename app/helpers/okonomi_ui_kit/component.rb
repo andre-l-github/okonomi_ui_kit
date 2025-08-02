@@ -8,7 +8,7 @@ module OkonomiUiKit
     end
 
     def template_path
-      "okonomi/components/#{name}/#{name}"
+      [ self.class.name.underscore.gsub("okonomi_ui_kit/", "okonomi/"), name ].join("/")
     end
 
     def name

@@ -7,7 +7,7 @@ module OkonomiUiKit
     end
 
     def field_set(options = {}, &block)
-      @template.render('okonomi/forms/tailwind/field_set', options:, form: self, &block)
+      ui.forms.field_set(self, options, &block)
     end
 
     def field(field_id = nil, options = {}, &block)

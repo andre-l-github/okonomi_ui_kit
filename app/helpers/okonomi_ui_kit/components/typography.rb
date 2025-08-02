@@ -2,14 +2,14 @@ module OkonomiUiKit
   module Components
     class Typography < OkonomiUiKit::Component
       TYPOGRAPHY_COMPONENTS = {
-        body1: 'p',
-        body2: 'p',
-        h1: 'h1',
-        h2: 'h2',
-        h3: 'h3',
-        h4: 'h4',
-        h5: 'h5',
-        h6: 'h6',
+        body1: "p",
+        body2: "p",
+        h1: "h1",
+        h2: "h2",
+        h3: "h3",
+        h4: "h4",
+        h5: "h5",
+        h6: "h6"
       }.freeze
 
       def render(text = nil, options = {}, &block)
@@ -17,15 +17,19 @@ module OkonomiUiKit
         options ||= {}
         options = options.with_indifferent_access
 
-        variant = (options.delete(:variant) || 'body1').to_sym
-        component = (TYPOGRAPHY_COMPONENTS[variant] || 'span').to_s
-        color = (options.delete(:color) || 'default').to_sym
+        variant = (options.delete(:variant) || "body1").to_sym
+        component = (TYPOGRAPHY_COMPONENTS[variant] || "span").to_s
+        color = (options.delete(:color) || "default").to_sym
+
+        # Check theme overrides first
+        theme_variant = theme.dig(:components, :typography, :variants, variant)
+        theme_color = theme.dig(:components, :typography, :colors, color)
 
         classes = [
-          style(:variants, variant) || '',
-          style(:colors, color) || '',
-          options.delete(:class) || ''
-        ].reject(&:blank?).join(' ')
+          theme_variant || style(:variants, variant) || "",
+          theme_color || style(:colors, color) || "",
+          options.delete(:class) || ""
+        ].reject(&:blank?).join(" ")
 
         view.render(
           template_path,

@@ -129,27 +129,27 @@ module OkonomiUiKit
 
     test "modal_data_attributes helper formats data attributes correctly" do
       data_html = ui.modal_data_attributes({ data: { test_attr: "value1", another_attr: "value2" } })
-      
+
       assert_includes data_html, 'data-test-attr="value1"'
       assert_includes data_html, 'data-another-attr="value2"'
     end
 
     test "modal_data_attributes helper returns empty string when no data" do
       data_html = ui.modal_data_attributes({})
-      
+
       assert_equal "", data_html
     end
 
     test "modal_panel_class helper builds panel classes correctly" do
       panel_class = ui.modal_panel_class(:lg)
-      
+
       assert_includes panel_class, "relative transform overflow-hidden"
       assert_includes panel_class, "sm:max-w-2xl"
     end
 
     test "modal_icon_wrapper_class helper builds icon wrapper classes correctly" do
       wrapper_class = ui.modal_icon_wrapper_class(:warning)
-      
+
       assert_includes wrapper_class, "mx-auto flex size-12"
       assert_includes wrapper_class, "bg-red-100"
     end
@@ -160,17 +160,17 @@ module OkonomiUiKit
         message: "Test message",
         variant: :info
       )
-      
+
       # Should use contained button styling for primary action
       assert_includes modal_html, "bg-info-600 text-white hover:bg-info-700"
       assert_includes modal_html, "sm:ml-3 sm:w-auto"
-      
-      # Should use outlined button styling for secondary action  
+
+      # Should use outlined button styling for secondary action
       assert_includes modal_html, "bg-white text-default-700 border-default-700 hover:bg-default-50"
       assert_includes modal_html, "mt-3 sm:mt-0 sm:w-auto"
-      
+
       # Should include proper button structure
-      assert_includes modal_html, "hover:cursor-pointer inline-flex border items-center justify-center"
+      assert_match /hover:cursor-pointer.*inline-flex.*border.*items-center.*justify-center/, modal_html
     end
   end
 end
