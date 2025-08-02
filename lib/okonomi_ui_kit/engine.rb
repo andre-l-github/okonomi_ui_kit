@@ -22,7 +22,6 @@ module OkonomiUiKit
       ActiveSupport.on_load(:action_view) do
         include OkonomiUiKit::ApplicationHelper
         include OkonomiUiKit::AttributeSectionHelper
-        include OkonomiUiKit::NavigationHelper
         include OkonomiUiKit::UiHelper
 
         ActionView::Base.field_error_proc = ->(html_tag, _instance) { html_tag.html_safe }

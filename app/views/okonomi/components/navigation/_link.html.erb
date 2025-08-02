@@ -1,0 +1,18 @@
+<%
+  # Get the main view context that has access to helpers
+  view_context = style_helper.view
+  
+  options = {
+    exact: defined?(exact) ? exact : false,
+    class: style_helper.style(:link, :base),
+    active_class: style_helper.style(:link, :active)
+  }
+%>
+<%= view_context.active_link_to path, options do %>
+  <% if defined?(initials) && initials.present? %>
+    <span class="<%= style_helper.style(:link, :initials, :base) %>"><%= initials %></span>
+  <% elsif defined?(icon) && icon.present? %>
+    <%= view_context.ui.icon icon, class: style_helper.style(:link, :icon) %>
+  <% end %>
+  <%= title %>
+<% end %>

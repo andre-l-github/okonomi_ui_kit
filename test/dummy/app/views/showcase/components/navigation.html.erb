@@ -1,0 +1,182 @@
+<%= ui.page do |page| %>
+  <% page.page_header do |header| %>
+    <% header.breadcrumbs do |b| %>
+      <% b.link("Components", root_path) %>
+      <% b.link("Navigation", "#", current: true) %>
+    <% end %>
+    
+    <% header.row do |row| %>
+      <% row.title("Navigation Component") %>
+    <% end %>
+  <% end %>
+
+  <% page.section title: "Overview" do |section| %>
+    <% section.body do %>
+      <p class="text-gray-600">The Navigation component provides a flexible way to create sidebar navigation menus with groups, links, and profile sections. It supports active link highlighting, icons, and user initials.</p>
+    <% end %>
+  <% end %>
+
+  <% page.section title: "Basic Navigation Menu" do |section| %>
+    <% section.subtitle "A simple navigation menu with grouped links" %>
+    <% section.body do %>
+      <div class="space-y-6">
+        <!-- Preview -->
+        <div class="bg-gray-50 p-4 rounded-lg" style="height: 24rem;">
+          <div class="w-64">
+            <%= ui.navigation do |nav| %>
+              <% nav.group "Dashboard" do |group| %>
+                <% group.nav_link "Overview", "#", icon: "home", exact: true %>
+                <% group.nav_link "Analytics", "#", icon: "chart-pie" %>
+                <% group.nav_link "Reports", "#", icon: "document-chart-bar" %>
+              <% end %>
+              
+              <% nav.group "Team" do |group| %>
+                <% group.nav_link "Members", "#", icon: "users" %>
+                <% group.nav_link "Settings", "#", icon: "cog-6-tooth" %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Code -->
+        <%= ui.code variant: :minimal do %>
+&lt;%= ui.navigation do |nav| %&gt;
+  &lt;% nav.group "Dashboard" do |group| %&gt;
+    &lt;% group.nav_link "Overview", "#", icon: "home", exact: true %&gt;
+    &lt;% group.nav_link "Analytics", "#", icon: "chart-pie" %&gt;
+    &lt;% group.nav_link "Reports", "#", icon: "document-chart-bar" %&gt;
+  &lt;% end %&gt;
+  
+  &lt;% nav.group "Team" do |group| %&gt;
+    &lt;% group.nav_link "Members", "#", icon: "users" %&gt;
+    &lt;% group.nav_link "Settings", "#", icon: "cog-6-tooth" %&gt;
+  &lt;% end %&gt;
+&lt;% end %&gt;
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% page.section title: "With User Initials" do |section| %>
+    <% section.subtitle "Navigation links can display user initials instead of icons" %>
+    <% section.body do %>
+      <div class="space-y-6">
+        <!-- Preview -->
+        <div class="bg-gray-50 p-4 rounded-lg" style="height: 16rem;">
+          <div class="w-64">
+            <%= ui.navigation do |nav| %>
+              <% nav.group "Projects" do |group| %>
+                <% group.nav_link "Marketing Site", "#", initials: "MS" %>
+                <% group.nav_link "Customer Portal", "#", initials: "CP" %>
+                <% group.nav_link "Admin Dashboard", "#", initials: "AD" %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Code -->
+        <%= ui.code variant: :minimal do %>
+&lt;%= ui.navigation do |nav| %&gt;
+  &lt;% nav.group "Projects" do |group| %&gt;
+    &lt;% group.nav_link "Marketing Site", "#", initials: "MS" %&gt;
+    &lt;% group.nav_link "Customer Portal", "#", initials: "CP" %&gt;
+    &lt;% group.nav_link "Admin Dashboard", "#", initials: "AD" %&gt;
+  &lt;% end %&gt;
+&lt;% end %&gt;
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% page.section title: "With Profile Section" do |section| %>
+    <% section.subtitle "Add a profile section at the bottom of the navigation" %>
+    <% section.body do %>
+      <div class="space-y-6">
+        <!-- Preview -->
+        <div class="bg-gray-50 p-4 rounded-lg" style="height: 24rem;">
+          <div class="w-64 h-full flex">
+            <%= ui.navigation do |nav| %>
+              <% nav.group "Navigation" do |group| %>
+                <% group.nav_link "Dashboard", "#", icon: "home" %>
+                <% group.nav_link "Team", "#", icon: "users" %>
+                <% group.nav_link "Projects", "#", icon: "folder" %>
+              <% end %>
+              
+              <% nav.profile_section do %>
+                <div class="flex items-center gap-x-4 px-6 py-3 text-sm/6 font-semibold text-gray-900 hover:bg-gray-50">
+                  <img class="size-8 rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                  <span class="sr-only">Your profile</span>
+                  <span aria-hidden="true">Tom Cook</span>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Code -->
+        <%= ui.code variant: :minimal do %>
+&lt;%= ui.navigation do |nav| %&gt;
+  &lt;% nav.group "Navigation" do |group| %&gt;
+    &lt;% group.nav_link "Dashboard", "#", icon: "home" %&gt;
+    &lt;% group.nav_link "Team", "#", icon: "users" %&gt;
+    &lt;% group.nav_link "Projects", "#", icon: "folder" %&gt;
+  &lt;% end %&gt;
+  
+  &lt;% nav.profile_section do %&gt;
+    &lt;div class="flex items-center gap-x-4 px-6 py-3 text-sm/6 font-semibold text-gray-900 hover:bg-gray-50"&gt;
+      &lt;img class="size-8 rounded-full bg-gray-50" src="..." alt=""&gt;
+      &lt;span class="sr-only"&gt;Your profile&lt;/span&gt;
+      &lt;span aria-hidden="true"&gt;Tom Cook&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;% end %&gt;
+&lt;% end %&gt;
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% page.section title: "Customization" do |section| %>
+    <% section.subtitle "The Navigation component can be customized through the theme system" %>
+    <% section.body do %>
+      <p class="text-gray-600 mb-4">You can override the default styles for the menu, groups, links, and profile sections.</p>
+      
+      <%= ui.code variant: :minimal do %>
+# In an initializer
+Rails.application.config.after_initialize do
+  OkonomiUiKit::Theme::DEFAULT_THEME.deep_merge!({
+    components: {
+      navigation: {
+        menu: {
+          base: "custom-menu-classes"
+        },
+        link: {
+          base: "custom-link-classes",
+          active: "custom-active-link-classes"
+        }
+      }
+    }
+  })
+end
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <% page.section title: "API Reference" do |section| %>
+    <% section.body do %>
+      <% section.attribute "nav.group", "Creates a navigation group with a title. Yields a group builder for adding links." %>
+      
+      <% section.attribute "group.nav_link" do %>
+        Adds a navigation link to a group. Parameters:
+        <ul class="list-disc list-inside mt-2 space-y-1 text-sm">
+          <li><code class="bg-gray-100 px-1 rounded">title</code> - The link text</li>
+          <li><code class="bg-gray-100 px-1 rounded">path</code> - The URL path</li>
+          <li><code class="bg-gray-100 px-1 rounded">icon:</code> - Optional icon name (from Heroicons)</li>
+          <li><code class="bg-gray-100 px-1 rounded">initials:</code> - Optional initials to display instead of icon</li>
+          <li><code class="bg-gray-100 px-1 rounded">exact:</code> - Whether to use exact matching for active state (default: false)</li>
+        </ul>
+      <% end %>
+      
+      <% section.attribute "nav.profile_section", "Creates a profile section at the bottom of the navigation. Yields a block for custom content." %>
+    <% end %>
+  <% end %>
+<% end %>

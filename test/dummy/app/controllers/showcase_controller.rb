@@ -6,7 +6,8 @@ class ShowcaseController < ApplicationController
       { name: "page_builder", title: "Page Builder", description: "Semantic page layout system with headers, sections, and attributes" },
       { name: "form_builder", title: "Form Builder", description: "Tailwind-styled forms with validation, labels, hints, and i18n support" },
       { name: "modals", title: "Confirmation Modals", description: "Accessible confirmation dialogs with customizable actions and variants" },
-      { name: "tables", title: "Tables", description: "Responsive data tables with headers, bodies, custom styling, and empty states" }
+      { name: "tables", title: "Tables", description: "Responsive data tables with headers, bodies, custom styling, and empty states" },
+      { name: "navigation", title: "Navigation", description: "Sidebar navigation menus with groups, links, and profile sections" }
     ]
   end
 

@@ -122,8 +122,9 @@ end
 ### Component Guides
 
 - [Breadcrumbs](guides/components/breadcrumbs.md) - Navigation breadcrumb trails
-- [Typography](guides/components/typography.md) - Text styling with semantic HTML elements
 - [Icon](guides/components/icon.md) - SVG icon rendering with theme support
+- [Navigation](guides/components/navigation.md) - Sidebar navigation menus with groups and links
+- [Typography](guides/components/typography.md) - Text styling with semantic HTML elements
 
 ### Development
 
