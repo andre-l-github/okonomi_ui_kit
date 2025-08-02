@@ -4,7 +4,6 @@ module OkonomiUiKit
       class InputBase < OkonomiUiKit::FormComponent
         def render_arguments(object, method, options = {})
           css = input_field_classes(object, method, :text, options)
-          p [self.class.name, styles]
           [method, { autocomplete: "off" }.merge(options).merge(class: css)]
         end
 

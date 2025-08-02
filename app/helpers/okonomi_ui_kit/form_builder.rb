@@ -41,43 +41,35 @@ module OkonomiUiKit
     end
 
     def password_field(method, options = {})
-      css = input_field_classes(method, :password, options)
-      super(method, options.merge(class: css))
+      super(*resolve_arguments(:password_field, method, options))
     end
 
     def number_field(method, options = {})
-      css = input_field_classes(method, :number, options)
-      super(method, options.merge(class: css))
+      super(*resolve_arguments(:number_field, method, options))
     end
 
     def telephone_field(method, options = {})
-      css = input_field_classes(method, :telephone_field, options)
-      super(method, options.merge(class: css))
+      super(*resolve_arguments(:telephone_field, method, options))
     end
 
     def search_field(method, options = {})
-      css = input_field_classes(method, :search, options)
-      super(method, options.merge(class: css))
+      super(*resolve_arguments(:search_field, method, options))
     end
 
     def date_field(method, options = {})
-      css = input_field_classes(method, :date, options)
-      super(method, options.merge(class: css))
+      super(*resolve_arguments(:date_field, method, options))
     end
 
     def datetime_local_field(method, options = {})
-      css = input_field_classes(method, :datetime_local, options)
-      super(method, options.merge(class: css))
+      super(*resolve_arguments(:datetime_local_field, method, options))
     end
 
     def time_field(method, options = {})
-      css = input_field_classes(method, :time, options)
-      super(method, options.merge(class: css))
+      super(*resolve_arguments(:time_field, method, options))
     end
 
     def text_area(method, options = {})
-      css = input_field_classes(method, :textarea, options, include_disabled: false)
-      super(method, options.merge(class: css))
+      super(*resolve_arguments(:text_area, method, options))
     end
 
     def select(method, choices = nil, options = {}, html_options = {}, &block)
@@ -178,26 +170,6 @@ module OkonomiUiKit
     end
 
     private
-
-    def input_field_classes(method, type, options, include_disabled: true)
-      css_classes = [
-        ui.get_theme.dig(:components, :input, :types, type, :root) || ui.get_theme.dig(:components, :input, :types, :text, :root),
-        when_errors(
-          method,
-          ui.get_theme.dig(:components, :input, :types, type, :error) || ui.get_theme.dig(:components, :input, :types, :text, :error),
-          ui.get_theme.dig(:components, :input, :types, type, :valid) || ui.get_theme.dig(:components, :input, :types, :text, :valid)
-        ),
-        options[:class]
-      ]
-
-      if include_disabled
-        css_classes << (
-          ui.get_theme.dig(:components, :input, :types, type, :disabled) || ui.get_theme.dig(:components, :input, :types, :text, :disabled)
-        )
-      end
-
-      css_classes.compact.join(' ').split(' ').uniq
-    end
 
     def when_errors(method, value, default_value = nil)
       key = method.to_s.gsub('_id', '').to_sym
