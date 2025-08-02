@@ -2,8 +2,9 @@ module OkonomiUiKit
   module Components
     module Forms
       class InputBase < OkonomiUiKit::FormComponent
+
         def render_arguments(object, method, options = {})
-          css = input_field_classes(object, method, :text, options)
+          css = input_field_classes(object, method, self.class.type_value, options)
           [method, { autocomplete: "off" }.merge(options).merge(class: css)]
         end
 
@@ -14,6 +15,14 @@ module OkonomiUiKit
             valid: "text-default-700 ring-gray-300 focus-within:ring-gray-400",
             disabled: "disabled:bg-gray-50 disabled:cursor-not-allowed"
           }
+        end
+
+        def self.type(type)
+          @type = type
+        end
+
+        def self.type_value
+          @type || :text
         end
 
         def input_field_classes(object, method, type, options, include_disabled: true)
