@@ -39,7 +39,7 @@ The template path follows the convention: `okonomi/components/[name]/[name]`
 All components inherit from `OkonomiUiKit::Component` which provides:
 
 - `view`: Reference to the template/view context
-- `theme`: Access to the current theme configuration
+- `style`: Access to registered component styles
 - `template_path`: Automatically generates the path to the component's template
 - `name`: Returns the underscored component name
 
@@ -96,8 +96,8 @@ module OkonomiUiKit
         color = (options.delete(:color) || 'default').to_sym
         
         classes = [
-          theme.dig(:components, :typography, :variants, variant) || '',
-          theme.dig(:components, :typography, :colors, color) || '',
+          style(:variants, variant) || '',
+          style(:colors, color) || '',
           options.delete(:class) || ''
         ].reject(&:blank?).join(' ')
 
@@ -147,7 +147,7 @@ end
 
 ## Best Practices
 
-1. **Theme Integration**: Always use the `theme` accessor to get styling classes
+1. **Style Integration**: Always use the `style` method to get styling classes
 2. **Flexible Arguments**: Support both text/content as first argument and block form
 3. **Options Processing**: Use `with_indifferent_access` for options hashes
 4. **Class Composition**: Build classes arrays and join them, filtering out blanks
@@ -207,6 +207,30 @@ def render(text, options = {})
   view.tag.button(text, class: classes, **options)
 end
 ```
+
+### Using Config Classes for Customization
+
+Users can customize component styles by creating config classes instead of modifying theme configuration:
+
+```ruby
+# app/helpers/okonomi_ui_kit/configs/button.rb
+module OkonomiUiKit
+  module Configs
+    class Button < OkonomiUiKit::Config
+      register_styles :default do
+        {
+          base: "custom-button-base-classes",
+          variants: {
+            primary: "bg-brand-500 hover:bg-brand-600"
+          }
+        }
+      end
+    end
+  end
+end
+```
+
+For detailed information, see the [Style Override Guide](../guides/style-overrides-guide.md).
 
 ### Style Registration Patterns
 
@@ -274,25 +298,13 @@ def render(content, options = {})
 end
 ```
 
-### Theme Integration
+### Style Override System
 
-Registered styles automatically integrate with the theme system. Users can override component styles via theme configuration:
+Components use a two-layer style system:
+1. **Internal Styles**: Default styles defined with `register_styles` in the component
+2. **Config Styles**: Override styles defined in config classes
 
-```ruby
-# In an initializer
-Rails.application.config.after_initialize do
-  OkonomiUiKit::Theme::DEFAULT_THEME.deep_merge!({
-    components: {
-      button: {
-        base: "custom-button-base-classes",
-        variants: {
-          primary: "bg-brand-500 hover:bg-brand-600"
-        }
-      }
-    }
-  })
-end
-```
+Styles are merged intelligently using TWMerge, with config styles taking precedence over internal styles.
 
 ### Style Method Reference
 
@@ -357,24 +369,9 @@ module OkonomiUiKit
 end
 ```
 
-## Adding Theme Support
+## Component Style System
 
-**DEPRECATION NOTICE**: The old theme system using `theme.rb` and `theme.dig` is deprecated and will be removed once all components are refactored. New components should use the `register_styles` approach exclusively.
-
-### Legacy Theme System (Deprecated)
-
-The old approach of accessing theme configuration via `theme.dig` is deprecated:
-
-```ruby
-# DEPRECATED - Do not use in new components
-theme.dig(:components, :your_component, :base)
-theme.dig(:components, :your_component, :variants, variant_name)
-theme.dig(:components, :your_component, :colors, color_name)
-```
-
-### Current Approach (Required for New Components)
-
-All new components must use the `register_styles` method and access styles via the `style` helper:
+All components use the `register_styles` method to define their default styles and access them via the `style` helper:
 
 ```ruby
 class MyComponent < OkonomiUiKit::Component
@@ -386,12 +383,16 @@ class MyComponent < OkonomiUiKit::Component
   end
   
   def render(...)
-    style(:base)  # Use this instead of theme.dig
+    style(:base)  # Access registered styles
   end
 end
 ```
 
-The `style` method provides cleaner syntax, automatic style registration, and better integration with the component system.
+The `style` method provides:
+- Clean syntax for accessing styles
+- Automatic merging with config class overrides
+- Safe access (returns nil for missing keys)
+- Deep nesting support
 
 ## Testing Your Component
 
@@ -484,10 +485,10 @@ end
 
 4. **Theme Integration**
    ```ruby
-   test "applies theme classes" do
+   test "applies registered styles" do
      html = ui.alert("Message", variant: :success)
      
-     # Check that theme classes are applied
+     # Check that registered styles are applied
      assert_match /class="[^"]*"/, html
    end
    ```
@@ -502,14 +503,13 @@ end
    end
    ```
 
-6. **Theme Overrides**
+6. **Style Registration**
    ```ruby
-   test "respects theme overrides" do
-     ui.theme(components: { button: { base: "custom-class" } }) do
-       html = ui.button("Test")
-       
-       assert_includes html, "custom-class"
-     end
+   test "applies registered styles correctly" do
+     html = ui.button("Test", variant: :primary)
+     
+     # Verify the component uses its registered styles
+     assert_match /bg-primary/, html
    end
    ```
 
@@ -612,7 +612,7 @@ bin/rails test test/helpers/okonomi_ui_kit/components/
 1. **Test Public Interface** - Focus on testing what users of the component will use
 2. **Avoid Implementation Details** - Don't test internal methods or exact HTML structure unless critical
 3. **Test Edge Cases** - Include tests for nil values, empty strings, missing options
-4. **Test Integration** - Ensure components work with the theme system and view helpers
+4. **Test Integration** - Ensure components work with the style system and view helpers
 5. **Keep Tests Fast** - Use ActionView::TestCase for unit tests rather than integration tests
 6. **Use Descriptive Names** - Test names should clearly indicate what behavior they verify
 

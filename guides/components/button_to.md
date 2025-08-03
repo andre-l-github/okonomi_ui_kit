@@ -80,29 +80,34 @@ The component automatically wraps the button in a form element styled appropriat
 
 #### Customizing Styles
 
-You can customize the appearance by overriding the registered styles:
+You can customize the appearance by creating a custom config:
 
 ```ruby
-# In your component or initializer
-OkonomiUiKit::Components::ButtonTo.register_styles :custom do
-  {
-    root: "hover:cursor-pointer text-base transition-all duration-200",
-    contained: {
-      root: "px-4 py-2 rounded-lg shadow-sm hover:shadow-md",
-      colors: {
-        danger: "bg-red-600 text-white hover:bg-red-700 active:bg-red-800"
-      }
-    }
-  }
+# app/helpers/okonomi_ui_kit/configs/button_to.rb
+module OkonomiUiKit
+  module Configs
+    class ButtonTo < OkonomiUiKit::Config
+      register_styles :custom do
+        {
+          root: "hover:cursor-pointer text-base transition-all duration-200",
+          contained: {
+            root: "px-4 py-2 rounded-lg shadow-sm hover:shadow-md",
+            colors: {
+              danger: "bg-red-600 text-white hover:bg-red-700 active:bg-red-800"
+            }
+          }
+        }
+      end
+    end
+  end
 end
 ```
 
-Or use runtime theme switching:
+Then register and use your custom style:
 
-```erb
-<% ui.theme(components: { button_to: { root: "font-bold uppercase tracking-wide" } }) do %>
-  <%= ui.button_to "Styled Action", "/path" %>
-<% end %>
+```ruby
+# In an initializer or component
+OkonomiUiKit::Components::ButtonTo.use_config(:custom)
 ```
 
 ## Best Practices

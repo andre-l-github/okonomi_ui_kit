@@ -85,34 +85,39 @@ Base styling includes:
 
 #### Customizing Styles
 
-You can customize the appearance by overriding the registered styles:
+You can customize the appearance by creating a custom config:
 
 ```ruby
-# In your component or initializer
-OkonomiUiKit::Components::LinkTo.register_styles :custom do
-  {
-    text: {
-      root: "font-medium transition-colors duration-200",
-      colors: {
-        primary: "text-blue-600 hover:text-blue-800 hover:no-underline"
-      }
-    },
-    contained: {
-      root: "inline-flex items-center px-4 py-2 rounded-lg no-underline",
-      colors: {
-        primary: "bg-blue-600 text-white hover:bg-blue-700"
-      }
-    }
-  }
+# app/helpers/okonomi_ui_kit/configs/link_to.rb
+module OkonomiUiKit
+  module Configs
+    class LinkTo < OkonomiUiKit::Config
+      register_styles :custom do
+        {
+          text: {
+            root: "font-medium transition-colors duration-200",
+            colors: {
+              primary: "text-blue-600 hover:text-blue-800 hover:no-underline"
+            }
+          },
+          contained: {
+            root: "inline-flex items-center px-4 py-2 rounded-lg no-underline",
+            colors: {
+              primary: "bg-blue-600 text-white hover:bg-blue-700"
+            }
+          }
+        }
+      end
+    end
+  end
 end
 ```
 
-Or use runtime theme switching:
+Then register and use your custom style:
 
-```erb
-<% ui.theme(components: { link_to: { text: { root: "font-bold uppercase" } } }) do %>
-  <%= ui.link_to "Styled Link", path %>
-<% end %>
+```ruby
+# In an initializer or component
+OkonomiUiKit::Components::LinkTo.use_config(:custom)
 ```
 
 ## Best Practices

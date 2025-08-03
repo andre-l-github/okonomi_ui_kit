@@ -134,30 +134,39 @@ Here's a complete sidebar navigation example:
 
 ### Theme Configuration
 
-Customize the Navigation component styles through the theme system:
+Customize the Navigation component styles by creating a custom config:
 
 ```ruby
-# config/initializers/okonomi_ui_kit.rb
-Rails.application.config.after_initialize do
-  OkonomiUiKit::Theme::DEFAULT_THEME.deep_merge!({
-    components: {
-      navigation: {
-        menu: {
-          base: "flex flex-1 flex-col gap-y-5" # Adjust spacing
-        },
-        group: {
-          title: "text-xs font-bold uppercase text-gray-500", # Different title style
-          list: "-mx-3 mt-3 space-y-2" # Adjust group spacing
-        },
-        link: {
-          base: "group flex gap-x-3 rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100",
-          active: "bg-blue-50 text-blue-700 hover:bg-blue-100",
-          icon: "size-5 text-gray-500 group-hover:text-gray-700"
+# app/helpers/okonomi_ui_kit/configs/navigation.rb
+module OkonomiUiKit
+  module Configs
+    class Navigation < OkonomiUiKit::Config
+      register_styles :custom do
+        {
+          menu: {
+            base: "flex flex-1 flex-col gap-y-5" # Adjust spacing
+          },
+          group: {
+            title: "text-xs font-bold uppercase text-gray-500", # Different title style
+            list: "-mx-3 mt-3 space-y-2" # Adjust group spacing
+          },
+          link: {
+            base: "group flex gap-x-3 rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100",
+            active: "bg-blue-50 text-blue-700 hover:bg-blue-100",
+            icon: "size-5 text-gray-500 group-hover:text-gray-700"
+          }
         }
-      }
-    }
-  })
+      end
+    end
+  end
 end
+```
+
+Then register and use your custom style:
+
+```ruby
+# In an initializer or component
+OkonomiUiKit::Components::Navigation.use_config(:custom)
 ```
 
 ### Custom Styling

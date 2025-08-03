@@ -80,29 +80,34 @@ Each variant has color-specific classes for all supported colors.
 
 #### Customizing Styles
 
-You can customize the appearance by overriding the registered styles:
+You can customize the appearance by creating a custom config:
 
 ```ruby
-# In your component or initializer
-OkonomiUiKit::Components::ButtonTag.register_styles :custom do
-  {
-    root: "hover:cursor-pointer text-base font-semibold",
-    contained: {
-      root: "px-4 py-2 rounded-lg shadow-md transition-all",
-      colors: {
-        primary: "bg-indigo-600 text-white hover:bg-indigo-700 hover:shadow-lg"
-      }
-    }
-  }
+# app/helpers/okonomi_ui_kit/configs/button_tag.rb
+module OkonomiUiKit
+  module Configs
+    class ButtonTag < OkonomiUiKit::Config
+      register_styles :custom do
+        {
+          root: "hover:cursor-pointer text-base font-semibold",
+          contained: {
+            root: "px-4 py-2 rounded-lg shadow-md transition-all",
+            colors: {
+              primary: "bg-indigo-600 text-white hover:bg-indigo-700 hover:shadow-lg"
+            }
+          }
+        }
+      end
+    end
+  end
 end
 ```
 
-Or use runtime theme switching:
+Then register and use your custom style:
 
-```erb
-<% ui.theme(components: { button_tag: { root: "text-lg px-6 py-3" } }) do %>
-  <%= ui.button_tag "Large Button", variant: :contained %>
-<% end %>
+```ruby
+# In an initializer or component
+OkonomiUiKit::Components::ButtonTag.use_config(:custom)
 ```
 
 ## Best Practices

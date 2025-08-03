@@ -10,7 +10,7 @@ A Rails Engine gem that provides customizable, Tailwind CSS-based UI components 
 - **⚡ Stimulus Powered** - Progressive enhancement with Stimulus controllers
 - **🔧 Form Builder** - Enhanced form helpers with consistent styling
 - **📦 Component Library** - Pre-built components including buttons, badges, tables, alerts, and more
-- **🎯 Theme System** - Centralized theme configuration with variant support
+- **🎯 Style System** - Component-based styling with config class overrides
 - **🔄 Smart Style Merging** - Intelligent Tailwind class conflict resolution
 
 ## Installation
@@ -123,7 +123,7 @@ end
 
 - [Breadcrumbs](guides/components/breadcrumbs.md) - Navigation breadcrumb trails
 - [Confirmation Modal](guides/components/confirmation_modal.md) - Accessible modal dialogs for user confirmations
-- [Icon](guides/components/icon.md) - SVG icon rendering with theme support
+- [Icon](guides/components/icon.md) - SVG icon rendering with style customization
 - [Navigation](guides/components/navigation.md) - Sidebar navigation menus with groups and links
 - [Typography](guides/components/typography.md) - Text styling with semantic HTML elements
 
@@ -136,7 +136,7 @@ For development setup and commands, see [CLAUDE.md](CLAUDE.md#development-comman
 OkonomiUiKit is built as a Rails Engine with:
 
 - **Helper-based components** - Ruby methods that generate semantic HTML
-- **Centralized theme system** - Consistent styling across all components  
+- **Component style system** - Consistent styling with intelligent class merging  
 - **Stimulus controllers** - Progressive enhancement for interactivity
 - **Tailwind CSS integration** - Modern utility-first styling
 - **Smart style merging** - Intelligent conflict resolution for Tailwind classes

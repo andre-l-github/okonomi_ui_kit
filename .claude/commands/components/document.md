@@ -88,8 +88,8 @@ Example structure:
 #### 5. Styling Information
 - Include "## Styling" or "## Default Styles"
 - Document default Tailwind classes applied
-- Show theme customization examples
-- Include both initializer-based and runtime theme switching
+- Show style customization examples using config classes
+- Document the component's registered styles structure
 
 Template:
 ```markdown
@@ -103,26 +103,24 @@ The component includes these default Tailwind classes:
 
 #### Customizing Styles
 
-You can customize the appearance by overriding the registered styles:
+You can customize the appearance by creating a config class:
 
 ```ruby
-# In your component or initializer
-OkonomiUiKit::Components::ComponentName.register_styles :custom do
-  {
-    base: "custom-classes",
-    variants: {
-      primary: "variant-classes"
-    }
-  }
+# app/helpers/okonomi_ui_kit/configs/component_name.rb
+module OkonomiUiKit
+  module Configs
+    class ComponentName < OkonomiUiKit::Config
+      register_styles :default do
+        {
+          base: "custom-classes",
+          variants: {
+            primary: "variant-classes"
+          }
+        }
+      end
+    end
+  end
 end
-```
-
-Or use runtime theme switching:
-
-```erb
-<% ui.theme(components: { component_name: { base: "custom-classes" } }) do %>
-  <%= ui.component_name "Themed" %>
-<% end %>
 ```
 ```
 
@@ -263,7 +261,7 @@ The Card component provides a flexible container for grouping related content wi
 #### Default Styles
 [style documentation]
 
-#### Theme Customization
+#### Style Customization
 [customization examples]
 
 ## Best Practices

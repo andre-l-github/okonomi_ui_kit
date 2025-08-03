@@ -79,27 +79,33 @@ Additional styling:
 
 #### Customizing Styles
 
-You can customize the appearance through the theme system:
+You can customize the appearance by creating a custom config:
 
 ```ruby
-# In your initializer
-Rails.application.config.after_initialize do
-  OkonomiUiKit::Theme::DEFAULT_THEME.deep_merge!({
-    components: {
-      code: {
-        base: "bg-slate-800 text-slate-100 rounded-xl shadow-inner"
-      }
-    }
-  })
+# app/helpers/okonomi_ui_kit/configs/code.rb
+module OkonomiUiKit
+  module Configs
+    class Code < OkonomiUiKit::Config
+      register_styles :custom do
+        {
+          base: "bg-slate-800 text-slate-100 rounded-xl shadow-inner",
+          variants: {
+            default: "p-4 rounded-lg",
+            inline: "px-1 py-0.5 rounded text-sm font-mono",
+            minimal: "p-3 rounded text-xs"
+          }
+        }
+      end
+    end
+  end
 end
 ```
 
-Or use runtime theme switching:
+Then register and use your custom style:
 
-```erb
-<% ui.theme(components: { code: { base: "bg-indigo-950 text-indigo-100" } }) do %>
-  <%= ui.code "const greeting = 'Hello!'", language: "javascript" %>
-<% end %>
+```ruby
+# In an initializer or component
+OkonomiUiKit::Components::Code.use_config(:custom)
 ```
 
 ## Best Practices

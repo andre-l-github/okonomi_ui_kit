@@ -60,27 +60,25 @@ The alert component includes these default Tailwind classes:
 
 #### Customizing Styles
 
-You can customize the appearance by overriding the registered styles:
+You can customize the appearance by creating a config class:
 
 ```ruby
-# In your component or initializer
-OkonomiUiKit::Components::Alert.register_styles :custom do
-  {
-    base: "rounded-xl shadow-lg p-6",
-    variants: {
-      info: "bg-indigo-100 text-indigo-900",
-      success: "bg-emerald-100 text-emerald-900"
-    }
-  }
+# app/helpers/okonomi_ui_kit/configs/alert.rb
+module OkonomiUiKit
+  module Configs
+    class Alert < OkonomiUiKit::Config
+      register_styles :default do
+        {
+          base: "rounded-xl shadow-lg p-6",
+          variants: {
+            info: "bg-indigo-100 text-indigo-900",
+            success: "bg-emerald-100 text-emerald-900"
+          }
+        }
+      end
+    end
+  end
 end
-```
-
-Or use runtime theme switching:
-
-```erb
-<% ui.theme(components: { alert: { base: "rounded-none border-l-4" } }) do %>
-  <%= ui.alert "Custom styled alert" %>
-<% end %>
 ```
 
 ## Best Practices

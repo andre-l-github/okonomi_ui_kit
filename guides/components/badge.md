@@ -74,28 +74,26 @@ The badge component includes these default Tailwind classes:
 
 #### Customizing Styles
 
-You can customize the appearance by overriding the registered styles:
+You can customize the appearance by creating a config class:
 
 ```ruby
-# In your component or initializer
-OkonomiUiKit::Components::Badge.register_styles :custom do
-  {
-    base: "px-3 py-1 rounded-md text-sm font-semibold",
-    severities: {
-      default: "bg-slate-200 text-slate-700",
-      success: "bg-emerald-200 text-emerald-900",
-      danger: "bg-rose-200 text-rose-900"
-    }
-  }
+# app/helpers/okonomi_ui_kit/configs/badge.rb
+module OkonomiUiKit
+  module Configs
+    class Badge < OkonomiUiKit::Config
+      register_styles :default do
+        {
+          base: "px-3 py-1 rounded-md text-sm font-semibold",
+          severities: {
+            default: "bg-slate-200 text-slate-700",
+            success: "bg-emerald-200 text-emerald-900",
+            danger: "bg-rose-200 text-rose-900"
+          }
+        }
+      end
+    end
+  end
 end
-```
-
-Or use runtime theme switching:
-
-```erb
-<% ui.theme(components: { badge: { base: "rounded-sm px-4" } }) do %>
-  <%= ui.badge "Custom Badge" %>
-<% end %>
 ```
 
 ## Best Practices

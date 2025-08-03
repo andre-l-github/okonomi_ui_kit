@@ -110,27 +110,34 @@ The component works with any SVG files, but commonly used with:
 
 ## Styling with Theme
 
-The Icon component supports theme customization. You can override the base styles:
+The Icon component supports customization through config classes:
 
 ```ruby
-# config/initializers/okonomi_ui_kit.rb
-Rails.application.config.after_initialize do
-  OkonomiUiKit::Theme::DEFAULT_THEME.deep_merge!({
-    components: {
-      icon: {
-        base: "inline-block transition-colors duration-200"
-      }
-    }
-  })
+# app/helpers/okonomi_ui_kit/configs/icon.rb
+module OkonomiUiKit
+  module Configs
+    class Icon < OkonomiUiKit::Config
+      register_styles :custom do
+        {
+          base: "inline-block transition-colors duration-200"
+        }
+      end
+      
+      register_styles :animated do
+        {
+          base: "inline-block animate-pulse"
+        }
+      end
+    end
+  end
 end
 ```
 
-Or use runtime theme switching:
+Then register and use your custom style:
 
-```erb
-<% ui.theme(components: { icon: { base: "inline-block animate-pulse" } }) do %>
-  <%= ui.icon("heroicons/outline/bell") %>
-<% end %>
+```ruby
+# In an initializer or component
+OkonomiUiKit::Components::Icon.use_config(:custom)
 ```
 
 ## Best Practices

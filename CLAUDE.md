@@ -55,14 +55,14 @@ This gem is built as a Rails Engine, isolated in the `OkonomiUiKit` namespace. T
 
 ### Component Structure
 Components consist of three parts:
-1. **Helper Methods** - Ruby methods that generate HTML with theme-aware classes
+1. **Helper Methods** - Ruby methods that generate HTML with configurable classes
 2. **View Templates** - ERB templates in `app/views/okonomi/` that define component structure
 3. **Stimulus Controllers** - JavaScript controllers in `app/javascript/okonomi_ui_kit/controllers/`
 
 ### Helper Modules
 The UI components are organized as helper modules in `app/helpers/okonomi_ui_kit/`:
 - **FormBuilder** (`form_builder.rb`) - Custom form builder with Tailwind-styled inputs
-- **Theme** (`theme.rb`) - Centralized theme configuration with component variants
+- **Component** (`component.rb`) - Base class for components with style registration
 - **NavigationHelper** - Navigation components (menus, breadcrumbs)
 - **IconHelper** - Icon system integration
 - **PageBuilderHelper** - Page layout components
@@ -74,12 +74,12 @@ OkonomiUiKit uses a plugin-based architecture for components. New components are
 
 For detailed instructions on creating new components, see [Component Implementation Guide](docs/COMPONENT_GUIDE.md).
 
-### Theme System
-The theme system (`app/helpers/okonomi_ui_kit/theme.rb`) provides:
-- Hierarchical theme structure with components, variants, and colors
-- Runtime theme merging and inheritance
-- Context-aware theme switching via `ui.theme` blocks
-- Default theme as `OkonomiUiKit::Theme::DEFAULT_THEME`
+### Component Styling System
+The component styling system provides:
+- Component-based style registration via `register_styles`
+- Config class overrides for customization
+- Intelligent Tailwind class merging with TWMerge
+- Style inheritance through component hierarchy
 
 ### View Templates
 Templates are organized by component type:
@@ -121,32 +121,30 @@ The original template structure can be found at:
 gem_path/app/views/okonomi/forms/tailwind/_field.html.erb
 ```
 
-### 2. Theme Customization
-Customize the theme by creating an initializer that modifies `OkonomiUiKit::Theme::DEFAULT_THEME`:
+### 2. Style Customization
+Customize component styles by creating config classes:
 
 ```ruby
-# config/initializers/okonomi_ui_kit.rb
-Rails.application.config.after_initialize do
-  OkonomiUiKit::Theme::DEFAULT_THEME.deep_merge!({
-    components: {
-      button: {
-        base: "custom-button-classes",
-        variants: {
-          primary: "bg-brand-500 hover:bg-brand-600"
+# app/helpers/okonomi_ui_kit/configs/button_base.rb
+module OkonomiUiKit
+  module Configs
+    class ButtonBase < OkonomiUiKit::Config
+      register_styles :default do
+        {
+          root: "custom-button-classes",
+          contained: {
+            colors: {
+              primary: "bg-brand-500 hover:bg-brand-600"
+            }
+          }
         }
-      }
-    }
-  })
+      end
+    end
+  end
 end
 ```
 
-#### Runtime Theme Switching
-Use theme blocks for context-specific styling:
-```erb
-<% ui.theme(components: { button: { variants: { primary: "bg-green-500" } } }) do %>
-  <%= ui.button("Green Button", variant: :primary) %>
-<% end %>
-```
+For detailed customization instructions, see the [Style Override Guide](guides/style-overrides-guide.md).
 
 ### 3. Stimulus Controller Extension
 Extend or replace Stimulus controllers by registering your own:

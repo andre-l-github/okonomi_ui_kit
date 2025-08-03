@@ -9,7 +9,7 @@ The Navigation component has been refactored from a helper module to a proper co
 ### Key Changes
 
 1. **Access Method**: Changed from `navigation_menu` to `ui.navigation`
-2. **Theme Integration**: Styles are now managed through the component's style registry
+2. **Style System**: Styles are now managed through the component's style registry and config classes
 3. **Builder Pattern**: The builder classes are now nested within the component
 4. **Template Structure**: Templates moved from `app/views/okonomi/navigation/` to `app/views/okonomi/components/navigation/`
 
@@ -45,19 +45,21 @@ If you were overriding navigation styles through CSS or inline classes, migrate 
 }
 ```
 
-**After (Theme configuration):**
+**After (Config class):**
 ```ruby
-# config/initializers/okonomi_ui_kit.rb
-Rails.application.config.after_initialize do
-  OkonomiUiKit::Theme::DEFAULT_THEME.deep_merge!({
-    components: {
-      navigation: {
-        group: {
-          title: "text-sm text-[#custom-color]"
+# app/helpers/okonomi_ui_kit/configs/navigation.rb
+module OkonomiUiKit
+  module Configs
+    class Navigation < OkonomiUiKit::Config
+      register_styles :default do
+        {
+          group: {
+            title: "text-sm text-[#custom-color]"
+          }
         }
-      }
-    }
-  })
+      end
+    end
+  end
 end
 ```
 
@@ -105,30 +107,37 @@ The navigation API remains largely unchanged:
 
 ## Style Customization
 
-The new component uses a structured style system:
+The new component uses a config class for style customization:
 
 ```ruby
-OkonomiUiKit::Components::Navigation.register_styles :custom do
-  {
-    menu: {
-      base: "custom-menu-classes"
-    },
-    group: {
-      title: "custom-group-title-classes",
-      list: "custom-group-list-classes"
-    },
-    link: {
-      base: "custom-link-classes",
-      active: "custom-active-link-classes",
-      icon: "custom-icon-classes",
-      initials: {
-        base: "custom-initials-classes"
-      }
-    },
-    profile_section: {
-      base: "custom-profile-section-classes"
-    }
-  }
+# app/helpers/okonomi_ui_kit/configs/navigation.rb
+module OkonomiUiKit
+  module Configs
+    class Navigation < OkonomiUiKit::Config
+      register_styles :default do
+        {
+          menu: {
+            base: "custom-menu-classes"
+          },
+          group: {
+            title: "custom-group-title-classes",
+            list: "custom-group-list-classes"
+          },
+          link: {
+            base: "custom-link-classes",
+            active: "custom-active-link-classes",
+            icon: "custom-icon-classes",
+            initials: {
+              base: "custom-initials-classes"
+            }
+          },
+          profile_section: {
+            base: "custom-profile-section-classes"
+          }
+        }
+      end
+    end
+  end
 end
 ```
 
@@ -146,9 +155,10 @@ If your navigation isn't rendering after migration:
 
 If styles aren't applying correctly:
 
-1. Check the theme configuration syntax
-2. Ensure theme changes are in an `after_initialize` block
-3. Use the browser inspector to verify classes are being applied
+1. Check that your config class is properly defined
+2. Ensure the config class file is in the correct location
+3. Restart your Rails server to load the new config
+4. Use the browser inspector to verify classes are being applied
 
 ### Active Link Issues
 
@@ -161,7 +171,7 @@ gem 'active_link_to'
 ## Benefits of Migration
 
 1. **Consistent API**: Navigation now follows the same pattern as other UI components
-2. **Better Theme Integration**: Styles can be customized through the central theme system
+2. **Better Style Integration**: Styles can be customized through config classes
 3. **Improved Maintainability**: Component-based architecture is easier to test and extend
 4. **Type Safety**: Better IDE support and autocomplete with the component pattern
 
