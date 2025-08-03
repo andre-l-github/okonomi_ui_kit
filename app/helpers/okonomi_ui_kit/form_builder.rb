@@ -89,11 +89,15 @@ module OkonomiUiKit
     end
 
     def submit(value = nil, options = {})
-      variant = options.delete(:variant) || "contained"
-      color = options.delete(:color) || "primary"
+      value, options = nil, value if value.is_a?(Hash)
+      value ||= submit_default_value
 
-      base_classes = ui.button_class(variant: variant, color: color)
-      super(value, merge_class(options, base_classes))
+      options ||= {}
+      options[:type] = "submit"
+      options[:variant] ||= "contained"
+      options[:color] ||= "primary"
+
+      ui.button_tag(value, options)
     end
 
     def check_box_with_label(method, options = {}, checked_value = true, unchecked_value = false)

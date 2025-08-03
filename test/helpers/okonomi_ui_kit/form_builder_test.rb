@@ -48,7 +48,7 @@ module OkonomiUiKit
 
     test "form builder shows field errors" do
       @model.errors.add(:name, "can't be blank")
-      
+
       form_html = form_with(model: @model, url: "/test", builder: OkonomiUiKit::FormBuilder) do |form|
         form.field :name do
           form.text_field :name
@@ -61,11 +61,11 @@ module OkonomiUiKit
     test "form builder creates select field" do
       form_html = form_with(model: @model, url: "/test", builder: OkonomiUiKit::FormBuilder) do |form|
         form.field :country do
-          form.select :country, [["US", "us"], ["UK", "uk"]], { prompt: "Select country" }
+          form.select :country, [ [ "US", "us" ], [ "UK", "uk" ] ], { prompt: "Select country" }
         end
       end
 
-      assert_includes form_html, '<select'
+      assert_includes form_html, "<select"
       assert_includes form_html, 'name="test_model[country]"'
       assert_includes form_html, '<option value="">Select country</option>'
       assert_includes form_html, '<option value="us">US</option>'
@@ -78,7 +78,7 @@ module OkonomiUiKit
         end
       end
 
-      assert_includes form_html, '<textarea'
+      assert_includes form_html, "<textarea"
       assert_includes form_html, 'name="test_model[bio]"'
       assert_includes form_html, 'rows="3"'
     end
@@ -100,10 +100,43 @@ module OkonomiUiKit
         form.submit "Save"
       end
 
-      assert_includes form_html, '<input type="submit"'
-      assert_includes form_html, 'value="Save"'
+      assert_includes form_html, '<button name="button" type="submit"'
+      assert_includes form_html, ">Save</button>"
       # Should have button styling
       assert_match /class="[^"]*hover:cursor-pointer[^"]*"/, form_html
+    end
+
+    test "submit with color option works" do
+      form_html = form_with(model: @model, url: "/test", builder: OkonomiUiKit::FormBuilder) do |form|
+        form.submit "Create Account", color: :primary
+      end
+
+      assert_includes form_html, '<button name="button" type="submit"'
+      assert_includes form_html, ">Create Account</button>"
+      assert_includes form_html, "bg-primary-600"
+    end
+
+    test "submit with custom class option works" do
+      form_html = form_with(model: @model, url: "/test", builder: OkonomiUiKit::FormBuilder) do |form|
+        form.submit "Delete User", class: "custom-danger-button-classes"
+      end
+
+      assert_includes form_html, '<button name="button" type="submit"'
+      assert_includes form_html, "custom-danger-button-classes"
+      assert_includes form_html, ">Delete User</button>"
+      # Custom classes should be appended to default button classes
+      assert_includes form_html, "hover:cursor-pointer"
+    end
+
+    test "submit with variant option works" do
+      form_html = form_with(model: @model, url: "/test", builder: OkonomiUiKit::FormBuilder) do |form|
+        form.submit "Save", variant: :outlined, color: :secondary
+      end
+
+      assert_includes form_html, '<button name="button" type="submit"'
+      assert_includes form_html, ">Save</button>"
+      # Should have outlined variant styling
+      assert_includes form_html, "border"
     end
 
     test "form builder creates check box with label" do
@@ -120,6 +153,5 @@ module OkonomiUiKit
       # Skip this test as it requires Active Storage setup
       skip "Upload field requires Active Storage setup"
     end
-
   end
 end
