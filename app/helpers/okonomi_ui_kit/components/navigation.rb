@@ -3,7 +3,7 @@ module OkonomiUiKit
     class Navigation < OkonomiUiKit::Component
       def render(options = {}, &block)
         options = options.with_indifferent_access
-        builder = NavigationBuilder.new(view, theme)
+        builder = NavigationBuilder.new(view, self)
 
         view.render(template_path, builder: builder, options: options, &block)
       end
@@ -33,17 +33,16 @@ module OkonomiUiKit
     end
 
     class NavigationBuilder
-      attr_reader :view, :theme, :navigation_component, :groups
+      attr_reader :view, :navigation_component, :groups
 
-      def initialize(view, theme)
+      def initialize(view, navigation_component)
         @view = view
-        @theme = theme
-        @navigation_component = Navigation.new(view, theme)
+        @navigation_component = navigation_component
         @groups = []
       end
 
       def group(title, &block)
-        group_builder = NavigationGroupBuilder.new(view, theme)
+        group_builder = NavigationGroupBuilder.new(view, navigation_component)
         yield(group_builder)
 
         @groups << view.tag.li do
@@ -67,12 +66,11 @@ module OkonomiUiKit
     end
 
     class NavigationGroupBuilder
-      attr_reader :view, :theme, :navigation_component, :links
+      attr_reader :view, :navigation_component, :links
 
-      def initialize(view, theme)
+      def initialize(view, navigation_component)
         @view = view
-        @theme = theme
-        @navigation_component = Navigation.new(view, theme)
+        @navigation_component = navigation_component
         @links = []
       end
 

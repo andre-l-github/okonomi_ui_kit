@@ -398,12 +398,6 @@
   .col-span-1 {
     grid-column: span 1 / span 1;
   }
-  .col-start-1 {
-    grid-column-start: 1;
-  }
-  .row-start-1 {
-    grid-row-start: 1;
-  }
   .container {
     width: 100%;
     @media (width >= 40rem) {
@@ -861,12 +855,6 @@
       border-color: var(--color-gray-300);
     }
   }
-  .self-center {
-    align-self: center;
-  }
-  .justify-self-end {
-    justify-self: flex-end;
-  }
   .truncate {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1235,9 +1223,6 @@
   .pr-4 {
     padding-right: calc(var(--spacing) * 4);
   }
-  .pr-8 {
-    padding-right: calc(var(--spacing) * 8);
-  }
   .pr-10 {
     padding-right: calc(var(--spacing) * 10);
   }
@@ -1276,10 +1261,6 @@
   .text-4xl {
     font-size: var(--text-4xl);
     line-height: var(--tw-leading, var(--text-4xl--line-height));
-  }
-  .text-6xl {
-    font-size: var(--text-6xl);
-    line-height: var(--tw-leading, var(--text-6xl--line-height));
   }
   .text-base {
     font-size: var(--text-base);
@@ -1586,13 +1567,6 @@
   .outline {
     outline-style: var(--tw-outline-style);
     outline-width: 1px;
-  }
-  .outline-1 {
-    outline-style: var(--tw-outline-style);
-    outline-width: 1px;
-  }
-  .outline-default-300 {
-    outline-color: var(--color-default-300);
   }
   .filter {
     filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
@@ -1998,12 +1972,6 @@
       border-color: var(--color-indigo-500);
     }
   }
-  .focus\:ring-0 {
-    &:focus {
-      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
-      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-    }
-  }
   .focus\:ring-2 {
     &:focus {
       --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
@@ -2110,12 +2078,6 @@
   .sm\:grid {
     @media (width >= 40rem) {
       display: grid;
-    }
-  }
-  .sm\:size-4 {
-    @media (width >= 40rem) {
-      width: calc(var(--spacing) * 4);
-      height: calc(var(--spacing) * 4);
     }
   }
   .sm\:size-10 {
@@ -2231,12 +2193,6 @@
     @media (width >= 40rem) {
       font-size: var(--text-sm);
       line-height: var(--tw-leading, var(--text-sm--line-height));
-    }
-  }
-  .sm\:text-sm\/6 {
-    @media (width >= 40rem) {
-      font-size: var(--text-sm);
-      line-height: calc(var(--spacing) * 6);
     }
   }
   .sm\:tracking-tight {

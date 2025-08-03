@@ -28,7 +28,7 @@ module OkonomiUiKit
           data: options.delete(:data) || {}
         }.merge(options)
         
-        view.render(template_path, options: modal_options, &block)
+        view.render(template_path, component: self, options: modal_options, &block)
       end
       
       # Register default styles for the confirmation modal

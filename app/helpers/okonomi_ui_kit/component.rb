@@ -1,10 +1,9 @@
 module OkonomiUiKit
   class Component
-    attr_reader :view, :theme
+    attr_reader :view
 
-    def initialize(view, theme)
+    def initialize(view)
       @view = view
-      @theme = theme || OkonomiUiKit::Theme::DEFAULT_THEME
     end
 
     def template_path

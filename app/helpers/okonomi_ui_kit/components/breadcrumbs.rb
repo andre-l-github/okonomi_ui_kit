@@ -28,7 +28,7 @@ module OkonomiUiKit
         }
       end
 
-      def initialize(template, options = {})
+      def initialize(template)
         super
         @items = []
         @builder = BreadcrumbBuilder.new(self)

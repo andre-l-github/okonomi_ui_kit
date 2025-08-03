@@ -5,7 +5,7 @@ module OkonomiUiKit
         options = options.with_indifferent_access
         variant = (options.delete(:variant) || :default).to_sym
 
-        builder = TableBuilder.new(view, theme, self, variant)
+        builder = TableBuilder.new(view, self, variant)
         view.render(template_path, builder: builder, options: options, &block)
       end
 
@@ -48,9 +48,8 @@ module OkonomiUiKit
       include ActionView::Helpers::TagHelper
       include ActionView::Helpers::CaptureHelper
 
-      def initialize(template, theme, style_provider, variant = :default)
+      def initialize(template, style_provider, variant = :default)
         @template = template
-        @theme = theme
         @style_provider = style_provider
         @variant = variant
         @current_row_cells = []

@@ -294,7 +294,8 @@
                 variant: :outlined, 
                 color: :default %>
             <%= f.submit "Delete User", 
-                class: ui.button_class(variant: :contained, color: :danger) %>
+                variant: :contained, 
+                color: :danger %>
           <% end %>
         <% end %>
         </div>
@@ -310,7 +311,8 @@
       &lt;%= ui.button_to "Cancel", "#",
           data: { action: "click->modal#close" } %&gt;
       &lt;%= f.submit "Delete User",
-          class: ui.button_class(color: :danger) %&gt;
+          variant: :contained,
+          color: :danger %&gt;
     &lt;/div&gt;
   &lt;% end %&gt;
 &lt;% end %&gt;</code></pre>
