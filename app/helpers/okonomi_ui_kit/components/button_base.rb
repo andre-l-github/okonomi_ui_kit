@@ -3,9 +3,9 @@ module OkonomiUiKit
     class ButtonBase < OkonomiUiKit::Component
       def build_button_class(variant:, color:, classes: "")
         [
-          theme_root || style(:root) || "",
-          theme_variant_root || style(variant.to_sym, :root) || "",
-          theme_variant_color || style(variant.to_sym, :colors, color.to_sym) || "",
+          style(:root) || "",
+          style(variant.to_sym, :root) || "",
+          style(variant.to_sym, :colors, color.to_sym) || "",
           classes
         ].reject(&:blank?).join(" ")
       end

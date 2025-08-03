@@ -2,7 +2,7 @@ module OkonomiUiKit
   class Component
     attr_reader :view, :theme
 
-    def initialize(view)
+    def initialize(view, theme)
       @view = view
       @theme = theme || OkonomiUiKit::Theme::DEFAULT_THEME
     end
