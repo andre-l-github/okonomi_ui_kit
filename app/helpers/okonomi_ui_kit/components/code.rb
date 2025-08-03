@@ -35,36 +35,38 @@ module OkonomiUiKit
         )
       end
 
+      register_styles :default do
+        {
+          base: "",
+          variants: {
+            default: "bg-gray-900 text-gray-100 p-4 rounded-lg",
+            inline: "bg-gray-100 text-gray-900 px-1 py-0.5 rounded text-sm font-mono",
+            minimal: "bg-gray-900 text-gray-100 p-3 rounded text-xs"
+          },
+          sizes: {
+            xs: "text-xs",
+            sm: "text-sm",
+            default: "text-sm",
+            lg: "text-base"
+          },
+          wrap: {
+            true: "overflow-x-auto",
+            false: "overflow-hidden"
+          }
+        }
+      end
+
       private
 
       def build_classes(variant:, size:, wrap:, custom_class: nil)
-        base_classes = theme.dig(:components, :code, :base) || "bg-gray-900 text-gray-100 rounded-lg"
+        base_classes = style(:base) || ""
+        variant_classes = style(:variants, variant) || ""
+        size_classes = style(:sizes, size) || ""
+        # Convert boolean wrap to symbol for hash access
+        wrap_key = wrap ? :true : :false
+        wrap_classes = style(:wrap, wrap_key) || ""
 
-        variant_classes = case variant
-        when :inline
-                            "bg-gray-100 text-gray-900 px-1 py-0.5 rounded text-sm font-mono"
-        when :minimal
-                            "bg-gray-900 text-gray-100 p-3 rounded text-xs"
-        else
-                            # :default
-                            "bg-gray-900 text-gray-100 p-4 rounded-lg"
-        end
-
-        size_classes = case size
-        when :xs
-                         "text-xs"
-        when :sm
-                         "text-sm"
-        when :lg
-                         "text-base"
-        else
-                         # :default
-                         "text-sm"
-        end
-
-        wrap_classes = wrap ? "overflow-x-auto" : "overflow-hidden"
-
-        [ base_classes, variant_classes, size_classes, wrap_classes, custom_class ].compact.join(" ")
+        [ base_classes, variant_classes, size_classes, wrap_classes, custom_class ].reject(&:blank?).join(" ")
       end
 
       def html_escape(content)

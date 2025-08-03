@@ -124,12 +124,13 @@ module OkonomiUiKit
         assert_includes html, "@name = name"
       end
 
-      test "code with theme override" do
-        ui.theme(components: { code: { base: "custom-theme-class" } }) do
-          html = ui.code("themed code")
+      test "code uses default styling" do
+        html = ui.code("themed code")
 
-          assert_includes html, "custom-theme-class"
-        end
+        assert_includes html, "bg-gray-900"
+        assert_includes html, "text-gray-100"
+        assert_includes html, "p-4"
+        assert_includes html, "rounded-lg"
       end
     end
   end
