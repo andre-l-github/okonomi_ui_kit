@@ -2,11 +2,6 @@ module OkonomiUiKit
   module Components
     class ButtonBase < OkonomiUiKit::Component
       def build_button_class(variant:, color:, classes: "")
-        # Check theme overrides first
-        theme_root = theme.dig(:components, :link, :root)
-        theme_variant_root = theme.dig(:components, :link, variant.to_sym, :root)
-        theme_variant_color = theme.dig(:components, :link, variant.to_sym, :colors, color.to_sym)
-
         [
           theme_root || style(:root) || "",
           theme_variant_root || style(variant.to_sym, :root) || "",
