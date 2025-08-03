@@ -11,11 +11,11 @@ module OkonomiUiKit
     end
 
     def field(field_id = nil, options = {}, &block)
-      @template.render('okonomi/forms/tailwind/field', field_id:, options:, form: self, &block)
+      ui.forms.field(self, field_id, options, &block)
     end
 
     def upload_field(method, options = {})
-      @template.render('okonomi/forms/tailwind/upload_field', method:, options:, form: self)
+      ui.forms.upload_field(self, method, options)
     end
 
     def text_field(method, options = {})
@@ -73,115 +73,41 @@ module OkonomiUiKit
     end
 
     def select(method, choices = nil, options = {}, html_options = {}, &block)
-      css = [
-        ui.get_theme.dig(:components, :select, :root),
-        when_errors(
-          method,
-          ui.get_theme.dig(:components, :select, :error),
-          ui.get_theme.dig(:components, :select, :valid)
-        ),
-        html_options[:class]
-      ].compact.join(' ').split(' ').uniq
-
-      select_html = super(method, choices, options, html_options.merge(class: css), &block)
-      icon_html = @template.ui.icon(
-        ui.get_theme.dig(:components, :select, :icon, :file),
-        class: ui.get_theme.dig(:components, :select, :icon, :class)
-      )
-
-      @template.content_tag(:div, class: ui.get_theme.dig(:components, :select, :wrapper)) do
-        @template.concat(select_html)
-        @template.concat(icon_html)
-      end
+      ui.forms.select(self, method, choices, options, html_options, &block)
     end
 
     def collection_select(method, collection, value_method, text_method, options = {}, html_options = {})
-      css = [
-        ui.get_theme.dig(:components, :select, :root),
-        when_errors(
-          method,
-          ui.get_theme.dig(:components, :select, :error),
-          ui.get_theme.dig(:components, :select, :valid)
-        ),
-        html_options[:class]
-      ].compact.join(' ').split(' ').uniq
-
-      select_html = super(method, collection, value_method, text_method, options, html_options.merge(class: css))
-      icon_html = @template.ui.icon(
-        ui.get_theme.dig(:components, :select, :icon, :file),
-        class: ui.get_theme.dig(:components, :select, :icon, :class)
-      )
-
-      @template.content_tag(:div, class: ui.get_theme.dig(:components, :select, :wrapper)) do
-        @template.concat(select_html)
-        @template.concat(icon_html)
-      end
+      ui.forms.collection_select(self, method, collection, value_method, text_method, options, html_options)
     end
 
     def multi_select(method, **options)
-      @template.render(
-        partial: 'okonomi/forms/tailwind/multi_select',
-        locals: {
-          form: self,
-          method: method,
-          options: options
-        }
-      )
+      ui.forms.multi_select(self, method, options)
     end
 
     def label(method, text = nil, options = {}, &block)
-      base_classes = ui.get_theme.dig(:components, :label, :root)
-      super(method, text, merge_class(options, base_classes), &block)
+      ui.forms.label(self, method, text, options, &block)
     end
 
     def submit(value = nil, options = {})
-      variant = options.delete(:variant) || 'contained'
-      color = options.delete(:color) || 'primary'
+      variant = options.delete(:variant) || "contained"
+      color = options.delete(:color) || "primary"
 
-      base_classes = ui.button_class(variant:, color:)
+      base_classes = ui.button_class(variant: variant, color: color)
       super(value, merge_class(options, base_classes))
     end
 
     def check_box_with_label(method, options = {}, checked_value = true, unchecked_value = false)
-      @template.content_tag(:div, class: ui.get_theme.dig(:components, :checkbox, :wrapper)) do
-        @template.concat check_box(
-                           method,
-                           {
-                             class: ui.get_theme.dig(:components, :checkbox, :input, :root)
-                           }.merge(options || {}),
-                           checked_value,
-                           unchecked_value
-                         )
-        @template.concat @template.render('okonomi/forms/tailwind/checkbox_label', method:, options:, form: self)
-      end
+      ui.forms.check_box_with_label(self, method, options, checked_value, unchecked_value)
     end
 
     def show_if(field:, equals:, &block)
-      field_id = "#{object_name}_#{field}"
-      @template.tag.div(
-        class: "hidden",
-        data: {
-          controller: "form-field-visibility",
-          "form-field-visibility-field-id-value": field_id,
-          "form-field-visibility-equals-value": equals
-        },
-        &block
-      )
+      ui.forms.show_if(self, field: field, equals: equals, &block)
     end
 
     private
 
-    def when_errors(method, value, default_value = nil)
-      key = method.to_s.gsub('_id', '').to_sym
-      if object.errors.include?(key) || object.errors.include?(method)
-        value
-      else
-        default_value
-      end
-    end
-
     def merge_class(options, new_class)
-      options[:class] = [options[:class], new_class].compact.join(" ")
+      options[:class] = OkonomiUiKit::TWMerge.merge(options[:class] || "", new_class)
       options
     end
   end

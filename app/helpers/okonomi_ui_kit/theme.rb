@@ -57,7 +57,7 @@ module OkonomiUiKit
           valid: "bg-white outline-default-300 text-default-700",
           wrapper: "grid grid-cols-1",
           icon: {
-            file: 'heroicons/solid/chevron-down',
+            file: "heroicons/solid/chevron-down",
             class: "pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
           }
         },
@@ -84,7 +84,7 @@ module OkonomiUiKit
             base: "relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all duration-300 ease-out sm:my-8 sm:w-full sm:p-6 opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95",
             sizes: {
               sm: "sm:max-w-sm",
-              md: "sm:max-w-lg", 
+              md: "sm:max-w-lg",
               lg: "sm:max-w-2xl",
               xl: "sm:max-w-4xl"
             }
@@ -108,7 +108,7 @@ module OkonomiUiKit
               },
               info: {
                 wrapper: "bg-blue-100",
-                icon: "text-blue-600", 
+                icon: "text-blue-600",
                 file: "heroicons/outline/information-circle"
               },
               success: {

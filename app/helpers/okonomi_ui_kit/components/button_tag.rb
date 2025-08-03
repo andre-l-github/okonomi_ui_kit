@@ -7,8 +7,8 @@ module OkonomiUiKit
         options ||= {}
         options = options.with_indifferent_access
 
-        variant = (options.delete(:variant) || 'contained').to_sym
-        color = (options.delete(:color) || 'default').to_sym
+        variant = (options.delete(:variant) || "contained").to_sym
+        color = (options.delete(:color) || "default").to_sym
 
         options[:class] = build_button_class(variant: variant, color: color, classes: options[:class])
 

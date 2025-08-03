@@ -2,10 +2,9 @@ module OkonomiUiKit
   module Components
     module Forms
       class InputBase < OkonomiUiKit::FormComponent
-
         def render_arguments(object, method, options = {})
           css = input_field_classes(object, method, self.class.type_value, options)
-          [method, { autocomplete: "off" }.merge(options).merge(class: css)]
+          [ method, { autocomplete: "off" }.merge(options).merge(class: css) ]
         end
 
         register_styles :default do
@@ -45,7 +44,7 @@ module OkonomiUiKit
         end
 
         def when_errors(object, method, value, default_value = nil)
-          key = method.to_s.gsub('_id', '').to_sym
+          key = method.to_s.gsub("_id", "").to_sym
           if object.errors.include?(key) || object.errors.include?(method)
             value
           else

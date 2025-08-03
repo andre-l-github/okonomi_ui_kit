@@ -4,7 +4,7 @@ module OkonomiUiKit
       def render(options = {}, &block)
         options = options.with_indifferent_access
         builder = NavigationBuilder.new(view, theme)
-        
+
         view.render(template_path, builder: builder, options: options, &block)
       end
 
@@ -45,7 +45,7 @@ module OkonomiUiKit
       def group(title, &block)
         group_builder = NavigationGroupBuilder.new(view, theme)
         yield(group_builder)
-        
+
         @groups << view.tag.li do
           view.tag.div(title, class: style(:group, :title)) +
           view.tag.ul(group_builder.render_links, role: "list", class: style(:group, :list))
@@ -60,7 +60,7 @@ module OkonomiUiKit
       def style(*args)
         navigation_component.style(*args)
       end
-      
+
       def render_groups
         view.safe_join(@groups)
       end
@@ -91,7 +91,7 @@ module OkonomiUiKit
       def style(*args)
         navigation_component.style(*args)
       end
-      
+
       def render_links
         view.safe_join(@links)
       end

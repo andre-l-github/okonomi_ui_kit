@@ -2,7 +2,7 @@ module OkonomiUiKit
   module Components
     class Alert < OkonomiUiKit::Component
       def render(title, options = {}, &block)
-        view.render(template_path, title:, options: options.with_indifferent_access, &block)
+        view.render(template_path, title: title, options: options.with_indifferent_access, &block)
       end
     end
   end

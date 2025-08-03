@@ -3,7 +3,7 @@ module OkonomiUiKit
     def attribute_section(title:, description: nil, **options, &block)
       builder = AttributeSectionBuilder.new(self)
 
-      render 'okonomi/attribute_sections/section',
+      render "okonomi/attribute_sections/section",
              builder: builder,
              title: title,
              description: description,
@@ -22,11 +22,11 @@ module OkonomiUiKit
       def attribute(label, value = nil, **options, &block)
         content = if block_given?
                     capture(&block)
-                  elsif value.respond_to?(:call)
+        elsif value.respond_to?(:call)
                     value.call
-                  else
+        else
                     value
-                  end
+        end
 
         tag.div(class: "py-6 sm:grid sm:grid-cols-3 sm:gap-4") do
           dt_content = tag.dt(label, class: "text-sm font-medium text-gray-900")

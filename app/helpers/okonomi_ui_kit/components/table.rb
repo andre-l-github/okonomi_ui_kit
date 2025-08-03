@@ -4,7 +4,7 @@ module OkonomiUiKit
       def render(options = {}, &block)
         options = options.with_indifferent_access
         variant = (options.delete(:variant) || :default).to_sym
-        
+
         builder = TableBuilder.new(view, theme, self, variant)
         view.render(template_path, builder: builder, options: options, &block)
       end
@@ -157,7 +157,7 @@ module OkonomiUiKit
 
       def render_th(cell, is_first, is_last)
         align_class = style(:alignment, cell[:align]) || style(:alignment, :left)
-        
+
         position_class = if is_first
           style(:th, :first)
         elsif is_last
@@ -171,7 +171,7 @@ module OkonomiUiKit
           position_class,
           align_class,
           cell[:options][:class]
-        ].compact.join(' ')
+        ].compact.join(" ")
 
         options = cell[:options].except(:class)
         tag.th(cell[:content], scope: cell[:scope], class: classes, **options)
@@ -179,7 +179,7 @@ module OkonomiUiKit
 
       def render_td(cell, is_first, is_last)
         align_class = style(:alignment, cell[:align]) || style(:alignment, :left)
-        
+
         position_class = if is_first
           style(:td, :first)
         elsif is_last
@@ -193,7 +193,7 @@ module OkonomiUiKit
           position_class,
           align_class,
           cell[:options][:class]
-        ].compact.join(' ')
+        ].compact.join(" ")
 
         options = cell[:options].except(:class)
         tag.td(cell[:content], class: classes, **options)

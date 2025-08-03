@@ -11,7 +11,7 @@ module OkonomiUiKit
       tokens.each do |tok|
         variants, base = split_variants(tok)
         group = conflict_group_for(base)
-        key = [variants, group || "literal:#{base}"]
+        key = [ variants, group || "literal:#{base}" ]
 
         if index_by_key.key?(key)
           pos = index_by_key[key]
@@ -22,7 +22,7 @@ module OkonomiUiKit
         end
       end
 
-      result.join(' ')
+      result.join(" ")
     end
 
     def self.merge_all(*args)
@@ -60,39 +60,39 @@ module OkonomiUiKit
     # Conflict groups (minimal, extensible). More specific patterns first.
     CONFLICT_RULES = [
       # Typography
-      [/^text-(?:xs|sm|base|lg|xl|\d+xl|\[\S+\])$/, :text_size],
-      [/^text-(?:inherit|current|transparent|black|white|[a-z]+-\d{2,3}|[a-z]+-950|\[.+\])$/, :text_color],
-      [/^font-(?:thin|extralight|light|normal|medium|semibold|bold|extrabold|black)$/, :font_weight],
-      [/^leading-(?:none|tight|snug|normal|relaxed|loose|\d+|\[.+\])$/, :line_height],
-      [/^tracking-(?:tighter|tight|normal|wide|widest|\[.+\])$/, :letter_spacing],
+      [ /^text-(?:xs|sm|base|lg|xl|\d+xl|\[\S+\])$/, :text_size ],
+      [ /^text-(?:inherit|current|transparent|black|white|[a-z]+-\d{2,3}|[a-z]+-950|\[.+\])$/, :text_color ],
+      [ /^font-(?:thin|extralight|light|normal|medium|semibold|bold|extrabold|black)$/, :font_weight ],
+      [ /^leading-(?:none|tight|snug|normal|relaxed|loose|\d+|\[.+\])$/, :line_height ],
+      [ /^tracking-(?:tighter|tight|normal|wide|widest|\[.+\])$/, :letter_spacing ],
 
       # Display & position
-      [/^(?:hidden|block|inline|inline-block|flex|inline-flex|grid|inline-grid|table|inline-table|flow-root)$/, :display],
-      [/^(?:static|fixed|absolute|relative|sticky)$/, :position],
+      [ /^(?:hidden|block|inline|inline-block|flex|inline-flex|grid|inline-grid|table|inline-table|flow-root)$/, :display ],
+      [ /^(?:static|fixed|absolute|relative|sticky)$/, :position ],
 
       # Flexbox
-      [/^flex-(?:row|col|row-reverse|col-reverse)$/, :flex_direction],
-      [/^flex-(?:wrap|nowrap|wrap-reverse)$/, :flex_wrap],
-      [/^items-(?:start|end|center|baseline|stretch)$/, :align_items],
-      [/^justify-(?:start|end|center|between|around|evenly)$/, :justify_content],
+      [ /^flex-(?:row|col|row-reverse|col-reverse)$/, :flex_direction ],
+      [ /^flex-(?:wrap|nowrap|wrap-reverse)$/, :flex_wrap ],
+      [ /^items-(?:start|end|center|baseline|stretch)$/, :align_items ],
+      [ /^justify-(?:start|end|center|between|around|evenly)$/, :justify_content ],
 
       # Borders
-      [/^(?:border|border-(?:\d+|\[\S+\]))$/, :border_width_overall],
-      [/^border-[trblxy](?:-\d+|\[\S+\])?$/, :border_width_side],
-      [/^border-(?:solid|dashed|dotted|double|none)$/, :border_style],
-      [/^border-(?:inherit|current|transparent|black|white|[a-z]+-\d{2,3}|[a-z]+-950|\[.+\])$/, :border_color],
+      [ /^(?:border|border-(?:\d+|\[\S+\]))$/, :border_width_overall ],
+      [ /^border-[trblxy](?:-\d+|\[\S+\])?$/, :border_width_side ],
+      [ /^border-(?:solid|dashed|dotted|double|none)$/, :border_style ],
+      [ /^border-(?:inherit|current|transparent|black|white|[a-z]+-\d{2,3}|[a-z]+-950|\[.+\])$/, :border_color ],
 
       # Radius
-      [/^rounded(?:-(?:none|sm|md|lg|xl|2xl|3xl|full|\[.+\]))?$/, :rounded_overall],
-      [/^rounded-(?:t|r|b|l|tl|tr|br|bl)-(?:none|sm|md|lg|xl|2xl|3xl|full|\[.+\])$/, :rounded_corner],
+      [ /^rounded(?:-(?:none|sm|md|lg|xl|2xl|3xl|full|\[.+\]))?$/, :rounded_overall ],
+      [ /^rounded-(?:t|r|b|l|tl|tr|br|bl)-(?:none|sm|md|lg|xl|2xl|3xl|full|\[.+\])$/, :rounded_corner ],
 
       # Background
-      [/^bg-(?:inherit|current|transparent|black|white|[a-z]+-\d{2,3}|[a-z]+-950|\[.+\])$/, :bg_color],
+      [ /^bg-(?:inherit|current|transparent|black|white|[a-z]+-\d{2,3}|[a-z]+-950|\[.+\])$/, :bg_color ],
 
       # Overflow & opacity
-      [/^overflow-(?:auto|hidden|visible|scroll|clip)$/, :overflow],
-      [/^overflow-[xy]-(?:auto|hidden|visible|scroll|clip)$/, :overflow_axis],
-      [/^opacity-(?:\d{1,3}|\[.+\])$/, :opacity],
+      [ /^overflow-(?:auto|hidden|visible|scroll|clip)$/, :overflow ],
+      [ /^overflow-[xy]-(?:auto|hidden|visible|scroll|clip)$/, :overflow_axis ],
+      [ /^opacity-(?:\d{1,3}|\[.+\])$/, :opacity ]
     ].freeze
 
     class << self
@@ -100,9 +100,9 @@ module OkonomiUiKit
 
       # "sm:hover:text-lg" -> ["sm:hover", "text-lg"]
       def split_variants(token)
-        parts = token.split(':')
-        return ["", token] if parts.size == 1
-        [parts[0..-2].join(':'), parts[-1]]
+        parts = token.split(":")
+        return [ "", token ] if parts.size == 1
+        [ parts[0..-2].join(":"), parts[-1] ]
       end
 
       def conflict_group_for(base)

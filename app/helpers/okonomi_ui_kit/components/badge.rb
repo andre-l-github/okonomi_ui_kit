@@ -7,9 +7,9 @@ module OkonomiUiKit
 
         classes = [
           style(:base),
-          style(:severities, severity) || '',
-          options.delete(:class) || ''
-        ].reject(&:blank?).join(' ')
+          style(:severities, severity) || "",
+          options.delete(:class) || ""
+        ].reject(&:blank?).join(" ")
 
         view.tag.span(text, class: classes, **options)
       end

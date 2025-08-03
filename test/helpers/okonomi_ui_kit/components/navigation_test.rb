@@ -12,9 +12,9 @@ module OkonomiUiKit
             group.nav_link "Test Link", "/test"
           end
         end
-        
+
         assert_includes html, '<ul role="list"'
-        assert_includes html, 'flex flex-1 flex-col gap-y-7'
+        assert_includes html, "flex flex-1 flex-col gap-y-7"
         assert_includes html, "Test Group"
         assert_includes html, "Test Link"
       end
@@ -26,7 +26,7 @@ module OkonomiUiKit
             group.nav_link "Analytics", "/analytics"
           end
         end
-        
+
         assert_includes html, '<div class="text-xs/6 font-semibold text-gray-400">Dashboard</div>'
         assert_includes html, '<ul role="list" class="-mx-2 mt-2 space-y-1">'
         assert_includes html, "Overview"
@@ -39,7 +39,7 @@ module OkonomiUiKit
             group.nav_link "Home", "/", icon: "home"
           end
         end
-        
+
         assert_includes html, 'href="/"'
         assert_includes html, "Home"
         # Check for icon rendering (should show SVG not found comment for non-existent icon)
@@ -52,7 +52,7 @@ module OkonomiUiKit
             group.nav_link "Marketing Site", "/projects/1", initials: "MS"
           end
         end
-        
+
         assert_includes html, '<span class="flex size-6 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-white text-[0.625rem] font-medium text-gray-400 group-hover:border-primary-600 group-hover:text-primary-600">MS</span>'
         assert_includes html, "Marketing Site"
       end
@@ -62,12 +62,12 @@ module OkonomiUiKit
           nav.group "Main" do |group|
             group.nav_link "Dashboard", "/dashboard"
           end
-          
+
           nav.profile_section do
             '<div class="profile-content">User Profile</div>'.html_safe
           end
         end
-        
+
         assert_includes html, '<li class="-mx-6 mt-auto">'
         assert_includes html, '<div class="profile-content">User Profile</div>'
       end
@@ -79,7 +79,7 @@ module OkonomiUiKit
             group.nav_link "Fuzzy Match", "/fuzzy", exact: false
           end
         end
-        
+
         # Active link should have exact: true/false in options
         assert_includes html, "Exact Match"
         assert_includes html, "Fuzzy Match"
@@ -90,18 +90,18 @@ module OkonomiUiKit
           nav.group "First Group" do |group|
             group.nav_link "Link 1", "/link1"
           end
-          
+
           nav.group "Second Group" do |group|
             group.nav_link "Link 2", "/link2"
           end
-          
+
           nav.group "Third Group" do |group|
             group.nav_link "Link 3", "/link3"
           end
         end
-        
+
         assert_includes html, "First Group"
-        assert_includes html, "Second Group" 
+        assert_includes html, "Second Group"
         assert_includes html, "Third Group"
         assert_includes html, "Link 1"
         assert_includes html, "Link 2"
@@ -118,7 +118,7 @@ module OkonomiUiKit
             group.nav_link "Test Link", "/test"
           end
         end
-        
+
         # Should include the base classes for links
         assert_includes html, "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold"
       end
@@ -129,7 +129,7 @@ module OkonomiUiKit
             # No links added
           end
         end
-        
+
         assert_includes html, "Empty Group"
         assert_includes html, '<ul role="list" class="-mx-2 mt-2 space-y-1"></ul>'
       end
@@ -144,14 +144,14 @@ module OkonomiUiKit
         html = ui.navigation do |nav|
           # Builder should have access to style method
           assert_respond_to nav, :style
-          
+
           nav.group "Test" do |group|
             # Group builder should also have style method
             assert_respond_to group, :style
             group.nav_link "Link", "/test"
           end
         end
-        
+
         assert html.present?
       end
 
@@ -161,7 +161,7 @@ module OkonomiUiKit
             group.nav_link "Link", "/test"
           end
         end
-        
+
         # Note: The current implementation doesn't pass options to the ul element
         # This test documents the current behavior
         assert_includes html, '<ul role="list"'

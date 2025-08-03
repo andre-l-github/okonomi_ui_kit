@@ -1,24 +1,24 @@
 <div
   data-controller="upload"
   data-upload-target="dropzone"
-  class="border-2 border-dashed border-gray-300 rounded-md p-6 text-center cursor-pointer hover:bg-gray-50 relative"
+  class="<%= component.style(:dropzone) %>"
 >
-  <%= form.label method, class: "block cursor-pointer" do %>
-    <div class="flex flex-col items-center text-gray-600 space-y-2">
-      <div data-upload-target="preview" class="w-full flex justify-center items-center">
+  <%= form.label method, class: component.style(:label) do %>
+    <div class="<%= component.style(:content) %>">
+      <div data-upload-target="preview" class="<%= component.style(:preview) %>">
         <% if form.object.send(method).attached? %>
           <% blob = form.object.send(method).blob %>
           <% if blob.image? %>
-            <%= image_tag url_for(blob), class: "max-h-32" %>
+            <%= image_tag url_for(blob), class: component.style(:preview_image) %>
           <% else %>
-            <%= ui.icon("heroicons/solid/document", class: "size-12 text-gray-400") %>
+            <%= ui.icon("heroicons/solid/document", class: component.style(:icon)) %>
           <% end %>
         <% else %>
-          <%= ui.icon("heroicons/solid/plus", class: "size-12 w-12 text-gray-400") %>
+          <%= ui.icon("heroicons/solid/plus", class: component.style(:icon)) %>
         <% end %>
       </div>
 
-      <p class="text-sm text-gray-500" data-upload-target="filename">
+      <p class="<%= component.style(:filename) %>" data-upload-target="filename">
         <% if form.object.send(method).attached? %>
           <%= form.object.send(method).filename %>
         <% else %>
@@ -28,7 +28,7 @@
     </div>
 
     <%= form.file_field method,
-                        class: "hidden",
+                        class: component.style(:file_input),
                         data: {
                           upload_target: "input",
                           action: "change->upload#updatePreview"
@@ -39,7 +39,7 @@
 
   <button type="button"
           data-action="upload#clear"
-          class="absolute top-2 right-2 bg-red-100 text-red-700 px-2 py-1 text-xs rounded hover:bg-red-200">
+          class="<%= component.style(:clear_button) %>">
     Clear
   </button>
 </div>

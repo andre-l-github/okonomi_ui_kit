@@ -5,11 +5,9 @@
 <% associated_class = association.klass %>
 <% associated_records = options[:collection] || associated_class.all %>
 
-<% p associated_records %>
-
-<div class="grid grid-cols-2 gap-2">
+<div class="<%= component.style(:wrapper) %>">
   <% associated_records.each do |record| %>
-    <div class="flex items-center">
+    <div class="<%= component.style(:item) %>">
       <% id = "#{method}_#{record.id}" %>
       <%= form.check_box_with_label method, { label: record.send(options[:label] || :name), multiple: true, id: id, checked: form.object.send(method).include?(record) }, record.id, nil %>
     </div>

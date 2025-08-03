@@ -7,45 +7,45 @@ module OkonomiUiKit
 
       test "link_to renders with default variant" do
         html = ui.link_to("Click me", "/path")
-        
-        assert_includes html, '<a'
+
+        assert_includes html, "<a"
         assert_includes html, 'href="/path"'
         assert_includes html, "Click me"
-        assert_includes html, '</a>'
+        assert_includes html, "</a>"
       end
 
       test "link_to renders with block content" do
         html = ui.link_to("/path") do
           "<span>Block content</span>".html_safe
         end
-        
-        assert_includes html, '<a'
+
+        assert_includes html, "<a"
         assert_includes html, 'href="/path"'
         assert_includes html, "<span>Block content</span>"
-        assert_includes html, '</a>'
+        assert_includes html, "</a>"
       end
 
       test "link_to applies variant classes" do
         html = ui.link_to("Link", "/path", variant: :outlined)
-        
+
         assert_match /class="[^"]*"/, html
       end
 
       test "link_to applies color classes" do
         html = ui.link_to("Link", "/path", color: :primary)
-        
+
         assert_match /class="[^"]*"/, html
       end
 
       test "link_to merges custom classes" do
         html = ui.link_to("Link", "/path", class: "custom-class")
-        
+
         assert_includes html, "custom-class"
       end
 
       test "link_to accepts html options" do
         html = ui.link_to("Link", "/path", id: "my-link", data: { turbo: false })
-        
+
         assert_includes html, 'id="my-link"'
         assert_includes html, 'data-turbo="false"'
       end
@@ -53,8 +53,8 @@ module OkonomiUiKit
       test "link_to works with Rails route helpers" do
         # Assuming root_path exists in dummy app
         html = ui.link_to("Home", root_path)
-        
-        assert_includes html, '<a'
+
+        assert_includes html, "<a"
         assert_includes html, 'href="/"'
         assert_includes html, "Home"
       end
@@ -62,7 +62,7 @@ module OkonomiUiKit
       test "link_to with theme override" do
         ui.theme(components: { link: { text: { root: "theme-override-class" } } }) do
           html = ui.link_to("Themed", "/path")
-          
+
           assert_includes html, "theme-override-class"
         end
       end

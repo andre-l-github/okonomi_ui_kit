@@ -1,0 +1,6 @@
+<% if options[:label] %>
+  <%= form.label method, options[:label], class: component.style(:label, :root) %>
+<% end %>
+<% if options[:hint] %>
+  <p class="<%= component.style(:hint, :root) %>"><%= options[:hint] %></p>
+<% end %>

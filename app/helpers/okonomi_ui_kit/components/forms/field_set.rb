@@ -3,7 +3,7 @@ module OkonomiUiKit
     module Forms
       class FieldSet < OkonomiUiKit::FormComponent
         def render(form, options = {}, &block)
-          view.render(template_path, component: self, options:, form:, &block)
+          view.render(template_path, component: self, options: options, form: form, &block)
         end
 
         register_styles :default do

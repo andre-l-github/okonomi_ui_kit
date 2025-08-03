@@ -10,7 +10,7 @@ module OkonomiUiKit
           crumb.link("Home", "/")
           crumb.link("Products", "/products")
         end
-        
+
         assert_includes html, 'aria-label="Breadcrumb"'
         assert_includes html, '<ol role="list"'
         assert_includes html, "Home"
@@ -25,7 +25,7 @@ module OkonomiUiKit
           crumb.link("Products", "/products")
           crumb.link("iPhone", "/products/iphone", current: true)
         end
-        
+
         assert_includes html, 'aria-current="page"'
         assert_includes html, "iPhone"
       end
@@ -35,20 +35,20 @@ module OkonomiUiKit
           crumb.link("Home", "/")
           crumb.link("Current Page", nil, current: true)
         end
-        
+
         assert_includes html, "Current Page"
-        assert_includes html, '<span'
+        assert_includes html, "<span"
         assert_includes html, 'aria-current="page"'
       end
 
       test "breadcrumbs renders with icon on first item" do
         icon_html = '<svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 10z"/></svg>'.html_safe
-        
+
         html = ui.breadcrumbs do |crumb|
           crumb.link("Home", "/", icon: icon_html)
           crumb.link("Products", "/products")
         end
-        
+
         assert_includes html, '<svg class="h-5 w-5"'
         assert_includes html, "Home"
       end
@@ -59,9 +59,9 @@ module OkonomiUiKit
           crumb.link("Products", "/products")
           crumb.link("iPhone", "/products/iphone")
         end
-        
+
         # Check for chevron SVG
-        assert_includes html, '<svg class='
+        assert_includes html, "<svg class="
         assert_includes html, 'viewBox="0 0 20 20"'
         assert_includes html, 'aria-hidden="true"'
       end
@@ -70,11 +70,11 @@ module OkonomiUiKit
         html = ui.breadcrumbs do |crumb|
           # No items
         end
-        
-        assert_includes html, '<nav'
-        assert_includes html, '<ol'
-        assert_includes html, '</ol>'
-        assert_includes html, '</nav>'
+
+        assert_includes html, "<nav"
+        assert_includes html, "<ol"
+        assert_includes html, "</ol>"
+        assert_includes html, "</nav>"
       end
 
       test "breadcrumbs applies theme styles correctly" do
@@ -82,17 +82,17 @@ module OkonomiUiKit
           crumb.link("Home", "/")
           crumb.link("Products", "/products")
         end
-        
+
         # Should have nav classes
         assert_match /<nav[^>]*class="[^"]*"/, html
-        
-        # Should have list classes  
+
+        # Should have list classes
         assert_match /<ol[^>]*class="[^"]*flex items-center/, html
       end
 
       test "breadcrumbs renders without block returns empty nav" do
         html = ui.breadcrumbs
-        
+
         assert_equal "", html
       end
 
@@ -100,7 +100,7 @@ module OkonomiUiKit
         html = ui.breadcrumbs(id: "main-breadcrumbs", data: { testid: "breadcrumbs" }) do |crumb|
           crumb.link("Home", "/")
         end
-        
+
         assert_includes html, 'id="main-breadcrumbs"'
         assert_includes html, 'data-testid="breadcrumbs"'
       end
@@ -108,16 +108,16 @@ module OkonomiUiKit
       test "breadcrumbs handles multiple items with mixed current states" do
         html = ui.breadcrumbs do |crumb|
           crumb.link("Home", "/")
-          crumb.link("Products", "/products") 
+          crumb.link("Products", "/products")
           crumb.link("Phones", "/products/phones", current: false)
           crumb.link("iPhone", nil, current: true)
         end
-        
+
         # Non-current items should be links
         assert_includes html, 'href="/"'
         assert_includes html, 'href="/products"'
         assert_includes html, 'href="/products/phones"'
-        
+
         # Current item should not be a link
         refute_includes html, 'href="#"'
         assert_includes html, 'aria-current="page"'
@@ -128,7 +128,7 @@ module OkonomiUiKit
           crumb.link("Home & Garden", "/home-garden")
           crumb.link("Tools > Equipment", "/tools", current: true)
         end
-        
+
         assert_includes html, "Home &amp; Garden"
         assert_includes html, "Tools &gt; Equipment"
       end
@@ -143,15 +143,15 @@ module OkonomiUiKit
 
       test "breadcrumbs first item with icon and no link" do
         icon_html = '<svg class="h-5 w-5"><path d="M0 0"/></svg>'.html_safe
-        
+
         html = ui.breadcrumbs do |crumb|
           crumb.link("Dashboard", nil, icon: icon_html, current: true)
           crumb.link("Settings", "/settings")
         end
-        
+
         assert_includes html, '<svg class="h-5 w-5"'
         assert_includes html, "Dashboard"
-        assert_includes html, '<span'
+        assert_includes html, "<span"
         refute_match /<a[^>]*>.*Dashboard/, html
       end
 
@@ -161,7 +161,7 @@ module OkonomiUiKit
           crumb.link("Home", "/", class: "custom-class", data: { value: "home" })
           crumb.link("Products", "/products")
         end
-        
+
         assert_includes html, "Home"
         assert_includes html, "Products"
       end

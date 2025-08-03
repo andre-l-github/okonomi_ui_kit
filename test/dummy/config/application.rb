@@ -12,7 +12,7 @@ module Dummy
 
     # For compatibility with applications that use this config
     config.action_controller.include_all_helpers = false
-    
+
     # Initialize importmap for JavaScript
     config.importmap.draw(Rails.root.join("config/importmap.rb"))
 

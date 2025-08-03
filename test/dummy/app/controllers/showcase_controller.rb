@@ -13,39 +13,39 @@ class ShowcaseController < ApplicationController
 
   def show
     @component = params[:component]
-    
-    if @component == 'form_builder'
+
+    if @component == "form_builder"
       setup_form_builder_showcase
     end
-    
+
     render "showcase/components/#{@component}"
   rescue ActionView::MissingTemplate
     redirect_to root_path, alert: "Component not found"
   end
-  
+
   def form_builder_demo
     @user_form = UserForm.new(user_form_params)
-    
+
     if request.post?
       if @user_form.valid?
         flash[:notice] = "Form submitted successfully! (This is just a demo)"
-        redirect_to showcase_path('form_builder')
+        redirect_to showcase_path("form_builder")
         return
       else
         flash.now[:alert] = "Please fix the errors below"
       end
     end
-    
+
     render "showcase/components/form_builder"
   end
-  
+
   private
-  
+
   def setup_form_builder_showcase
     @user_form = UserForm.new
     @user_form_with_errors = UserForm.new(
       first_name: "",
-      last_name: "X", 
+      last_name: "X",
       email: "invalid-email",
       phone: "invalid phone",
       website: "not-a-url",
@@ -56,13 +56,13 @@ class ShowcaseController < ApplicationController
     )
     @user_form_with_errors.validate
   end
-  
+
   def user_form_params
     return {} unless params[:user_form]
-    
+
     params.require(:user_form).permit(
-      :first_name, :last_name, :email, :phone, :website, 
-      :bio, :birth_date, :country, :terms_accepted, 
+      :first_name, :last_name, :email, :phone, :website,
+      :bio, :birth_date, :country, :terms_accepted,
       :newsletter_subscription, :profile_visibility
     )
   end

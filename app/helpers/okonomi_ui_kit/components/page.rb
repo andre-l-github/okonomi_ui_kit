@@ -35,7 +35,7 @@ module OkonomiUiKit
       def render_content
         @template.safe_join(@content_parts)
       end
-      
+
       def to_s
         render_content
       end
@@ -163,7 +163,7 @@ module OkonomiUiKit
         if block_given?
           # Capture the content first to see if attributes were used
           content = capture { yield(self) }
-          
+
           @body_content = if @attributes.any?
             # If attributes were added, wrap them in dl
             tag.div do
@@ -192,10 +192,10 @@ module OkonomiUiKit
         attribute_html = tag.div(class: "py-6 sm:grid sm:grid-cols-3 sm:gap-4") do
           dt_content = tag.dt(label, class: "text-sm font-medium text-gray-900")
           dd_content = tag.dd(content, class: "mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0")
-          
+
           dt_content + dd_content
         end
-        
+
         @attributes << attribute_html
       end
 
@@ -213,7 +213,7 @@ module OkonomiUiKit
 
       def build_header
         return nil unless @title_content || @subtitle_content || @actions_content
-        
+
         tag.div(class: "py-6") do
           if @actions_content
             tag.div(class: "flex w-full justify-between items-start") do
@@ -223,7 +223,7 @@ module OkonomiUiKit
                 content_parts << @subtitle_content if @subtitle_content
                 @template.safe_join(content_parts.compact)
               end
-              
+
               title_section + @actions_content
             end
           else

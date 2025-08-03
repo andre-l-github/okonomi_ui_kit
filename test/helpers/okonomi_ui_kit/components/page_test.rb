@@ -9,18 +9,18 @@ module OkonomiUiKit
         html = ui.page do |page|
           "Basic content"
         end
-        
+
         assert_includes html, '<div class="flex flex-col gap-8 p-8'
         assert_includes html, "Basic content"
-        assert_includes html, '</div>'
+        assert_includes html, "</div>"
       end
 
       test "page accepts custom classes" do
         html = ui.page(class: "custom-page-class") do |page|
           "Content"
         end
-        
-        assert_includes html, 'custom-page-class'
+
+        assert_includes html, "custom-page-class"
       end
 
       test "page with header section" do
@@ -31,10 +31,10 @@ module OkonomiUiKit
             end
           end
         end
-        
-        assert_includes html, '<h1'
+
+        assert_includes html, "<h1"
         assert_includes html, "Page Title"
-        assert_includes html, 'text-2xl font-bold'
+        assert_includes html, "text-2xl font-bold"
       end
 
       test "page header with breadcrumbs" do
@@ -46,7 +46,7 @@ module OkonomiUiKit
             end
           end
         end
-        
+
         assert_includes html, 'aria-label="Breadcrumb"'
         assert_includes html, "Home"
         assert_includes html, "Users"
@@ -63,10 +63,10 @@ module OkonomiUiKit
             end
           end
         end
-        
+
         assert_includes html, "Page Title"
         assert_includes html, "<button>Action</button>"
-        assert_includes html, 'mt-4 flex md:ml-4 md:mt-0'
+        assert_includes html, "mt-4 flex md:ml-4 md:mt-0"
       end
 
       test "page with section" do
@@ -76,11 +76,11 @@ module OkonomiUiKit
             section.subtitle "Section subtitle"
           end
         end
-        
-        assert_includes html, '<h3'
+
+        assert_includes html, "<h3"
         assert_includes html, "Section Title"
         assert_includes html, "Section subtitle"
-        assert_includes html, 'text-base/7 font-semibold'
+        assert_includes html, "text-base/7 font-semibold"
       end
 
       test "section with body and attributes" do
@@ -93,12 +93,12 @@ module OkonomiUiKit
             end
           end
         end
-        
+
         assert_includes html, "Name"
         assert_includes html, "John Doe"
         assert_includes html, "Email"
         assert_includes html, "john@example.com"
-        assert_includes html, 'divide-y divide-gray-100'
+        assert_includes html, "divide-y divide-gray-100"
       end
 
       test "section attribute with block content" do
@@ -111,14 +111,14 @@ module OkonomiUiKit
             end
           end
         end
-        
+
         assert_includes html, "Custom"
         assert_includes html, "<span class='custom'>Block content</span>"
       end
 
       test "section attribute with callable value" do
         callable_value = -> { "Dynamic value" }
-        
+
         html = ui.page do |page|
           page.section do |section|
             section.body do |body|
@@ -126,7 +126,7 @@ module OkonomiUiKit
             end
           end
         end
-        
+
         assert_includes html, "Dynamic"
         assert_includes html, "Dynamic value"
       end
@@ -140,10 +140,10 @@ module OkonomiUiKit
             end
           end
         end
-        
+
         assert_includes html, "Section"
         assert_includes html, "<button>Edit</button>"
-        assert_includes html, 'flex w-full justify-between'
+        assert_includes html, "flex w-full justify-between"
       end
 
       test "page with multiple sections" do
@@ -151,12 +151,12 @@ module OkonomiUiKit
           page.section do |section|
             section.title "Section 1"
           end
-          
+
           page.section do |section|
             section.title "Section 2"
           end
         end
-        
+
         assert_includes html, "Section 1"
         assert_includes html, "Section 2"
       end
@@ -177,7 +177,7 @@ module OkonomiUiKit
               end
             end
           end
-          
+
           page.section do |section|
             section.title "Personal Information"
             section.subtitle "Basic details about the user"
@@ -190,7 +190,7 @@ module OkonomiUiKit
             end
           end
         end
-        
+
         assert_includes html, "User Profile"
         assert_includes html, "Edit Profile"
         assert_includes html, "Personal Information"

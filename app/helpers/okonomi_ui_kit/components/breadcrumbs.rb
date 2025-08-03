@@ -36,9 +36,9 @@ module OkonomiUiKit
 
       def render(options = {}, &block)
         return "" if block.nil?
-        
+
         block.call(@builder)
-        view.render("okonomi/components/breadcrumbs/breadcrumbs", 
+        view.render("okonomi/components/breadcrumbs/breadcrumbs",
           component: self,
           items: @items,
           options: options
