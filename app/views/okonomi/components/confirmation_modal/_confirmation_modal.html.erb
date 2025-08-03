@@ -1,0 +1,77 @@
+<% component = OkonomiUiKit::Components::ConfirmationModal.new(self, {}) %>
+<div data-controller="modal" 
+     data-modal-size-value="<%= options[:size] %>" 
+     <% if options[:auto_open] %>data-modal-auto-open-value="true"<% end %>
+     class="relative z-10" 
+     style="display: none;" 
+     data-modal-target="container"
+     <%= component.modal_data_attributes(options) %>>
+  
+  <!-- Backdrop -->
+  <div class="<%= component.style(:backdrop) %>" 
+       data-modal-target="backdrop" 
+       data-action="click->modal#close"
+       aria-hidden="true"></div>
+  
+  <!-- Modal container -->
+  <div class="<%= component.style(:container) %>">
+    <div class="<%= component.style(:wrapper) %>">
+      <!-- Modal panel -->
+      <div class="<%= component.modal_panel_class(options[:size]) %>" 
+           data-modal-target="panel"
+           role="dialog" 
+           aria-modal="true" 
+           aria-labelledby="modal-title">
+        
+        <!-- Close button -->
+        <div class="<%= component.style(:close_button, :wrapper) %>">
+          <button type="button" 
+                  class="<%= component.style(:close_button, :button) %>" 
+                  data-action="click->modal#close">
+            <span class="sr-only">Close</span>
+            <%= ui.icon(component.style(:close_button, :icon, :file), 
+                         class: component.style(:close_button, :icon, :class)) %>
+          </button>
+        </div>
+        
+        <!-- Content -->
+        <div class="<%= component.style(:content, :wrapper) %>">
+          <!-- Icon -->
+          <div class="<%= component.modal_icon_wrapper_class(options[:variant]) %>">
+            <%= ui.icon(component.style(:icon, :variants, options[:variant], :file), 
+                         class: component.modal_icon_class(options[:variant])) %>
+          </div>
+          
+          <!-- Text content -->
+          <div class="<%= component.style(:content, :text_wrapper) %>">
+            <h3 id="modal-title" class="<%= component.style(:content, :title) %>">
+              <%= options[:title] %>
+            </h3>
+            <div class="<%= component.style(:content, :message) %>">
+              <p><%= options[:message] %></p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Actions -->
+        <div class="<%= component.style(:actions, :wrapper) %>">
+          <% if options[:has_custom_actions] %>
+            <%= yield %>
+          <% else %>
+            <% button_color = options[:variant] == :warning ? :danger : options[:variant] %>
+            <%= ui.button_to options[:confirm_text], "#", 
+                variant: :contained, 
+                color: button_color,
+                class: "sm:ml-3 sm:w-auto",
+                data: { action: "click->modal#confirm" } %>
+            <%= ui.button_to options[:cancel_text], "#", 
+                variant: :outlined, 
+                color: :default,
+                class: "mt-3 sm:mt-0 sm:w-auto",
+                data: { action: "click->modal#close" } %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

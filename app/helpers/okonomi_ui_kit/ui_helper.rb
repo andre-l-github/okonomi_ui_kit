@@ -38,39 +38,6 @@ module OkonomiUiKit
         ].compact.join(" ")
       end
 
-      def confirmation_modal(title:, message:, confirm_text: "Confirm", cancel_text: "Cancel", variant: :warning, size: :md, **options, &block)
-        modal_options = {
-          title: title,
-          message: message,
-          confirm_text: confirm_text,
-          cancel_text: cancel_text,
-          variant: variant,
-          size: size,
-          has_custom_actions: block_given?,
-          **options
-        }
-        @template.render("okonomi/modals/confirmation_modal", options: modal_options, ui: self, &block)
-      end
-
-      def modal_data_attributes(options)
-        return "" unless options[:data]
-
-        options[:data].map { |k, v| "data-#{k.to_s.dasherize}=\"#{v}\"" }.join(" ").html_safe
-      end
-
-      def modal_panel_class(size)
-        [
-          get_theme.dig(:components, :modal, :panel, :base),
-          get_theme.dig(:components, :modal, :panel, :sizes, size)
-        ].compact.join(" ")
-      end
-
-      def modal_icon_wrapper_class(variant)
-        [
-          get_theme.dig(:components, :modal, :icon, :wrapper),
-          get_theme.dig(:components, :modal, :icon, :variants, variant, :wrapper)
-        ].compact.join(" ")
-      end
 
       def method_missing(method_name, *args, &block)
         component = resolve_component(method_name)

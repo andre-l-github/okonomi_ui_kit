@@ -122,6 +122,7 @@ end
 ### Component Guides
 
 - [Breadcrumbs](guides/components/breadcrumbs.md) - Navigation breadcrumb trails
+- [Confirmation Modal](guides/components/confirmation_modal.md) - Accessible modal dialogs for user confirmations
 - [Icon](guides/components/icon.md) - SVG icon rendering with theme support
 - [Navigation](guides/components/navigation.md) - Sidebar navigation menus with groups and links
 - [Typography](guides/components/typography.md) - Text styling with semantic HTML elements
