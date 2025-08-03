@@ -95,12 +95,11 @@ module OkonomiUiKit
         assert_includes html, 'data-testid="typography-element"'
       end
 
-      test "typography with theme override" do
-        ui.theme(components: { typography: { variants: { h1: "text-6xl font-bold" } } }) do
-          html = ui.typography("Themed heading", variant: :h1)
+      test "typography uses default h1 styles" do
+        html = ui.typography("Themed heading", variant: :h1)
 
-          assert_includes html, "text-6xl font-bold"
-        end
+        assert_includes html, "text-3xl font-bold"
+        assert_includes html, "text-default-700"
       end
 
       test "typography component is loaded via plugin system" do
