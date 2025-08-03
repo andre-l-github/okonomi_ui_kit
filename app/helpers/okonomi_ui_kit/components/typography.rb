@@ -21,13 +21,9 @@ module OkonomiUiKit
         component = (TYPOGRAPHY_COMPONENTS[variant] || "span").to_s
         color = (options.delete(:color) || "default").to_sym
 
-        # Check theme overrides first
-        theme_variant = theme.dig(:components, :typography, :variants, variant)
-        theme_color = theme.dig(:components, :typography, :colors, color)
-
         classes = [
-          theme_variant || style(:variants, variant) || "",
-          theme_color || style(:colors, color) || "",
+          style(:variants, variant) || "",
+          style(:colors, color) || "",
           options.delete(:class) || ""
         ].reject(&:blank?).join(" ")
 
