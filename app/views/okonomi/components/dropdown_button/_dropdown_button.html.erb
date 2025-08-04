@@ -122,6 +122,11 @@
           <% icon_path = item[:icon] %>
           <% link_class = [component.style(:menu, :item, :root), link_options.delete(:class)].compact.join(" ") %>
           
+          <% # Add deferred close action %>
+          <% link_options[:data] ||= {} %>
+          <% existing_action = link_options[:data][:action] || link_options.delete("data-action") %>
+          <% link_options[:data][:action] = [existing_action, "click->dropdown#closeDeferred"].compact.join(" ") %>
+          
           <%= link_to item[:options], link_options.merge(
             class: link_class,
             role: "menuitem"
@@ -152,6 +157,11 @@
           <% icon_path = item[:icon] %>
           <% button_class = [component.style(:menu, :item, :root), button_options.delete(:class)].compact.join(" ") %>
           
+          <% # Add deferred close action %>
+          <% button_options[:data] ||= {} %>
+          <% existing_action = button_options[:data][:action] || button_options.delete("data-action") %>
+          <% button_options[:data][:action] = [existing_action, "click->dropdown#closeDeferred"].compact.join(" ") %>
+          
           <%= button_to item[:options], button_options.merge(
             class: button_class,
             role: "menuitem"
@@ -181,6 +191,17 @@
           <% button_options = item[:options].dup %>
           <% icon_path = item[:icon] %>
           <% button_class = [component.style(:menu, :item, :root), button_options.delete(:class)].compact.join(" ") %>
+          
+          <% # Add deferred close action %>
+          <% button_options[:data] ||= {} %>
+          <% existing_action = button_options[:data][:action] || button_options.delete("data-action") %>
+          <% button_options[:data][:action] = [existing_action, "click->dropdown#closeDeferred"].compact.join(" ") %>
+          
+          <% # Handle onclick attribute if present %>
+          <% if button_options[:onclick] %>
+            <% original_onclick = button_options[:onclick] %>
+            <% button_options[:onclick] = "#{original_onclick}; setTimeout(() => { this.closest('[data-controller=\"dropdown\"]').querySelector('[data-dropdown-target=\"menu\"]').classList.add('hidden'); }, 50);" %>
+          <% end %>
           
           <%= button_tag button_options.merge(
             class: button_class,

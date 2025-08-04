@@ -19,6 +19,12 @@ export default class extends Controller {
     this.menuTarget.classList.add("hidden")
   }
 
+  closeDeferred() {
+    setTimeout(() => {
+      this.close()
+    }, 50)
+  }
+
   closeOnClickOutside(event) {
     if (!this.element.contains(event.target)) {
       this.close()

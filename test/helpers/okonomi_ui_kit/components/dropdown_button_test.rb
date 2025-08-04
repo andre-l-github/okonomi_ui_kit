@@ -153,6 +153,32 @@ module OkonomiUiKit
         assert_includes html, "<span class='custom'>Custom Action</span>"
         assert_match /data-action="[^"]*custom#action/, html
       end
+      
+      test "dropdown button adds deferred close action to all menu items" do
+        html = ui.dropdown_button do |dd|
+          dd.link_to "First", "#"
+          dd.link_to "Second", "#", data: { action: "click->custom#action" }
+          dd.button_to "Third", "#", method: :post
+          dd.button_tag "Fourth", data: { action: "click->other#action" }
+        end
+        
+        # All menu items should have the closeDeferred action
+        assert_match /data-action="[^"]*dropdown#closeDeferred/, html
+        # Custom actions should be preserved
+        assert_match /data-action="[^"]*custom#action[^"]*dropdown#closeDeferred/, html
+        assert_match /data-action="[^"]*other#action[^"]*dropdown#closeDeferred/, html
+      end
+      
+      test "dropdown button handles onclick with deferred close" do
+        html = ui.dropdown_button do |dd|
+          dd.link_to "First", "#"
+          dd.button_tag "Print", onclick: "window.print()"
+        end
+        
+        # Should have modified onclick
+        assert_includes html, "window.print();"
+        assert_includes html, "setTimeout"
+      end
     end
   end
 end
