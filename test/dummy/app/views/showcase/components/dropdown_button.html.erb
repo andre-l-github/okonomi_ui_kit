@@ -1,0 +1,86 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-8">Dropdown Button Component</h1>
+  
+  <div class="space-y-8">
+    <!-- Basic Dropdown -->
+    <div>
+      <h2 class="text-xl font-semibold mb-4">Basic Dropdown</h2>
+      <div class="flex items-center gap-4">
+        <%= ui.dropdown_button do |dd| %>
+          <% dd.link_to "Profile", "#" %>
+          <% dd.link_to "Settings", "#" %>
+          <% dd.divider %>
+          <% dd.button_to "Logout", "#", method: :delete %>
+        <% end %>
+      </div>
+    </div>
+    
+    <!-- Dropdown with Icons -->
+    <div>
+      <h2 class="text-xl font-semibold mb-4">Dropdown with Icons</h2>
+      <div class="flex items-center gap-4">
+        <%= ui.dropdown_button do |dd| %>
+          <% dd.link_to "Profile", "#", icon: "heroicons/outline/user" %>
+          <% dd.link_to "Access Keys", "#", icon: "heroicons/outline/key" %>
+          <% dd.divider %>
+          <% dd.button_to "Logout", "#", method: :delete, icon: "heroicons/outline/arrow-right-on-rectangle" %>
+        <% end %>
+      </div>
+    </div>
+    
+    <!-- Different Variants -->
+    <div>
+      <h2 class="text-xl font-semibold mb-4">Different Variants</h2>
+      <div class="flex items-center gap-4">
+        <%= ui.dropdown_button(variant: :contained, color: :primary) do |dd| %>
+          <% dd.link_to "Edit", "#", icon: "heroicons/outline/pencil" %>
+          <% dd.link_to "Duplicate", "#", icon: "heroicons/outline/document-duplicate" %>
+          <% dd.divider %>
+          <% dd.link_to "Archive", "#", icon: "heroicons/outline/archive-box" %>
+          <% dd.link_to "Delete", "#", icon: "heroicons/outline/trash" %>
+        <% end %>
+        
+        <%= ui.dropdown_button(variant: :outlined, color: :secondary) do |dd| %>
+          <% dd.link_to "Download", "#", icon: "heroicons/outline/arrow-down-tray" %>
+          <% dd.link_to "Share", "#", icon: "heroicons/outline/share" %>
+          <% dd.link_to "Print", "#", icon: "heroicons/outline/printer" %>
+        <% end %>
+        
+        <%= ui.dropdown_button(variant: :text, color: :primary) do |dd| %>
+          <% dd.link_to "View", "#" %>
+          <% dd.link_to "Edit", "#" %>
+          <% dd.link_to "Delete", "#" %>
+        <% end %>
+      </div>
+    </div>
+    
+    <!-- Complex Example -->
+    <div>
+      <h2 class="text-xl font-semibold mb-4">Complex Example</h2>
+      <div class="flex items-center gap-4">
+        <%= ui.dropdown_button(variant: :contained, color: :default) do |dd| %>
+          <% dd.link_to "Account settings", "#", icon: "heroicons/outline/cog" %>
+          <% dd.link_to "Support", "#", icon: "heroicons/outline/lifebuoy" %>
+          <% dd.link_to "License", "#", icon: "heroicons/outline/document-text" %>
+          <% dd.divider %>
+          <% dd.link_to "Add to favorites", "#", icon: "heroicons/outline/heart" %>
+          <% dd.link_to "Archive", "#", icon: "heroicons/outline/archive-box" %>
+          <% dd.divider %>
+          <% dd.button_to "Sign out", "#", method: :delete, icon: "heroicons/outline/arrow-right-on-rectangle" %>
+        <% end %>
+      </div>
+    </div>
+    
+    <!-- Without Primary Action -->
+    <div>
+      <h2 class="text-xl font-semibold mb-4">Without Primary Action (Falls back to "Options")</h2>
+      <div class="flex items-center gap-4">
+        <%= ui.dropdown_button do |dd| %>
+          <% dd.divider %>
+          <% dd.link_to "Settings", "#" %>
+          <% dd.link_to "Help", "#" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

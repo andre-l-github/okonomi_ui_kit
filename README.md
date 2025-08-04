@@ -81,7 +81,7 @@ OkonomiUiKit provides a `ui` helper that gives you access to all components:
 - **File Upload** - Drag-and-drop file uploads
 
 ### Navigation Components
-- **Dropdown** - Dropdown menus with Stimulus integration
+- **Dropdown Button** - Split button with dropdown menu
 - **Breadcrumbs** - Navigation breadcrumbs
 - **Link** - Styled links with variants
 
@@ -137,6 +137,7 @@ end
 
 #### Navigation Components
 - [Breadcrumbs](guides/components/breadcrumbs.md) - Navigation breadcrumb trails
+- [Dropdown Button](guides/components/dropdown_button.md) - Split button with dropdown menu
 - [Navigation](guides/components/navigation.md) - Sidebar navigation menus with groups and links
 
 #### Interactive Components

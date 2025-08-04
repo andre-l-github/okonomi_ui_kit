@@ -1,0 +1,146 @@
+<%
+  # Extract dropdown builder from block execution
+  yield(dropdown_builder)
+  
+  primary = dropdown_builder.primary_item
+  menu_items = dropdown_builder.menu_items
+  
+  # For split buttons, we need to handle borders specially for outlined variant
+  is_outlined = base_button_classes.include?("border")
+  
+  # Build classes for the primary action - remove right border radius and right border for outlined
+  primary_classes = base_button_classes
+    .gsub(/rounded-md/, "rounded-l-md")
+    .gsub(/focus:ring-2/, "focus:z-10")
+    .gsub(/px-2/, "px-2 pr-3")  # Increase right padding
+  
+  # Add border-r-0 for outlined variant to remove double border
+  primary_classes += " border-r-0" if is_outlined
+  
+  # Build classes for dropdown trigger
+  trigger_classes = base_button_classes
+    .gsub(/rounded-md/, "rounded-r-md")
+    .gsub(/px-\d+/, "px-2")
+    .gsub(/focus:ring-2/, "-ml-px focus:z-10")
+%>
+
+<div <%= tag.attributes(options.merge(
+  class: ["relative inline-block", options[:class]].compact.join(" "),
+  data: (options[:data] || {}).merge(controller: "dropdown", action: "click@window->dropdown#closeOnClickOutside")
+)) %>>
+  <% if primary %>
+    <div class="relative inline-flex">
+      <% if primary[:type] == :link %>
+        <% primary_options = primary[:html_options].dup %>
+        <%= link_to primary[:options], primary_options.merge(
+          class: primary_classes
+        ) do %>
+          <% if primary[:icon] %>
+            <%= ui.icon(primary[:icon], class: "mr-1.5 size-3.5") %>
+          <% end %>
+          <% if primary[:block] %>
+            <%= capture(&primary[:block]) %>
+          <% else %>
+            <%= primary[:name] %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <% primary_options = primary[:html_options].dup %>
+        <%= button_to primary[:options], primary_options.merge(
+          class: primary_classes
+        ) do %>
+          <% if primary[:icon] %>
+            <%= ui.icon(primary[:icon], class: "mr-1.5 size-3.5") %>
+          <% end %>
+          <% if primary[:block] %>
+            <%= capture(&primary[:block]) %>
+          <% else %>
+            <%= primary[:name] %>
+          <% end %>
+        <% end %>
+      <% end %>
+      
+      <button type="button" 
+              class="<%= trigger_classes %>" 
+              data-action="click->dropdown#toggle"
+              aria-haspopup="true"
+              aria-expanded="false">
+        <span class="sr-only">Open options</span>
+        <%= ui.icon("heroicons/solid/chevron-down", class: component.style(:primary, :chevron)) %>
+      </button>
+    </div>
+  <% else %>
+    <button type="button" 
+            class="<%= base_button_classes %>" 
+            data-action="click->dropdown#toggle"
+            aria-haspopup="true"
+            aria-expanded="false">
+      Options
+      <%= ui.icon("heroicons/solid/chevron-down", class: "-mr-1 h-5 w-5") %>
+    </button>
+  <% end %>
+  
+  <div class="<%= menu_classes %> hidden" data-dropdown-target="menu">
+    <div class="py-1" role="menu" aria-orientation="vertical">
+      <% menu_items.each do |item| %>
+        <% next if item == primary %> <%# Skip the primary item in the menu %>
+        
+        <% if item[:type] == :divider %>
+          <div class="<%= component.style(:menu, :divider) %>" role="separator"></div>
+        <% elsif item[:type] == :link %>
+          <% link_options = item[:html_options].dup %>
+          <% icon_path = item[:icon] %>
+          <% link_class = [component.style(:menu, :item, :root), link_options.delete(:class)].compact.join(" ") %>
+          
+          <%= link_to item[:options], link_options.merge(
+            class: link_class,
+            role: "menuitem"
+          ) do %>
+            <% if icon_path %>
+              <span class="<%= component.style(:menu, :item, :label) %>">
+                <%= ui.icon(icon_path, class: component.style(:menu, :item, :icon)) %>
+                <% if item[:block] %>
+                  <%= capture(&item[:block]) %>
+                <% else %>
+                  <%= item[:name] %>
+                <% end %>
+              </span>
+            <% else %>
+              <% if item[:block] %>
+                <%= capture(&item[:block]) %>
+              <% else %>
+                <%= item[:name] %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% elsif item[:type] == :button %>
+          <% button_options = item[:html_options].dup %>
+          <% icon_path = item[:icon] %>
+          <% button_class = [component.style(:menu, :item, :root), button_options.delete(:class)].compact.join(" ") %>
+          
+          <%= button_to item[:options], button_options.merge(
+            class: button_class,
+            role: "menuitem"
+          ) do %>
+            <% if icon_path %>
+              <span class="<%= component.style(:menu, :item, :label) %>">
+                <%= ui.icon(icon_path, class: component.style(:menu, :item, :icon)) %>
+                <% if item[:block] %>
+                  <%= capture(&item[:block]) %>
+                <% else %>
+                  <%= item[:name] %>
+                <% end %>
+              </span>
+            <% else %>
+              <% if item[:block] %>
+                <%= capture(&item[:block]) %>
+              <% else %>
+                <%= item[:name] %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
