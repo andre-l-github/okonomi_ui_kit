@@ -5,6 +5,9 @@
   primary = dropdown_builder.primary_item
   menu_items = dropdown_builder.menu_items
   
+  # Check if there are any menu items beyond the primary
+  has_menu_items = menu_items.any? { |item| item != primary }
+  
   # For split buttons, we need to handle borders specially for outlined variant
   is_outlined = base_button_classes.include?("border")
   is_text_variant = !base_button_classes.include?("border") && !base_button_classes.include?("bg-")
@@ -41,7 +44,49 @@
   class: ["relative inline-block", options[:class]].compact.join(" "),
   data: (options[:data] || {}).merge(controller: "dropdown", action: "click@window->dropdown#closeOnClickOutside")
 )) %>>
-  <% if primary %>
+  <% if primary && !has_menu_items %>
+    <%# Render only primary button when no menu items %>
+    <% if primary[:type] == :link %>
+      <%= link_to primary[:options], primary[:html_options].merge(
+        class: base_button_classes
+      ) do %>
+        <% if primary[:icon] %>
+          <%= ui.icon(primary[:icon], class: component.style(:primary, :icon)) %>
+        <% end %>
+        <% if primary[:block] %>
+          <%= capture(&primary[:block]) %>
+        <% else %>
+          <%= primary[:name] %>
+        <% end %>
+      <% end %>
+    <% elsif primary[:type] == :button %>
+      <%= button_to primary[:options], primary[:html_options].merge(
+        class: base_button_classes
+      ) do %>
+        <% if primary[:icon] %>
+          <%= ui.icon(primary[:icon], class: component.style(:primary, :icon)) %>
+        <% end %>
+        <% if primary[:block] %>
+          <%= capture(&primary[:block]) %>
+        <% else %>
+          <%= primary[:name] %>
+        <% end %>
+      <% end %>
+    <% elsif primary[:type] == :button_tag %>
+      <%= button_tag primary[:options].merge(
+        class: base_button_classes
+      ) do %>
+        <% if primary[:icon] %>
+          <%= ui.icon(primary[:icon], class: component.style(:primary, :icon)) %>
+        <% end %>
+        <% if primary[:block] %>
+          <%= capture(&primary[:block]) %>
+        <% else %>
+          <%= primary[:name] %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% elsif primary && has_menu_items %>
     <div class="relative inline-flex">
       <% if primary[:type] == :link %>
         <% primary_options = primary[:html_options].dup %>
@@ -107,12 +152,13 @@
     </button>
   <% end %>
   
-  <div class="<%= menu_classes %> hidden" data-dropdown-target="menu">
-    <div class="py-1" role="menu" aria-orientation="vertical">
-      <% # Check if any menu item has an icon to ensure consistent alignment %>
-      <% has_any_icon = menu_items.any? { |item| item != primary && item[:icon] && item[:type] != :divider } %>
-      
-      <% menu_items.each do |item| %>
+  <% if has_menu_items %>
+    <div class="<%= menu_classes %> hidden" data-dropdown-target="menu">
+      <div class="py-1" role="menu" aria-orientation="vertical">
+        <% # Check if any menu item has an icon to ensure consistent alignment %>
+        <% has_any_icon = menu_items.any? { |item| item != primary && item[:icon] && item[:type] != :divider } %>
+        
+        <% menu_items.each do |item| %>
         <% next if item == primary %> <%# Skip the primary item in the menu %>
         
         <% if item[:type] == :divider %>
@@ -232,4 +278,5 @@
       <% end %>
     </div>
   </div>
+  <% end %>
 </div>

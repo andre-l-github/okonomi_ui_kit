@@ -153,5 +153,24 @@
         <% end %>
       </div>
     </div>
+    
+    <!-- Single Action (No Dropdown) -->
+    <div>
+      <h2 class="text-xl font-semibold mb-4">Single Action (No Dropdown)</h2>
+      <p class="text-sm text-gray-600 mb-4">When only one action is provided, it renders as a regular button without the dropdown chevron.</p>
+      <div class="flex items-center gap-4">
+        <%= ui.dropdown_button(variant: :contained, color: :primary) do |dd| %>
+          <% dd.link_to "Create New", "#", icon: "heroicons/outline/plus" %>
+        <% end %>
+        
+        <%= ui.dropdown_button(variant: :outlined, color: :secondary) do |dd| %>
+          <% dd.button_to "Delete", "#", method: :delete, icon: "heroicons/outline/trash" %>
+        <% end %>
+        
+        <%= ui.dropdown_button(variant: :text, color: :default) do |dd| %>
+          <% dd.button_tag "Refresh", onclick: "location.reload()", icon: "heroicons/outline/arrow-path" %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

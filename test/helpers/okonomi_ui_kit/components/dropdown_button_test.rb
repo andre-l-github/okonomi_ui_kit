@@ -100,6 +100,7 @@ module OkonomiUiKit
       test "dropdown button accepts custom menu classes" do
         html = ui.dropdown_button(menu_class: "custom-menu-class") do |dd|
           dd.link_to "Profile", "#"
+          dd.link_to "Settings", "#"  # Need multiple items to have a menu
         end
         
         assert_includes html, "custom-menu-class"
@@ -178,6 +179,39 @@ module OkonomiUiKit
         # Should have modified onclick
         assert_includes html, "window.print();"
         assert_includes html, "setTimeout"
+      end
+      
+      test "dropdown button renders as single button when only primary action provided" do
+        html = ui.dropdown_button(variant: :contained, color: :primary) do |dd|
+          dd.link_to "Create New", "#", icon: "heroicons/outline/plus"
+        end
+        
+        # Should not have split button structure
+        refute_includes html, "rounded-l-md"
+        refute_includes html, "rounded-r-md"
+        # Should have normal rounded corners
+        assert_includes html, "rounded-md"
+        # Should not have chevron icon
+        refute_includes html, "chevron-down"
+        # Should not have dropdown menu
+        refute_includes html, 'data-dropdown-target="menu"'
+        # Should have the primary action
+        assert_includes html, "Create New"
+      end
+      
+      test "dropdown button renders with split button when multiple actions provided" do
+        html = ui.dropdown_button do |dd|
+          dd.link_to "Primary", "#"
+          dd.link_to "Secondary", "#"
+        end
+        
+        # Should have split button structure
+        assert_includes html, "rounded-l-md"
+        assert_includes html, "rounded-r-md"
+        # Should have chevron icon (as SVG)
+        assert_includes html, "Open options"  # Check for sr-only text instead
+        # Should have dropdown menu
+        assert_includes html, 'data-dropdown-target="menu"'
       end
     end
   end
