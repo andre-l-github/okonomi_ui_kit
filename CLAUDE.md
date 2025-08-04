@@ -72,7 +72,7 @@ The UI components are organized as helper modules in `app/helpers/okonomi_ui_kit
 ### Component Plugin System
 OkonomiUiKit uses a plugin-based architecture for components. New components are automatically available through the `ui` helper via the `method_missing` mechanism. Components are implemented as classes in `app/helpers/okonomi_ui_kit/components/` that inherit from `OkonomiUiKit::Component`.
 
-For detailed instructions on creating new components, see [Component Implementation Guide](docs/COMPONENT_GUIDE.md).
+For detailed instructions on creating new components, see [Component Implementation Guide](app/helpers/okonomi_ui_kit/CLAUDE.md).
 
 ### Component Styling System
 The component styling system provides:
