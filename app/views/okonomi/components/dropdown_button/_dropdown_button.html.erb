@@ -7,22 +7,34 @@
   
   # For split buttons, we need to handle borders specially for outlined variant
   is_outlined = base_button_classes.include?("border")
+  is_text_variant = !base_button_classes.include?("border") && !base_button_classes.include?("bg-")
   
-  # Build classes for the primary action - remove right border radius and right border for outlined
-  primary_classes = base_button_classes
-    .gsub(/rounded-md/, "rounded-l-md")
-    .gsub(/px-2/, "px-2 pr-3")  # Increase right padding
-  
-  # Add border-r-0 for outlined variant to remove double border
-  primary_classes += " border-r-0" if is_outlined
+  # Build classes for the primary action
+  if is_text_variant
+    # Text variant: keep normal rounded corners
+    primary_classes = base_button_classes
+      .gsub(/px-2/, "px-2 pr-3")  # Increase right padding
+  else
+    # Other variants: remove right border radius and handle borders
+    primary_classes = base_button_classes
+      .gsub(/rounded-md/, "rounded-l-md")
+      .gsub(/px-2/, "px-2 pr-3")  # Increase right padding
+    
+    # Add border-r-0 for outlined variant to remove double border
+    primary_classes += " border-r-0" if is_outlined
+  end
   
   # Build classes for dropdown trigger
-  trigger_classes = base_button_classes
-    .gsub(/rounded-md/, "rounded-r-md")
-    .gsub(/px-\d+/, "px-2")
-  
-  # Add negative margin to overlap with primary button
-  trigger_classes += " -ml-px"
+  if is_text_variant
+    # Text variant: keep normal rounded corners and add spacing
+    trigger_classes = base_button_classes
+      .gsub(/px-\d+/, "px-2") + " ml-1"
+  else
+    # Other variants: remove left border radius and overlap
+    trigger_classes = base_button_classes
+      .gsub(/rounded-md/, "rounded-r-md")
+      .gsub(/px-\d+/, "px-2") + " -ml-px"
+  end
 %>
 
 <div <%= tag.attributes(options.merge(
