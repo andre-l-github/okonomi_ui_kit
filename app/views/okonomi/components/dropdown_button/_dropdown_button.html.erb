@@ -109,6 +109,9 @@
   
   <div class="<%= menu_classes %> hidden" data-dropdown-target="menu">
     <div class="py-1" role="menu" aria-orientation="vertical">
+      <% # Check if any menu item has an icon to ensure consistent alignment %>
+      <% has_any_icon = menu_items.any? { |item| item != primary && item[:icon] && item[:type] != :divider } %>
+      
       <% menu_items.each do |item| %>
         <% next if item == primary %> <%# Skip the primary item in the menu %>
         
@@ -123,9 +126,13 @@
             class: link_class,
             role: "menuitem"
           ) do %>
-            <% if icon_path %>
+            <% if has_any_icon %>
               <span class="<%= component.style(:menu, :item, :label) %>">
-                <%= ui.icon(icon_path, class: component.style(:menu, :item, :icon)) %>
+                <% if icon_path %>
+                  <%= ui.icon(icon_path, class: component.style(:menu, :item, :icon)) %>
+                <% else %>
+                  <span class="<%= component.style(:menu, :item, :icon) %>"></span>
+                <% end %>
                 <% if item[:block] %>
                   <%= capture(&item[:block]) %>
                 <% else %>
@@ -149,9 +156,13 @@
             class: button_class,
             role: "menuitem"
           ) do %>
-            <% if icon_path %>
+            <% if has_any_icon %>
               <span class="<%= component.style(:menu, :item, :label) %>">
-                <%= ui.icon(icon_path, class: component.style(:menu, :item, :icon)) %>
+                <% if icon_path %>
+                  <%= ui.icon(icon_path, class: component.style(:menu, :item, :icon)) %>
+                <% else %>
+                  <span class="<%= component.style(:menu, :item, :icon) %>"></span>
+                <% end %>
                 <% if item[:block] %>
                   <%= capture(&item[:block]) %>
                 <% else %>
@@ -175,9 +186,13 @@
             class: button_class,
             role: "menuitem"
           ) do %>
-            <% if icon_path %>
+            <% if has_any_icon %>
               <span class="<%= component.style(:menu, :item, :label) %>">
-                <%= ui.icon(icon_path, class: component.style(:menu, :item, :icon)) %>
+                <% if icon_path %>
+                  <%= ui.icon(icon_path, class: component.style(:menu, :item, :icon)) %>
+                <% else %>
+                  <span class="<%= component.style(:menu, :item, :icon) %>"></span>
+                <% end %>
                 <% if item[:block] %>
                   <%= capture(&item[:block]) %>
                 <% else %>

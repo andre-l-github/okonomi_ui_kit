@@ -133,5 +133,25 @@
         <% end %>
       </div>
     </div>
+    
+    <!-- Mixed Icons Example -->
+    <div>
+      <h2 class="text-xl font-semibold mb-4">Mixed Menu Items (With and Without Icons)</h2>
+      <div class="flex items-center gap-4">
+        <%= ui.dropdown_button(variant: :outlined, color: :default) do |dd| %>
+          <% dd.link_to "New Document", "#", icon: "heroicons/outline/document-plus" %>
+          <% dd.link_to "Open Recent", "#" %>
+          <% dd.link_to "Import...", "#", icon: "heroicons/outline/arrow-down-tray" %>
+          <% dd.divider %>
+          <% dd.link_to "Save", "#", icon: "heroicons/outline/arrow-down-on-square" %>
+          <% dd.link_to "Save As...", "#" %>
+          <% dd.link_to "Export", "#", icon: "heroicons/outline/arrow-up-tray" %>
+          <% dd.divider %>
+          <% dd.link_to "Print Preview", "#" %>
+          <% dd.link_to "Page Setup", "#" %>
+          <% dd.button_tag "Print", onclick: "window.print()", icon: "heroicons/outline/printer" %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
