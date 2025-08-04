@@ -22,12 +22,25 @@ The Button To component extends Rails' `button_to` helper to create form-based b
 <%= ui.button_to "Danger Action", "/path", variant: :text, color: :danger %>
 ```
 
+#### Button To with Icons
+```erb
+# Icon at start (default position)
+<%= ui.button_to "Save", save_path, icon: "heroicons/outline/save" %>
+
+# Icon at end
+<%= ui.button_to "Continue", next_path, icon: { end: "heroicons/outline/arrow-right" } %>
+
+# Icon only button
+<%= ui.button_to delete_path, method: :delete, icon: "heroicons/outline/trash" %>
+```
+
 ## Customization Options
 
 | Option | Type/Values | Purpose |
 |--------|-------------|---------|
 | variant | :contained, :outlined, :text | Controls the button style |
 | color | :default, :primary, :secondary, :success, :danger, :warning, :info | Sets the color scheme |
+| icon | String or Hash | Adds an icon (string defaults to start, hash can specify :start or :end) |
 | method | :get, :post, :patch, :put, :delete | HTTP method for the request |
 | disabled | Boolean | Disables the button |
 | class | String | Additional CSS classes |
@@ -52,8 +65,7 @@ The Button To component extends Rails' `button_to` helper to create form-based b
 
 #### Button To with Block Content
 ```erb
-<%= ui.button_to edit_item_path(@item), method: :get do %>
-  <%= ui.icon "pencil", size: :sm, class: "mr-2" %>
+<%= ui.button_to edit_item_path(@item), method: :get, icon: "heroicons/outline/pencil" do %>
   Edit Item
 <% end %>
 ```
@@ -205,20 +217,18 @@ The button to component maintains accessibility standards:
         method: :delete,
         variant: :text,
         color: :danger,
-        form: { class: "ml-4" } do %>
-      <%= ui.icon "trash", size: :sm %>
-    <% end %>
+        icon: "heroicons/outline/trash",
+        form: { class: "ml-4" } %>
   </div>
 </div>
 ```
 
 #### Toggle State Button
 ```erb
-<%= ui.button_to toggle_feature_path(@feature),
+<%= ui.button_to @feature.enabled? ? "Enabled" : "Disabled",
+    toggle_feature_path(@feature),
     method: :patch,
     variant: :contained,
-    color: @feature.enabled? ? :success : :default do %>
-  <%= ui.icon(@feature.enabled? ? "check" : "x", size: :sm, class: "mr-2") %>
-  <%= @feature.enabled? ? "Enabled" : "Disabled" %>
-<% end %>
+    color: @feature.enabled? ? :success : :default,
+    icon: @feature.enabled? ? "heroicons/outline/check" : "heroicons/outline/x" %>
 ```

@@ -10,6 +10,74 @@ module OkonomiUiKit
         ].reject(&:blank?).join(" ")
       end
 
+      # Extracts and normalizes icon configuration from options
+      # Returns [icon_config, updated_options]
+      # icon_config will be nil or { path: "icon/path", position: :start/:end }
+      def extract_icon_config(options)
+        return [nil, options] unless options.is_a?(Hash)
+        
+        icon_option = options.delete(:icon)
+        return [nil, options] unless icon_option
+        
+        icon_config = case icon_option
+        when String
+          { path: icon_option, position: :start }
+        when Hash
+          if icon_option[:start]
+            { path: icon_option[:start], position: :start }
+          elsif icon_option[:end]
+            { path: icon_option[:end], position: :end }
+          else
+            # Invalid hash format, ignore
+            nil
+          end
+        else
+          nil
+        end
+        
+        [icon_config, options]
+      end
+
+      # Renders button content with optional icon
+      # icon_config: { path: "icon/path", position: :start/:end }
+      # content: String or block content
+      # block: Optional block for content
+      def render_button_content(icon_config, content = nil, &block)
+        icon_html = if icon_config
+          view.ui.icon(icon_config[:path], class: style(:icon, icon_config[:position]))
+        end
+        
+        content_html = if block_given?
+          view.capture(&block)
+        else
+          content
+        end
+        
+        # Check if we have actual content (not empty/nil)
+        has_content = content_html.present?
+        
+        if icon_config && has_content
+          # Both icon and content - wrap in flex container with gap
+          wrapper_class = "inline-flex items-center gap-1.5"
+          
+          if icon_config[:position] == :end
+            view.content_tag(:span, class: wrapper_class) do
+              view.safe_join([content_html, icon_html].compact)
+            end
+          else
+            view.content_tag(:span, class: wrapper_class) do
+              view.safe_join([icon_html, content_html].compact)
+            end
+          end
+        elsif icon_config
+          # Icon only - no wrapper needed
+          icon_html
+        else
+          # Content only
+          content_html
+        end
+      end
+
       register_styles :default do
         {
           root: "hover:cursor-pointer text-sm",
@@ -48,6 +116,10 @@ module OkonomiUiKit
               warning: "text-warning-600 hover:underline",
               info: "text-info-600 hover:underline"
             }
+          },
+          icon: {
+            start: "size-3.5",
+            end: "size-3.5"
           }
         }
       end

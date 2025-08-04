@@ -9,13 +9,14 @@ module OkonomiUiKit
 
         variant = (html_options.delete(:variant) || "contained").to_sym
         color = (html_options.delete(:color) || "default").to_sym
+        
+        # Extract icon configuration
+        icon_config, html_options = extract_icon_config(html_options)
 
         html_options[:class] = build_button_class(variant: variant, color: color, classes: html_options[:class])
 
-        if block_given?
-          view.button_to(options, html_options, &block)
-        else
-          view.button_to(name, options, html_options)
+        view.button_to(options, html_options) do
+          render_button_content(icon_config, name, &block)
         end
       end
     end

@@ -19,9 +19,20 @@ The Link To component extends Rails' `link_to` helper with consistent styling op
 #### Link with Block Content
 ```erb
 <%= ui.link_to product_path(@product), variant: :outlined do %>
-  <%= ui.icon "eye", size: :sm, class: "mr-2" %>
-  View Product
+  <span class="font-bold">View</span> Product Details
 <% end %>
+```
+
+#### Link with Icons
+```erb
+# Icon at start (default position)
+<%= ui.link_to "Home", root_path, icon: "heroicons/outline/home" %>
+
+# Icon at end
+<%= ui.link_to "Learn More", docs_path, icon: { end: "heroicons/outline/arrow-right" } %>
+
+# Icon only link
+<%= ui.link_to edit_path, icon: "heroicons/outline/pencil", variant: :contained, color: :primary %>
 ```
 
 ## Customization Options
@@ -30,6 +41,7 @@ The Link To component extends Rails' `link_to` helper with consistent styling op
 |--------|-------------|---------|
 | variant | :text, :contained, :outlined | Controls the link style (default: :text) |
 | color | :default, :primary, :secondary, :success, :danger, :warning, :info | Sets the color scheme |
+| icon | String or Hash | Adds an icon (string defaults to start, hash can specify :start or :end) |
 | class | String | Additional CSS classes |
 | id | String | HTML id attribute |
 | data | Hash | Data attributes for Turbo/Stimulus |

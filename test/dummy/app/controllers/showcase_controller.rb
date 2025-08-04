@@ -1,6 +1,7 @@
 class ShowcaseController < ApplicationController
   def index
     @components = [
+      { name: "buttons", title: "Buttons", description: "Interactive buttons with variants, colors, sizes, and icon support" },
       { name: "typography", title: "Typography", description: "Headings, Paragraphs, ..." },
       { name: "icons", title: "Icons", description: "SVG icons from Heroicons with various styles" },
       { name: "page_builder", title: "Page Builder", description: "Semantic page layout system with headers, sections, and attributes" },

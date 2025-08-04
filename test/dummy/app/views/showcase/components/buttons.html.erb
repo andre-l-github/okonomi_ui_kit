@@ -9,42 +9,109 @@
       <section class="bg-white rounded-lg shadow p-6">
         <h2 class="text-xl font-semibold text-gray-900 mb-4">Button Variants</h2>
         <div class="flex flex-wrap gap-4">
-          <%= ui.button_to "Primary Button", "#", variant: :primary %>
-          <%= ui.button_to "Secondary Button", "#", variant: :secondary %>
-          <%= ui.button_to "Danger Button", "#", variant: :danger %>
-          <%= ui.button_to "Ghost Button", "#", variant: :ghost %>
+          <%= ui.button_tag "Contained", variant: :contained, color: :primary %>
+          <%= ui.button_tag "Outlined", variant: :outlined, color: :primary %>
+          <%= ui.button_tag "Text", variant: :text, color: :primary %>
         </div>
       </section>
 
-      <!-- Button Sizes -->
+      <!-- Button Colors -->
       <section class="bg-white rounded-lg shadow p-6">
-        <h2 class="text-xl font-semibold text-gray-900 mb-4">Button Sizes</h2>
-        <div class="flex flex-wrap items-center gap-4">
-          <%= ui.button_to "Small", "#", size: :small %>
-          <%= ui.button_to "Medium", "#", size: :medium %>
-          <%= ui.button_to "Large", "#", size: :large %>
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Button Colors</h2>
+        <div class="flex flex-wrap gap-4">
+          <%= ui.button_tag "Default", variant: :contained, color: :default %>
+          <%= ui.button_tag "Primary", variant: :contained, color: :primary %>
+          <%= ui.button_tag "Secondary", variant: :contained, color: :secondary %>
+          <%= ui.button_tag "Success", variant: :contained, color: :success %>
+          <%= ui.button_tag "Danger", variant: :contained, color: :danger %>
+          <%= ui.button_tag "Warning", variant: :contained, color: :warning %>
+          <%= ui.button_tag "Info", variant: :contained, color: :info %>
         </div>
       </section>
+
 
       <!-- Button States -->
       <section class="bg-white rounded-lg shadow p-6">
         <h2 class="text-xl font-semibold text-gray-900 mb-4">Button States</h2>
         <div class="flex flex-wrap gap-4">
-          <%= ui.button_to "Normal", "#" %>
-          <%= ui.button_to "Disabled", "#", disabled: true %>
-          <%= ui.button_to "Loading...", "#", "data-turbo-submitting": true %>
+          <%= ui.button_tag "Normal", variant: :contained, color: :primary %>
+          <%= ui.button_tag "Disabled", variant: :contained, color: :primary, disabled: true %>
+          <%= ui.button_tag "Loading...", variant: :contained, color: :primary, data: { disable_with: "Loading..." } %>
+        </div>
+      </section>
+
+      <!-- Buttons with Icons -->
+      <section class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Buttons with Icons</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <h3 class="text-sm font-medium text-gray-700 mb-3">Icon at Start (Default)</h3>
+            <div class="flex flex-wrap gap-4">
+              <%= ui.button_tag "Download", icon: "heroicons/outline/arrow-down-tray", variant: :contained, color: :primary %>
+              <%= ui.button_to "Save", "#", icon: "heroicons/outline/bookmark", variant: :outlined, color: :success %>
+              <%= ui.link_to "Home", "#", icon: "heroicons/outline/home", variant: :contained, color: :default %>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-medium text-gray-700 mb-3">Icon at End</h3>
+            <div class="flex flex-wrap gap-4">
+              <%= ui.button_tag "Next", icon: { end: "heroicons/outline/arrow-right" }, variant: :contained, color: :primary %>
+              <%= ui.button_to "Continue", "#", icon: { end: "heroicons/outline/chevron-right" }, variant: :outlined, color: :primary %>
+              <%= ui.link_to "Learn More", "#", icon: { end: "heroicons/outline/external-link" }, variant: :text, color: :primary %>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-medium text-gray-700 mb-3">Icon Only Buttons</h3>
+            <div class="flex flex-wrap gap-4">
+              <%= ui.button_tag icon: "heroicons/outline/trash", variant: :contained, color: :danger %>
+              <%= ui.button_tag icon: "heroicons/outline/pencil", variant: :outlined, color: :default %>
+              <%= ui.button_tag icon: "heroicons/outline/cog", variant: :text, color: :default %>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-medium text-gray-700 mb-3">Form Submit with Icon</h3>
+            <%= form_with url: "#", builder: OkonomiUiKit::FormBuilder do |form| %>
+              <div class="flex gap-4">
+                <%= form.submit "Create Account", icon: "heroicons/outline/user-plus", variant: :contained, color: :primary %>
+                <%= form.submit "Update Profile", icon: "heroicons/outline/bookmark", variant: :outlined, color: :secondary %>
+              </div>
+            <% end %>
+          </div>
         </div>
       </section>
 
       <!-- Code Example -->
       <section class="bg-white rounded-lg shadow p-6">
         <h2 class="text-xl font-semibold text-gray-900 mb-4">Usage Example</h2>
-        <pre class="bg-gray-900 text-gray-100 p-4 rounded overflow-x-auto"><code>&lt;%= ui.button_to "Click me", some_path, variant: :primary, size: :medium %&gt;
+        <pre class="bg-gray-900 text-gray-100 p-4 rounded overflow-x-auto"><code># Button variants
+&lt;%= ui.button_tag "Click me", variant: :contained, color: :primary %&gt;
+&lt;%= ui.button_tag "Click me", variant: :outlined, color: :primary %&gt;
+&lt;%= ui.button_tag "Click me", variant: :text, color: :primary %&gt;
 
-&lt;%= ui.button_to "Submit", "#", variant: :primary, data: { turbo_method: :post } %&gt;
+# Button colors
+&lt;%= ui.button_tag "Submit", variant: :contained, color: :success %&gt;
+&lt;%= ui.button_tag "Delete", variant: :contained, color: :danger %&gt;
 
-&lt;%= ui.button_to "Delete", "#", variant: :danger,
-    data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %&gt;</code></pre>
+# Form buttons with method
+&lt;%= ui.button_to "Submit", some_path, method: :post, variant: :contained, color: :primary %&gt;
+&lt;%= ui.button_to "Delete", item_path, method: :delete, variant: :outlined, color: :danger,
+    data: { confirm: "Are you sure?" } %&gt;
+
+# Buttons with Icons
+&lt;%= ui.button_tag "Download", icon: "heroicons/outline/download", variant: :contained %&gt;
+
+# Icon at end position
+&lt;%= ui.button_tag "Next", icon: { end: "heroicons/outline/arrow-right" } %&gt;
+
+# Link with icon
+&lt;%= ui.link_to "Home", root_path, icon: "heroicons/outline/home" %&gt;
+
+# Form submit with icon
+&lt;%= form.submit "Save", icon: "heroicons/outline/save" %&gt;</code></pre>
       </section>
     </div>
   </div>

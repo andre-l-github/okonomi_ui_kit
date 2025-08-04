@@ -19,9 +19,20 @@ The Button Tag component provides a flexible way to create interactive buttons u
 #### Button with Block Content
 ```erb
 <%= ui.button_tag do %>
-  <%= ui.icon "download", size: :sm, class: "mr-2" %>
-  Download Report
+  <span class="font-bold">Custom</span> Content
 <% end %>
+```
+
+#### Button with Icons
+```erb
+# Icon at start (default position)
+<%= ui.button_tag "Download", icon: "heroicons/outline/download" %>
+
+# Icon at end
+<%= ui.button_tag "Next", icon: { end: "heroicons/outline/arrow-right" } %>
+
+# Icon only button
+<%= ui.button_tag icon: "heroicons/outline/trash", variant: :contained, color: :danger %>
 ```
 
 ## Customization Options
@@ -30,6 +41,7 @@ The Button Tag component provides a flexible way to create interactive buttons u
 |--------|-------------|---------|
 | variant | :contained, :outlined, :text | Controls the button style |
 | color | :default, :primary, :secondary, :success, :danger, :warning, :info | Sets the color scheme |
+| icon | String or Hash | Adds an icon (string defaults to start, hash can specify :start or :end) |
 | type | :button, :submit, :reset | HTML button type attribute |
 | disabled | Boolean | Disables the button |
 | class | String | Additional CSS classes |
@@ -60,10 +72,11 @@ The Button Tag component provides a flexible way to create interactive buttons u
 
 #### Loading State Button
 ```erb
-<%= ui.button_tag variant: :contained, color: :primary, data: { disable_with: "Processing..." } do %>
-  <%= ui.icon "save", size: :sm, class: "mr-2" %>
-  Save Changes
-<% end %>
+<%= ui.button_tag "Save Changes", 
+    icon: "heroicons/outline/save",
+    variant: :contained, 
+    color: :primary, 
+    data: { disable_with: "Processing..." } %>
 ```
 
 ## Styling
@@ -114,7 +127,7 @@ OkonomiUiKit::Components::ButtonTag.use_config(:custom)
 
 1. **Appropriate Button Types**: Use `type: :submit` for form submissions, `type: :button` for JavaScript actions
 2. **Loading States**: Implement `data-disable-with` for buttons that trigger async operations
-3. **Icon Usage**: Place icons before text with proper spacing for better readability
+3. **Icon Usage**: Use the `icon` option for consistent icon placement and styling
 4. **Variant Selection**: Use contained for primary actions, outlined for secondary, text for tertiary
 5. **Accessibility**: Include descriptive text or aria-labels for icon-only buttons
 
@@ -150,10 +163,11 @@ The button tag component is built with accessibility in mind:
 #### Dropdown Trigger
 ```erb
 <div class="relative" data-controller="dropdown">
-  <%= ui.button_tag variant: :outlined, color: :default, data: { action: "dropdown#toggle" } do %>
-    Options
-    <%= ui.icon "chevron-down", size: :xs, class: "ml-2" %>
-  <% end %>
+  <%= ui.button_tag "Options", 
+      icon: { end: "heroicons/outline/chevron-down" },
+      variant: :outlined, 
+      color: :default, 
+      data: { action: "dropdown#toggle" } %>
   
   <div class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg">
     <!-- dropdown items -->
@@ -172,7 +186,9 @@ The button tag component is built with accessibility in mind:
 
 #### Icon Button
 ```erb
-<%= ui.button_tag variant: :contained, color: :primary, class: "p-2", aria: { label: "Search" } do %>
-  <%= ui.icon "search", size: :sm %>
-<% end %>
+<%= ui.button_tag icon: "heroicons/outline/search", 
+    variant: :contained, 
+    color: :primary, 
+    class: "p-2", 
+    aria: { label: "Search" } %>
 ```

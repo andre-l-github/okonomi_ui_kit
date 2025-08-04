@@ -19,6 +19,22 @@ module OkonomiUiKit
 
     setup do
       @model = TestModel.new(name: "John", email: "john@example.com")
+      
+      # Mock the SvgIcons to avoid file system dependencies
+      @test_svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/></svg>'
+      @original_exist = OkonomiUiKit::SvgIcons.method(:exist?)
+      @original_read = OkonomiUiKit::SvgIcons.method(:read)
+      
+      # Mock icon existence and reading for tests
+      test_svg = @test_svg
+      OkonomiUiKit::SvgIcons.define_singleton_method(:exist?) { |_| true }
+      OkonomiUiKit::SvgIcons.define_singleton_method(:read) { |_| test_svg }
+    end
+
+    teardown do
+      # Restore original methods
+      OkonomiUiKit::SvgIcons.define_singleton_method(:exist?, @original_exist)
+      OkonomiUiKit::SvgIcons.define_singleton_method(:read, @original_read)
     end
 
     test "form builder creates field with block" do
@@ -137,6 +153,45 @@ module OkonomiUiKit
       assert_includes form_html, ">Save</button>"
       # Should have outlined variant styling
       assert_includes form_html, "border"
+    end
+
+    test "submit with icon at start position" do
+      form_html = form_with(model: @model, url: "/test", builder: OkonomiUiKit::FormBuilder) do |form|
+        form.submit "Save", icon: "heroicons/outline/save"
+      end
+
+      assert_includes form_html, '<button name="button" type="submit"'
+      assert_includes form_html, "Save"
+      # Should include icon SVG
+      assert_includes form_html, "<svg"
+      # Icon should come before text
+      assert form_html.index("<svg") < form_html.index("Save")
+    end
+
+    test "submit with icon at end position" do
+      form_html = form_with(model: @model, url: "/test", builder: OkonomiUiKit::FormBuilder) do |form|
+        form.submit "Continue", icon: { end: "heroicons/outline/arrow-right" }
+      end
+
+      assert_includes form_html, '<button name="button" type="submit"'
+      assert_includes form_html, "Continue"
+      assert_includes form_html, "<svg"
+      # Icon should come after text
+      assert form_html.index("Continue") < form_html.index("<svg")
+    end
+
+    test "submit with icon and custom styling" do
+      form_html = form_with(model: @model, url: "/test", builder: OkonomiUiKit::FormBuilder) do |form|
+        form.submit "Create Account", icon: "heroicons/outline/user-add", variant: :contained, color: :primary
+      end
+
+      assert_includes form_html, '<button name="button" type="submit"'
+      assert_includes form_html, "Create Account"
+      assert_includes form_html, "<svg"
+      # Check for icon-specific classes
+      assert_match /size-3\.5/, form_html
+      # Check for flex wrapper with gap
+      assert_match /inline-flex items-center gap-1\.5/, form_html
     end
 
     test "form builder creates check box with label" do
