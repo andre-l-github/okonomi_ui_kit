@@ -96,6 +96,10 @@ module OkonomiUiKit
       include ActionView::Helpers::TagHelper
       include ActionView::Helpers::CaptureHelper
 
+      attr_reader :template
+
+      delegate :ui, to: :template
+
       def initialize(template)
         @template = template
         @title_content = nil
@@ -103,7 +107,7 @@ module OkonomiUiKit
       end
 
       def title(text, **options)
-        @title_content = tag.h1(text, class: "text-2xl font-bold leading-7 text-gray-900 truncate sm:text-3xl sm:tracking-tight")
+        @title_content = ui.typography(text, variant: "h1", **options)
       end
 
       def actions(&block)
