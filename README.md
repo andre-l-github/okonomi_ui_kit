@@ -113,7 +113,7 @@ end
 
 ## Documentation
 
-### Guides
+### Core Guides
 
 - [Style Overrides Guide](guides/style-overrides-guide.md) - Complete guide to customizing component styles
 - [Component Guide](docs/COMPONENT_GUIDE.md) - Creating custom components
@@ -121,11 +121,52 @@ end
 
 ### Component Guides
 
+#### Core UI Components
+- [Alert](guides/components/alert.md) - Notification messages and alerts
+- [Badge](guides/components/badge.md) - Status indicators and labels
+- [Button Base](guides/components/button_base.md) - Base button component configuration
+- [Button Tag](guides/components/button_tag.md) - Button element with styling
+- [Button To](guides/components/button_to.md) - Rails button_to helper with styling
+- [Code](guides/components/code.md) - Inline and block code display
+- [Link To](guides/components/link_to.md) - Styled link components
+- [Typography](guides/components/typography.md) - Text styling with semantic HTML elements
+
+#### Layout Components
+- [Page](guides/components/page.md) - Page layout structure
+- [Table](guides/components/table.md) - Data tables with consistent styling
+
+#### Navigation Components
 - [Breadcrumbs](guides/components/breadcrumbs.md) - Navigation breadcrumb trails
+- [Navigation](guides/components/navigation.md) - Sidebar navigation menus with groups and links
+
+#### Interactive Components
 - [Confirmation Modal](guides/components/confirmation_modal.md) - Accessible modal dialogs for user confirmations
 - [Icon](guides/components/icon.md) - SVG icon rendering with style customization
-- [Navigation](guides/components/navigation.md) - Sidebar navigation menus with groups and links
-- [Typography](guides/components/typography.md) - Text styling with semantic HTML elements
+
+#### Form Components
+- [Forms Overview](guides/components/forms.md) - Form building guide and best practices
+- [Check Box with Label](guides/components/forms/check_box_with_label.md) - Checkbox inputs with labels
+- [Collection Select](guides/components/forms/collection_select.md) - Select from a collection
+- [Date Field](guides/components/forms/date_field.md) - Date input fields
+- [DateTime Local Field](guides/components/forms/datetime_local_field.md) - Date and time inputs
+- [Email Field](guides/components/forms/email_field.md) - Email input validation
+- [Field](guides/components/forms/field.md) - Form field wrapper
+- [Field Set](guides/components/forms/field_set.md) - Group related form fields
+- [Input Base](guides/components/forms/input_base.md) - Base input configuration
+- [Label](guides/components/forms/label.md) - Form labels
+- [Multi Select](guides/components/forms/multi_select.md) - Multiple selection inputs
+- [Number Field](guides/components/forms/number_field.md) - Numeric inputs
+- [Password Field](guides/components/forms/password_field.md) - Password inputs
+- [Search Field](guides/components/forms/search_field.md) - Search input fields
+- [Select](guides/components/forms/select.md) - Select dropdowns
+- [Show If](guides/components/forms/show_if.md) - Conditional field visibility
+- [Telephone Field](guides/components/forms/telephone_field.md) - Phone number inputs
+- [Text Area](guides/components/forms/text_area.md) - Multi-line text inputs
+- [Text Field](guides/components/forms/text_field.md) - Single-line text inputs
+- [Time Field](guides/components/forms/time_field.md) - Time input fields
+- [Upload Field](guides/components/forms/upload_field.md) - File upload fields
+- [URL Field](guides/components/forms/url_field.md) - URL input validation
+
 
 ### Development
 

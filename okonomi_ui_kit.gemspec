@@ -5,14 +5,14 @@ Gem::Specification.new do |spec|
   spec.version     = OkonomiUiKit::VERSION
   spec.authors     = [ "Okonomi GmbH" ]
   spec.email       = [ "andre.lahs@okonomi.gmbh" ]
-  spec.homepage    = "https://okonomi.gmbh"
+  spec.homepage    = "https://github.com/andre-l-github/okonomi_ui_kit"
   spec.summary     = "UI Kit for Okonomi applications"
   spec.description = "UI Kit for Okonomi applications"
   spec.license     = "MIT"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://okonomi.gmbh"
-  spec.metadata["changelog_uri"] = "https://okonomi.gmbh"
+  spec.metadata["source_code_uri"] = "https://github.com/andre-l-github/okonomi_ui_kit"
+  spec.metadata["changelog_uri"] = "https://github.com/andre-l-github/okonomi_ui_kit"
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
