@@ -5,11 +5,11 @@ module OkonomiUiKit
         options = options.with_indifferent_access
         severity = (options.delete(:severity) || options.delete(:variant) || :default).to_sym
 
-        classes = [
+        classes = tw_merge(
           style(:base),
-          style(:severities, severity) || "",
-          options.delete(:class) || ""
-        ].reject(&:blank?).join(" ")
+          style(:severities, severity),
+          options.delete(:class)
+        )
 
         view.tag.span(text, class: classes, **options)
       end

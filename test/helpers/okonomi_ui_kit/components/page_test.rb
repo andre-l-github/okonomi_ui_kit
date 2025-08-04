@@ -34,7 +34,7 @@ module OkonomiUiKit
 
         assert_includes html, "<h1"
         assert_includes html, "Page Title"
-        assert_includes html, "text-2xl font-bold"
+        assert_includes html, "text-3xl font-bold"
       end
 
       test "page header with breadcrumbs" do
@@ -197,6 +197,41 @@ module OkonomiUiKit
         assert_includes html, "Basic details about the user"
         assert_includes html, "Update"
         assert_includes html, "Jane Smith"
+      end
+
+      test "page component uses registered styles" do
+        html = ui.page do |page|
+          "Test content"
+        end
+
+        # Should contain the root style from register_styles
+        assert_includes html, "flex flex-col gap-8 p-8"
+      end
+
+      test "page header component uses registered styles" do
+        html = ui.page do |page|
+          page.page_header do |header|
+            header.row do |row|
+              row.title "Title"
+            end
+          end
+        end
+
+        # Should contain styles from PageHeader component
+        assert_includes html, "flex flex-col gap-2"
+        assert_includes html, "flex w-full justify-between items-center"
+      end
+
+      test "page section component uses registered styles" do
+        html = ui.page do |page|
+          page.section do |section|
+            section.title "Section Title"
+          end
+        end
+
+        # Should contain styles from PageSection component
+        assert_includes html, "overflow-hidden bg-white"
+        assert_includes html, "text-base/7 font-semibold text-gray-900"
       end
     end
   end

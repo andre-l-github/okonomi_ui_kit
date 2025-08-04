@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-8 p-8 <%= options[:class] || '' %>">
+<div class="<%= options[:class] %>">
   <% content = capture { yield(builder) } %>
   <%= builder.render_content %>
   <%= content if builder.render_content.blank? %>

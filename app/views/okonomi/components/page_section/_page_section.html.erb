@@ -1,0 +1,4 @@
+<div class="<%= options[:class] %>">
+  <% yield(builder) if block_given? %>
+  <%= builder.render_content %>
+</div>

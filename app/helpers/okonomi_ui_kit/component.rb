@@ -99,5 +99,9 @@ module OkonomiUiKit
       OkonomiUiKit::TWMerge.deep_merge_all(*hashes)
     end
     delegate :deep_merge, to: :class
+
+    def tw_merge(*classes)
+      OkonomiUiKit::TWMerge.merge_all(*classes)
+    end
   end
 end
