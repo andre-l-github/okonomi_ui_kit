@@ -62,6 +62,51 @@ Separate groups of menu items with dividers:
 <% end %>
 ```
 
+## JavaScript Actions with button_tag
+
+The dropdown button supports `button_tag` for JavaScript-triggered actions. This is useful for client-side operations like copying to clipboard, triggering modals, or other JavaScript functionality.
+
+### Basic button_tag Usage
+
+```erb
+<%= ui.dropdown_button do |dd| %>
+  <% dd.button_tag "Copy", data: { action: "click->clipboard#copy" }, icon: "heroicons/outline/clipboard" %>
+  <% dd.button_tag "Print", onclick: "window.print()", icon: "heroicons/outline/printer" %>
+  <% dd.link_to "Download", download_path, icon: "heroicons/outline/arrow-down-tray" %>
+<% end %>
+```
+
+### button_tag with Stimulus Actions
+
+Use with Stimulus controllers for more complex interactions:
+
+```erb
+<%= ui.dropdown_button(variant: :outlined, color: :primary) do |dd| %>
+  <% dd.button_tag "Toggle Favorite", 
+                   data: { action: "click->favorite#toggle", 
+                          item_id: @item.id },
+                   icon: "heroicons/outline/star" %>
+  <% dd.button_tag "Duplicate", 
+                   data: { action: "click->duplicate#create" },
+                   icon: "heroicons/outline/document-duplicate" %>
+  <% dd.divider %>
+  <% dd.button_to "Delete", item_path(@item), method: :delete %>
+<% end %>
+```
+
+### button_tag with Block Content
+
+You can also use blocks for custom content:
+
+```erb
+<%= ui.dropdown_button do |dd| %>
+  <% dd.button_tag data: { action: "click->share#open" } do %>
+    <span class="font-bold">Share</span>
+    <span class="text-xs text-gray-500 block">Opens share dialog</span>
+  <% end %>
+<% end %>
+```
+
 ## Advanced Options
 
 ### Custom Menu Classes
@@ -179,5 +224,24 @@ app/views/okonomi/components/dropdown_button/_dropdown_button.html.erb
   <% dd.link_to "Share", share_item_path(@item), icon: "heroicons/outline/share" %>
   <% dd.divider %>
   <% dd.link_to "Report", report_item_path(@item), icon: "heroicons/outline/flag" %>
+<% end %>
+```
+
+### Mixed Actions with JavaScript
+```erb
+<%= ui.dropdown_button do |dd| %>
+  <% dd.link_to "View Details", item_path(@item), icon: "heroicons/outline/eye" %>
+  <% dd.button_tag "Copy Link", 
+                   data: { action: "click->clipboard#copy", 
+                          clipboard_text: item_url(@item) },
+                   icon: "heroicons/outline/link" %>
+  <% dd.divider %>
+  <% dd.button_tag "Toggle Pin", 
+                   data: { action: "click->pin#toggle" },
+                   icon: "heroicons/outline/bookmark" %>
+  <% dd.link_to "Move to...", move_item_path(@item), icon: "heroicons/outline/folder" %>
+  <% dd.divider %>
+  <% dd.button_to "Archive", archive_item_path(@item), method: :post, 
+                  icon: "heroicons/outline/archive-box" %>
 <% end %>
 ```

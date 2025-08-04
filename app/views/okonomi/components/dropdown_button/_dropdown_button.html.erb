@@ -11,7 +11,6 @@
   # Build classes for the primary action - remove right border radius and right border for outlined
   primary_classes = base_button_classes
     .gsub(/rounded-md/, "rounded-l-md")
-    .gsub(/focus:ring-2/, "focus:z-10")
     .gsub(/px-2/, "px-2 pr-3")  # Increase right padding
   
   # Add border-r-0 for outlined variant to remove double border
@@ -21,7 +20,9 @@
   trigger_classes = base_button_classes
     .gsub(/rounded-md/, "rounded-r-md")
     .gsub(/px-\d+/, "px-2")
-    .gsub(/focus:ring-2/, "-ml-px focus:z-10")
+  
+  # Add negative margin to overlap with primary button
+  trigger_classes += " -ml-px"
 %>
 
 <div <%= tag.attributes(options.merge(
@@ -36,7 +37,7 @@
           class: primary_classes
         ) do %>
           <% if primary[:icon] %>
-            <%= ui.icon(primary[:icon], class: "mr-1.5 size-3.5") %>
+            <%= ui.icon(primary[:icon], class: component.style(:primary, :icon)) %>
           <% end %>
           <% if primary[:block] %>
             <%= capture(&primary[:block]) %>
@@ -44,13 +45,27 @@
             <%= primary[:name] %>
           <% end %>
         <% end %>
-      <% else %>
+      <% elsif primary[:type] == :button %>
         <% primary_options = primary[:html_options].dup %>
         <%= button_to primary[:options], primary_options.merge(
           class: primary_classes
         ) do %>
           <% if primary[:icon] %>
-            <%= ui.icon(primary[:icon], class: "mr-1.5 size-3.5") %>
+            <%= ui.icon(primary[:icon], class: component.style(:primary, :icon)) %>
+          <% end %>
+          <% if primary[:block] %>
+            <%= capture(&primary[:block]) %>
+          <% else %>
+            <%= primary[:name] %>
+          <% end %>
+        <% end %>
+      <% elsif primary[:type] == :button_tag %>
+        <% primary_options = primary[:options].dup %>
+        <%= button_tag primary_options.merge(
+          class: primary_classes
+        ) do %>
+          <% if primary[:icon] %>
+            <%= ui.icon(primary[:icon], class: component.style(:primary, :icon)) %>
           <% end %>
           <% if primary[:block] %>
             <%= capture(&primary[:block]) %>
@@ -119,6 +134,32 @@
           <% button_class = [component.style(:menu, :item, :root), button_options.delete(:class)].compact.join(" ") %>
           
           <%= button_to item[:options], button_options.merge(
+            class: button_class,
+            role: "menuitem"
+          ) do %>
+            <% if icon_path %>
+              <span class="<%= component.style(:menu, :item, :label) %>">
+                <%= ui.icon(icon_path, class: component.style(:menu, :item, :icon)) %>
+                <% if item[:block] %>
+                  <%= capture(&item[:block]) %>
+                <% else %>
+                  <%= item[:name] %>
+                <% end %>
+              </span>
+            <% else %>
+              <% if item[:block] %>
+                <%= capture(&item[:block]) %>
+              <% else %>
+                <%= item[:name] %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% elsif item[:type] == :button_tag %>
+          <% button_options = item[:options].dup %>
+          <% icon_path = item[:icon] %>
+          <% button_class = [component.style(:menu, :item, :root), button_options.delete(:class)].compact.join(" ") %>
+          
+          <%= button_tag button_options.merge(
             class: button_class,
             role: "menuitem"
           ) do %>

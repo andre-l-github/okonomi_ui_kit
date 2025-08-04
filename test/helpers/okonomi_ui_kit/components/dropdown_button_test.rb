@@ -114,6 +114,45 @@ module OkonomiUiKit
         
         assert_includes html, "<strong>Custom Profile</strong>"
       end
+      
+      test "dropdown button supports button_tag as primary action" do
+        html = ui.dropdown_button do |dd|
+          dd.button_tag "Copy", data: { action: "click->clipboard#copy" }, icon: "heroicons/outline/clipboard"
+          dd.link_to "Edit", "#"
+        end
+        
+        assert_includes html, "Copy"
+        assert_match /data-action="[^"]*clipboard#copy/, html
+        # Icon is rendered as SVG, not as path
+        assert_includes html, "<svg"
+        # Button tag should render as button element
+        assert_match /<button[^>]*data-action=/, html
+      end
+      
+      test "dropdown button supports button_tag in menu items" do
+        html = ui.dropdown_button do |dd|
+          dd.link_to "View", "#"
+          dd.button_tag "Copy to clipboard", data: { action: "click->clipboard#copy" }
+          dd.button_tag "Share", data: { action: "click->share#open" }, icon: "heroicons/outline/share"
+        end
+        
+        assert_includes html, "Copy to clipboard"
+        assert_includes html, "Share"
+        assert_match /data-action="[^"]*clipboard#copy/, html
+        assert_match /data-action="[^"]*share#open/, html
+      end
+      
+      test "dropdown button button_tag with block content" do
+        html = ui.dropdown_button do |dd|
+          dd.button_tag data: { action: "click->custom#action" } do
+            "<span class='custom'>Custom Action</span>".html_safe
+          end
+          dd.link_to "Other", "#"
+        end
+        
+        assert_includes html, "<span class='custom'>Custom Action</span>"
+        assert_match /data-action="[^"]*custom#action/, html
+      end
     end
   end
 end

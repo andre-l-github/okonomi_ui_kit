@@ -42,7 +42,7 @@ module OkonomiUiKit
             root: "absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-gray-200 focus:outline-none",
             divider: "h-0 my-1 border-t border-gray-200",
             item: {
-              root: "hover:cursor-pointer block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900",
+              root: "hover:cursor-pointer block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 active:bg-gray-100 hover:text-gray-900",
               icon: "mr-3 h-5 w-5 text-gray-400",
               label: "flex items-center"
             }
@@ -93,6 +93,35 @@ module OkonomiUiKit
             name: name,
             options: options,
             html_options: html_options,
+            block: block,
+            is_first: @is_first,
+            icon: icon
+          }
+          @items << item
+          @is_first = false
+        end
+        
+        def button_tag(content_or_options = nil, options = nil, &block)
+          # Handle the different argument patterns for button_tag
+          if content_or_options.is_a?(Hash)
+            options = content_or_options
+            content = nil
+          else
+            content = content_or_options
+          end
+          
+          options ||= {}
+          
+          # Handle icon extraction
+          icon = options.delete(:icon) if options.is_a?(Hash)
+          
+          # Ensure type is button for button_tag
+          options[:type] ||= "button"
+          
+          item = {
+            type: :button_tag,
+            name: content,
+            options: options,
             block: block,
             is_first: @is_first,
             icon: icon

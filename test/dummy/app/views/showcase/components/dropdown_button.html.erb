@@ -82,5 +82,56 @@
         <% end %>
       </div>
     </div>
+    
+    <!-- With JavaScript Actions (button_tag) -->
+    <div>
+      <h2 class="text-xl font-semibold mb-4">JavaScript Actions with button_tag</h2>
+      <div class="flex items-center gap-4">
+        <%= ui.dropdown_button(variant: :outlined, color: :primary) do |dd| %>
+          <% dd.button_tag "Copy to Clipboard", 
+                           data: { action: "click->clipboard#copy", 
+                                   clipboard_text: "Hello, World!" },
+                           icon: "heroicons/outline/clipboard" %>
+          <% dd.button_tag "Show Alert", 
+                           onclick: "alert('Button clicked!')",
+                           icon: "heroicons/outline/bell" %>
+          <% dd.divider %>
+          <% dd.link_to "View Original", "#", icon: "heroicons/outline/eye" %>
+        <% end %>
+        
+        <%= ui.dropdown_button(variant: :contained, color: :secondary) do |dd| %>
+          <% dd.link_to "Export", "#", icon: "heroicons/outline/arrow-down-tray" %>
+          <% dd.button_tag "Copy Link", 
+                           data: { action: "click->clipboard#copy",
+                                   clipboard_text: "window.location.href" },
+                           icon: "heroicons/outline/link" %>
+          <% dd.button_tag "Print", 
+                           onclick: "window.print()",
+                           icon: "heroicons/outline/printer" %>
+        <% end %>
+      </div>
+    </div>
+    
+    <!-- Mixed Actions Example -->
+    <div>
+      <h2 class="text-xl font-semibold mb-4">Mixed Actions (Links, Forms, and JavaScript)</h2>
+      <div class="flex items-center gap-4">
+        <%= ui.dropdown_button do |dd| %>
+          <% dd.link_to "View Details", "#", icon: "heroicons/outline/document-text" %>
+          <% dd.button_tag "Toggle Favorite", 
+                           data: { action: "click->favorite#toggle" },
+                           icon: "heroicons/outline/star" %>
+          <% dd.divider %>
+          <% dd.button_tag "Duplicate", 
+                           data: { action: "click->duplicate#create" },
+                           icon: "heroicons/outline/document-duplicate" %>
+          <% dd.link_to "Move to...", "#", icon: "heroicons/outline/folder" %>
+          <% dd.divider %>
+          <% dd.button_to "Delete", "#", method: :delete, 
+                          data: { confirm: "Are you sure?" },
+                          icon: "heroicons/outline/trash" %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
