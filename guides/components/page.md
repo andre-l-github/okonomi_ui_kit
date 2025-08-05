@@ -1,6 +1,6 @@
 # Page Component Guide
 
-The Page component provides a comprehensive system for building consistent, structured page layouts with headers, sections, and attribute displays.
+The Page component provides a comprehensive layout system for building consistent, structured pages with headers, sections, and content organization capabilities.
 
 ## Basic Usage
 
@@ -54,22 +54,21 @@ The Page component provides a comprehensive system for building consistent, stru
 
 ## Customization Options
 
-The page component consists of several nested builders:
+The Page component uses a nested builder pattern with these available methods:
 
-### Page Builder
-- `page_header` - Creates a page header with breadcrumbs and title row
-- `section` - Creates content sections with optional titles and structured body
-
-### Page Header Builder
-- `breadcrumbs` - Adds breadcrumb navigation
-- `row` - Creates a title row with optional actions
-
-### Section Builder
-- `title` - Sets the section title
-- `subtitle` - Sets a descriptive subtitle
-- `actions` - Adds action buttons to the section header
-- `body` - Contains the main section content
-- `attribute` - Creates structured attribute displays
+| Builder | Method | Purpose |
+|---------|--------|---------|
+| PageBuilder | page_header | Creates a page header with breadcrumbs and title row |
+| PageBuilder | section | Creates content sections with optional titles and structured body |
+| PageHeaderBuilder | breadcrumbs | Adds breadcrumb navigation |
+| PageHeaderBuilder | row | Creates a title row with optional actions |
+| PageHeaderRowBuilder | title | Sets the page title (h1 element) |
+| PageHeaderRowBuilder | actions | Adds action buttons aligned to the right |
+| SectionBuilder | title | Sets the section title (h3 element) |
+| SectionBuilder | subtitle | Sets a descriptive subtitle |
+| SectionBuilder | actions | Adds action buttons to the section header |
+| SectionBuilder | body | Contains the main section content |
+| SectionBuilder | attribute | Creates structured attribute displays within body |
 
 ## Advanced Features
 
@@ -140,24 +139,99 @@ The page component consists of several nested builders:
 <% end %>
 ```
 
+#### Integration with Other Components
+```erb
+<%= ui.page do |p| %>
+  <% p.page_header do |h| %>
+    <% h.row do |r| %>
+      <% r.title "Order Management" %>
+      <% r.actions do %>
+        <%= ui.dropdown_button "Actions", variant: :contained do |dropdown| %>
+          <% dropdown.link "Export Orders", export_orders_path %>
+          <% dropdown.link "Import Orders", import_orders_path %>
+          <% dropdown.divider %>
+          <% dropdown.link "Settings", order_settings_path %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+  
+  <% p.section title: "Orders" do |s| %>
+    <% s.body do %>
+      <%= ui.table do |table| %>
+        <% table.header do |header| %>
+          <% header.column "Order #" %>
+          <% header.column "Customer" %>
+          <% header.column "Status" %>
+          <% header.column "Total" %>
+          <% header.column "Actions" %>
+        <% end %>
+        <% table.body do |body| %>
+          <% @orders.each do |order| %>
+            <% body.row do |row| %>
+              <% row.cell order.number %>
+              <% row.cell order.customer_name %>
+              <% row.cell do %>
+                <%= ui.badge(order.status.humanize, 
+                             severity: order_status_severity(order.status)) %>
+              <% end %>
+              <% row.cell number_to_currency(order.total) %>
+              <% row.cell do %>
+                <%= ui.link_to "View", order_path(order), variant: :text, size: :sm %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+```
+
 ## Styling
 
 #### Default Styles
 
-The page component applies these default styles:
-- Page header: `flex flex-col gap-2`
-- Title: `text-2xl font-bold leading-7 text-gray-900 truncate sm:text-3xl sm:tracking-tight`
-- Actions container: `mt-4 flex md:ml-4 md:mt-0 gap-2`
-- Section: `overflow-hidden bg-white`
-- Section title: `text-base/7 font-semibold text-gray-900`
-- Section subtitle: `mt-1 max-w-2xl text-sm/6 text-gray-500`
-- Attribute container: `divide-y divide-gray-100`
+The Page component includes these default Tailwind classes:
+- Root: `flex flex-col gap-8 p-8`
+
+The PageHeader component styles:
+- Root: `flex flex-col gap-2`
+- Row: `flex w-full justify-between items-center`
+- Actions: `mt-4 flex md:ml-4 md:mt-0 gap-2`
+
+The PageSection component styles:
+- Root: `overflow-hidden bg-white`
+- Header: `py-6`
+- Header with actions: `flex w-full justify-between items-start`
+- Title: `text-base/7 font-semibold text-gray-900`
+- Subtitle: `mt-1 max-w-2xl text-sm/6 text-gray-500`
+- Actions: `mt-4 flex md:ml-4 md:mt-0`
+- Attribute list: `divide-y divide-gray-100`
+- Attribute row: `py-6 sm:grid sm:grid-cols-3 sm:gap-4`
 - Attribute label: `text-sm font-medium text-gray-900`
 - Attribute value: `mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0`
 
 #### Customizing Styles
 
-Since the page component uses template rendering, customize styles by overriding the template or passing custom classes:
+You can customize the appearance by creating config classes for each component:
+
+```ruby
+# app/helpers/okonomi_ui_kit/configs/page.rb
+module OkonomiUiKit
+  module Configs
+    class Page < OkonomiUiKit::Config
+      register_styles :default do
+        {
+          root: "flex flex-col gap-6 p-6 max-w-7xl mx-auto"
+        }
+      end
+    end
+  end
+end
+```
+
+Or pass custom classes directly:
 
 ```erb
 <%= ui.page class: "custom-page-wrapper" do |p| %>
@@ -182,7 +256,7 @@ The page component maintains accessibility standards:
 - Definition lists for attribute displays
 - Keyboard navigation support
 
-## Examples
+## Examples in Context
 
 #### Product Detail Page
 ```erb
@@ -284,6 +358,79 @@ The page component maintains accessibility standards:
     <% s.body do %>
       <%= ui.table do |table| %>
         <!-- activity table -->
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+```
+
+#### Settings Page with Multiple Sections
+```erb
+<%= ui.page do |p| %>
+  <% p.page_header do |h| %>
+    <% h.breadcrumbs do |crumb| %>
+      <% crumb.link "Account", account_path %>
+      <% crumb.link "Settings", settings_path, current: true %>
+    <% end %>
+    <% h.row do |r| %>
+      <% r.title "Settings" %>
+    <% end %>
+  <% end %>
+  
+  <% p.section title: "Profile" do |s| %>
+    <% s.subtitle "Manage your public profile information" %>
+    <% s.actions do %>
+      <%= ui.button_to "Edit Profile", edit_profile_path, variant: :outlined, size: :sm %>
+    <% end %>
+    <% s.body do |b| %>
+      <% b.attribute "Display Name", current_user.display_name %>
+      <% b.attribute "Bio", current_user.bio || "No bio provided" %>
+      <% b.attribute "Profile URL" do %>
+        <%= link_to user_url(current_user), user_url(current_user), 
+                    class: "text-blue-600 hover:text-blue-500", target: "_blank" %>
+      <% end %>
+    <% end %>
+  <% end %>
+  
+  <% p.section title: "Security" do |s| %>
+    <% s.subtitle "Keep your account secure" %>
+    <% s.body do |b| %>
+      <% b.attribute "Password" do %>
+        <div class="flex items-center justify-between">
+          <span class="text-gray-500">Last changed <%= time_ago_in_words(current_user.password_changed_at) %> ago</span>
+          <%= ui.button_tag "Change Password", variant: :outlined, size: :sm %>
+        </div>
+      <% end %>
+      <% b.attribute "Two-Factor Authentication" do %>
+        <div class="flex items-center justify-between">
+          <%= ui.badge(current_user.two_factor_enabled? ? "Enabled" : "Disabled",
+                       severity: current_user.two_factor_enabled? ? :success : :warning) %>
+          <%= ui.button_tag current_user.two_factor_enabled? ? "Manage" : "Enable", 
+                            variant: :outlined, size: :sm %>
+        </div>
+      <% end %>
+      <% b.attribute "Active Sessions" do %>
+        <%= link_to "View all sessions", sessions_path, 
+                    class: "text-blue-600 hover:text-blue-500" %>
+      <% end %>
+    <% end %>
+  <% end %>
+  
+  <% p.section title: "Privacy" do |s| %>
+    <% s.subtitle "Control your privacy preferences" %>
+    <% s.body do %>
+      <%= form_with model: current_user.privacy_settings, url: privacy_settings_path do |f| %>
+        <div class="space-y-4">
+          <%= f.check_box :profile_public %>
+          <%= f.label :profile_public, "Make my profile public" %>
+          
+          <%= f.check_box :show_email %>
+          <%= f.label :show_email, "Display email on profile" %>
+          
+          <div class="pt-4">
+            <%= f.submit "Save Privacy Settings", class: "btn btn-primary" %>
+          </div>
+        </div>
       <% end %>
     <% end %>
   <% end %>

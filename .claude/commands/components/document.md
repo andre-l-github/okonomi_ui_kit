@@ -44,13 +44,12 @@ Structure:
 ```erb
 <%= ui.component_name "Example", option: value %>
 ```
-```
 
 #### 3. Customization/Configuration Options
 - Title as "## Customization Options", "## Available Options", or component-specific title
 - List all available parameters/options
 - Use tables for listing options when appropriate
-- Show code examples for each major option
+- Show original styling from the component
 
 Table format:
 ```markdown

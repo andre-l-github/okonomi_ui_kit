@@ -76,6 +76,40 @@ module OkonomiUiKit
       [ /^items-(?:start|end|center|baseline|stretch)$/, :align_items ],
       [ /^justify-(?:start|end|center|between|around|evenly)$/, :justify_content ],
 
+      # Spacing - Padding
+      [ /^p(?:-(?:\d+|px|\[\S+\]))?$/, :padding_all ],
+      [ /^px(?:-(?:\d+|px|\[\S+\]))?$/, :padding_x ],
+      [ /^py(?:-(?:\d+|px|\[\S+\]))?$/, :padding_y ],
+      [ /^pl(?:-(?:\d+|px|\[\S+\]))?$/, :padding_left ],
+      [ /^pr(?:-(?:\d+|px|\[\S+\]))?$/, :padding_right ],
+      [ /^pt(?:-(?:\d+|px|\[\S+\]))?$/, :padding_top ],
+      [ /^pb(?:-(?:\d+|px|\[\S+\]))?$/, :padding_bottom ],
+
+      # Spacing - Margin (including negative margins)
+      [ /^-?m(?:-(?:\d+|px|auto|\[\S+\]))?$/, :margin_all ],
+      [ /^-?mx(?:-(?:\d+|px|auto|\[\S+\]))?$/, :margin_x ],
+      [ /^-?my(?:-(?:\d+|px|auto|\[\S+\]))?$/, :margin_y ],
+      [ /^-?ml(?:-(?:\d+|px|auto|\[\S+\]))?$/, :margin_left ],
+      [ /^-?mr(?:-(?:\d+|px|auto|\[\S+\]))?$/, :margin_right ],
+      [ /^-?mt(?:-(?:\d+|px|auto|\[\S+\]))?$/, :margin_top ],
+      [ /^-?mb(?:-(?:\d+|px|auto|\[\S+\]))?$/, :margin_bottom ],
+
+      # Gap
+      [ /^gap(?:-(?:\d+|px|\[\S+\]))?$/, :gap_all ],
+      [ /^gap-x(?:-(?:\d+|px|\[\S+\]))?$/, :gap_x ],
+      [ /^gap-y(?:-(?:\d+|px|\[\S+\]))?$/, :gap_y ],
+
+      # Space between children
+      [ /^-?space-x(?:-(?:\d+|px|reverse|\[\S+\]))?$/, :space_x ],
+      [ /^-?space-y(?:-(?:\d+|px|reverse|\[\S+\]))?$/, :space_y ],
+
+      # Ring
+      [ /^ring(?:-(?:\d+|inset|\[\S+\]))?$/, :ring_width ],
+      [ /^ring-opacity-(?:\d{1,3}|\[.+\])$/, :ring_opacity ],
+      [ /^ring-(?:inherit|current|transparent|black|white|[a-z]+-(?:\d{2,3}|950)|\[[^\]]+\])$/, :ring_color ],
+      [ /^ring-offset(?:-(?:\d+|\[\S+\]))?$/, :ring_offset_width ],
+      [ /^ring-offset-(?:inherit|current|transparent|black|white|[a-z]+-(?:\d{2,3}|950)|\[[^\]]+\])$/, :ring_offset_color ],
+
       # Borders
       [ /^(?:border|border-(?:\d+|\[\S+\]))$/, :border_width_overall ],
       [ /^border-[trblxy](?:-\d+|\[\S+\])?$/, :border_width_side ],

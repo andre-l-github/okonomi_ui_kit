@@ -38,10 +38,10 @@
     <orderEntry type="library" scope="PROVIDED" name="erubi (v1.13.1, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="globalid (v1.2.1, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v1.14.7, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="importmap-rails (v2.2.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="importmap-rails (v2.2.2, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="io-console (v0.8.1, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="irb (v1.15.2, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="json (v2.13.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="json (v2.13.2, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="language_server-protocol (v3.17.0.5, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="lint_roller (v1.1.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="logger (v1.7.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
@@ -57,15 +57,15 @@
     <orderEntry type="library" scope="PROVIDED" name="nio4r (v2.7.4, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.18.9, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="parallel (v1.27.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="parser (v3.3.8.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="parser (v3.3.9.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="pp (v0.6.2, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="prettyprint (v0.2.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="prism (v1.4.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="propshaft (v1.2.1, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="psych (v5.2.6, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="puma (v6.6.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="puma (v6.6.1, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="racc (v1.8.1, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rack (v3.1.16, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rack (v3.2.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-session (v2.1.1, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-test (v2.2.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rackup (v2.2.1, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
@@ -76,9 +76,9 @@
     <orderEntry type="library" scope="PROVIDED" name="rainbow (v3.1.1, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rake (v13.3.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rdoc (v6.14.2, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="regexp_parser (v2.10.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="regexp_parser (v2.11.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="reline (v0.6.2, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rubocop (v1.78.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rubocop (v1.79.1, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop-ast (v1.46.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop-performance (v1.25.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop-rails (v2.32.0, RVM: ruby-3.2.2 [global]) [gem]" level="application" />
