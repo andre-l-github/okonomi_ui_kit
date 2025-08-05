@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    okonomi_ui_kit (0.1.9)
+    okonomi_ui_kit (0.1.10)
       rails (>= 8.0.0)
       tailwindcss-rails
       tailwindcss-ruby
