@@ -9,7 +9,7 @@ module OkonomiUiKit
 
         variant = (html_options.delete(:variant) || "contained").to_sym
         color = (html_options.delete(:color) || "default").to_sym
-        
+
         # Extract icon configuration
         icon_config, html_options = extract_icon_config(html_options)
 
