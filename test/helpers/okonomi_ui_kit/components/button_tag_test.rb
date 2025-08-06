@@ -131,6 +131,21 @@ module OkonomiUiKit
           ui.button_tag("Test")
         end
       end
+
+      test "button_tag accepts disabled option" do
+        html = ui.button_tag("Click me", disabled: true)
+
+        assert_includes html, 'disabled="disabled"'
+        assert_includes html, "Click me"
+      end
+
+      test "button_tag with disabled option and other attributes" do
+        html = ui.button_tag("Save", disabled: true, id: "save-button", variant: :ghost, color: :primary)
+
+        assert_includes html, 'disabled="disabled"'
+        assert_includes html, 'id="save-button"'
+        assert_includes html, "Save"
+      end
     end
   end
 end

@@ -151,6 +151,21 @@ module OkonomiUiKit
         # Check for flex wrapper with gap
         assert_match /inline-flex items-center gap-1\.5/, html
       end
+
+      test "button_to accepts disabled option" do
+        html = ui.button_to("Submit", "/path", disabled: true)
+
+        assert_includes html, 'disabled="disabled"'
+        assert_includes html, "Submit"
+      end
+
+      test "button_to with disabled option and other attributes" do
+        html = ui.button_to("Save", "/path", disabled: true, id: "save-button", variant: :outlined)
+
+        assert_includes html, 'disabled="disabled"'
+        assert_includes html, 'id="save-button"'
+        assert_includes html, "Save"
+      end
     end
   end
 end
