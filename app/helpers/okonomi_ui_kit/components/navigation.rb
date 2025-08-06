@@ -74,14 +74,22 @@ module OkonomiUiKit
         @links = []
       end
 
-      def nav_link(title, path, icon: nil, initials: nil, exact: false)
+      def nav_link(title, path, icon: nil, initials: nil, exact: false, target: nil)
+        options = {
+          exact: exact,
+          class: style(:link, :base),
+          active_class: style(:link, :active)
+        }
+
+        options[:target] = target if target.present?
+
         @links << view.tag.li do
           view.render "okonomi/components/navigation/link",
                       path: path,
                       title: title,
                       icon: icon,
                       initials: initials,
-                      exact: exact,
+                      options: options,
                       style_helper: self
         end
       end

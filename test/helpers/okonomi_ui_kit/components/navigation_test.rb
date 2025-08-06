@@ -85,6 +85,23 @@ module OkonomiUiKit
         assert_includes html, "Fuzzy Match"
       end
 
+      test "navigation link accepts target parameter" do
+        html = ui.navigation do |nav|
+          nav.group "External Links" do |group|
+            group.nav_link "External Site", "https://example.com", target: "_blank"
+            group.nav_link "Same Window", "/internal", target: "_self"
+            group.nav_link "No Target", "/default"
+          end
+        end
+
+        # Check that target attributes are applied correctly
+        assert_includes html, 'target="_blank"'
+        assert_includes html, 'target="_self"'
+        assert_includes html, "External Site"
+        assert_includes html, "Same Window"
+        assert_includes html, "No Target"
+      end
+
       test "navigation accepts multiple groups" do
         html = ui.navigation do |nav|
           nav.group "First Group" do |group|

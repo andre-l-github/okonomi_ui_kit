@@ -1,0 +1,19 @@
+<%= ui.navigation do |nav| %>
+  <% nav.group "Documentation" do |group| %>
+    <% group.nav_link "Internal Guide", "/guide", icon: "book-open" %>
+    <% group.nav_link "API Reference", "/api", icon: "code" %>
+  <% end %>
+  
+  <% nav.group "External Resources" do |group| %>
+    <% group.nav_link "GitHub Repository", "https://github.com/example/repo", icon: "github", target: "_blank" %>
+    <% group.nav_link "Support Forum", "https://forum.example.com", icon: "chat", target: "_blank" %>
+    <% group.nav_link "Documentation", "https://docs.example.com", icon: "book", target: "_blank" %>
+  <% end %>
+  
+  <% nav.group "Special Links" do |group| %>
+    <% group.nav_link "Open in New Tab", "/new-tab", target: "_blank" %>
+    <% group.nav_link "Open in Same Tab", "/same-tab", target: "_self" %>
+    <% group.nav_link "Open in Parent Frame", "/parent", target: "_parent" %>
+    <% group.nav_link "Open in Top Frame", "/top", target: "_top" %>
+  <% end %>
+<% end %>
