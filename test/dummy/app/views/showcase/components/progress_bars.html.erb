@@ -1,0 +1,122 @@
+<div class="space-y-8 p-8">
+  <section>
+    <h2 class="text-2xl font-bold mb-4">Progress Bar Component</h2>
+    
+    <div class="space-y-4">
+      <h3 class="text-lg font-semibold">Basic Progress Bar</h3>
+      <%= ui.progress_bar(0.5) %>
+    </div>
+  </section>
+
+  <section>
+    <h3 class="text-lg font-semibold mb-4">Color Variations</h3>
+    <div class="space-y-3">
+      <div>
+        <p class="text-sm text-gray-600 mb-1">Primary (50%)</p>
+        <%= ui.progress_bar(0.5, color: :primary) %>
+      </div>
+      <div>
+        <p class="text-sm text-gray-600 mb-1">Secondary (60%)</p>
+        <%= ui.progress_bar(0.6, color: :secondary) %>
+      </div>
+      <div>
+        <p class="text-sm text-gray-600 mb-1">Success (80%)</p>
+        <%= ui.progress_bar(0.8, color: :success) %>
+      </div>
+      <div>
+        <p class="text-sm text-gray-600 mb-1">Danger (30%)</p>
+        <%= ui.progress_bar(0.3, color: :danger) %>
+      </div>
+      <div>
+        <p class="text-sm text-gray-600 mb-1">Warning (45%)</p>
+        <%= ui.progress_bar(0.45, color: :warning) %>
+      </div>
+      <div>
+        <p class="text-sm text-gray-600 mb-1">Info (70%)</p>
+        <%= ui.progress_bar(0.7, color: :info) %>
+      </div>
+      <div>
+        <p class="text-sm text-gray-600 mb-1">Default (40%)</p>
+        <%= ui.progress_bar(0.4, color: :default) %>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3 class="text-lg font-semibold mb-4">Size Variations</h3>
+    <div class="space-y-3">
+      <div>
+        <p class="text-sm text-gray-600 mb-1">Small</p>
+        <%= ui.progress_bar(0.5, size: :sm, color: :primary) %>
+      </div>
+      <div>
+        <p class="text-sm text-gray-600 mb-1">Medium (default)</p>
+        <%= ui.progress_bar(0.5, size: :md, color: :primary) %>
+      </div>
+      <div>
+        <p class="text-sm text-gray-600 mb-1">Large</p>
+        <%= ui.progress_bar(0.5, size: :lg, color: :primary) %>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3 class="text-lg font-semibold mb-4">With Text</h3>
+    <div class="space-y-3">
+      <div>
+        <p class="text-sm text-gray-600 mb-1">Progress with percentage</p>
+        <%= ui.progress_bar(0.75, text: "75%", color: :success) %>
+      </div>
+      <div>
+        <p class="text-sm text-gray-600 mb-1">Progress with custom text</p>
+        <%= ui.progress_bar(0.33, text: "Processing...", color: :info) %>
+      </div>
+      <div>
+        <p class="text-sm text-gray-600 mb-1">Large progress with text</p>
+        <%= ui.progress_bar(0.9, text: "Almost done!", size: :lg, color: :primary) %>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3 class="text-lg font-semibold mb-4">Edge Cases</h3>
+    <div class="space-y-3">
+      <div>
+        <p class="text-sm text-gray-600 mb-1">Empty (0%)</p>
+        <%= ui.progress_bar(0, color: :primary) %>
+      </div>
+      <div>
+        <p class="text-sm text-gray-600 mb-1">Full (100%)</p>
+        <%= ui.progress_bar(1, color: :success) %>
+      </div>
+      <div>
+        <p class="text-sm text-gray-600 mb-1">With custom class and ID</p>
+        <%= ui.progress_bar(0.66, 
+            text: "66%", 
+            color: :warning, 
+            class: "shadow-lg", 
+            id: "custom-progress",
+            data: { controller: "progress" }
+        ) %>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3 class="text-lg font-semibold mb-4">Real-world Examples</h3>
+    <div class="space-y-4">
+      <div>
+        <p class="text-sm text-gray-600 mb-1">File Upload Progress</p>
+        <%= ui.progress_bar(0.42, text: "42% - Uploading...", color: :info) %>
+      </div>
+      <div>
+        <p class="text-sm text-gray-600 mb-1">Task Completion</p>
+        <%= ui.progress_bar(0.88, text: "7 of 8 tasks complete", color: :success, size: :lg) %>
+      </div>
+      <div>
+        <p class="text-sm text-gray-600 mb-1">Disk Usage</p>
+        <%= ui.progress_bar(0.85, text: "85% used", color: :danger) %>
+      </div>
+    </div>
+  </section>
+</div>

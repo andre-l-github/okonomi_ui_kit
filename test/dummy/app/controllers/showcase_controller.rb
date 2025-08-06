@@ -9,7 +9,8 @@ class ShowcaseController < ApplicationController
       { name: "dropdown_button", title: "Dropdown Button", description: "Button with dropdown menu for actions and navigation" },
       { name: "modals", title: "Confirmation Modals", description: "Accessible confirmation dialogs with customizable actions and variants" },
       { name: "tables", title: "Tables", description: "Responsive data tables with headers, bodies, custom styling, and empty states" },
-      { name: "navigation", title: "Navigation", description: "Sidebar navigation menus with groups, links, and profile sections" }
+      { name: "navigation", title: "Navigation", description: "Sidebar navigation menus with groups, links, and profile sections" },
+      { name: "progress_bars", title: "Progress Bars", description: "Linear progress indicators with colors, sizes, and optional text labels" }
     ]
   end
 

@@ -1,0 +1,15 @@
+<div 
+  role="progressbar" 
+  aria-valuenow="<%= percentage %>"
+  aria-valuemin="0"
+  aria-valuemax="100"
+  class="<%= container_classes %>"
+  <%= tag.attributes(options) %>
+>
+  <div class="<%= bar_classes %>" style="width: <%= percentage %>%"></div>
+  <% if text.present? %>
+    <div class="<%= text_classes %>">
+      <%= text %>
+    </div>
+  <% end %>
+</div>
